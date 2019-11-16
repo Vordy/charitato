@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import styled from '@emotion/styled'
 
 const LoginScreen = styled.div`
@@ -48,6 +49,7 @@ const GoButton = styled.div`
 export const Login = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
+	const history = useHistory()
 
 	const handleSubmit = (event: React.MouseEvent) => {
 		event.preventDefault()
@@ -60,6 +62,8 @@ export const Login = () => {
         `)
 		setUsername('')
 		setPassword('')
+
+		history.push(`/dashboard`)
 	}
 
 	return (
