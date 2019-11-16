@@ -63,7 +63,7 @@ export const Login = () => {
 		setUsername('')
 		setPassword('')
 
-		history.push(`/dashboard`)
+		history.push(`/dashboard/${username}`)
 	}
 
 	return (
