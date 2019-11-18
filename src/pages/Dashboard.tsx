@@ -2,35 +2,49 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { request } from 'http'
 
+let user = {}
+
 const req = request(
 	{
-		protocol: "https://",
+		protocol: 'https://',
 		host: '3s7xxazifb.execute-api.us-east-2.amazonaws.com',
-		// port: '5000',
 		path: '/default/checkForPotato',
-		method: 'POST', 
+		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	},
 	response => {
-		console.log(response) // 200
+		console.log(response.statusCode) // 200
 	}
 )
 
 req.write(
 	JSON.stringify({
-		userID: 'abcd'
+		userID: 'abcd',
 	})
 )
 
 req.end()
+
+req.on('response', function(response) {
+	// console.log('STATUS: ' + response.statusCode);
+	// console.log('HEADERS: ' + JSON.stringify(response.headers));
+	response.setEncoding('utf8')
+	response.on('data', function(chunk) {
+		user = JSON.parse(chunk).body.Items[0]
+		console.log("Fetched from API:")
+		console.log(user)
+	})
+})
 
 const checkPotatos = (username: string | undefined): boolean => {
 	if (username) {
 		console.log(
 			'Daniel, check if the user has pending potatoes using this function'
 		)
+		console.log("Printed in checkPotatos:")
+		console.log(user)
 		return true
 	} else {
 		console.log('No username detected')
