@@ -44,7 +44,7 @@ const checkPotatos = (username: string | undefined): boolean => {
 			'Daniel, check if the user has pending potatoes using this function'
 		)
 		console.log("Printed in checkPotatos:")
-		console.log(user)
+		// console.log(user)
 		return true
 	} else {
 		console.log('No username detected')
