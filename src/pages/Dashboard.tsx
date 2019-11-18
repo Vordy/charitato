@@ -1,5 +1,30 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { request } from 'http'
+
+const req = request(
+	{
+		protocol: "https://",
+		host: '3s7xxazifb.execute-api.us-east-2.amazonaws.com',
+		// port: '5000',
+		path: '/default/checkForPotato',
+		method: 'POST', 
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	},
+	response => {
+		console.log(response) // 200
+	}
+)
+
+req.write(
+	JSON.stringify({
+		userID: 'abcd'
+	})
+)
+
+req.end()
 
 const checkPotatos = (username: string | undefined): boolean => {
 	if (username) {
