@@ -48,7 +48,7 @@ export const Dashboard = (props: Props) => {
 			response.setEncoding('utf8')
 			response.on('data', function(chunk) {
 				result = JSON.parse(chunk).body.Items[0]
-				setUser(result)
+				if(result) {setUser(result)}
 			})
 		})
 	}, [])

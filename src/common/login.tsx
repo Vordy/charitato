@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from '@emotion/styled'
+import { Auth } from 'aws-amplify'
 
 const LoginScreen = styled.div`
 	width: 100%;
@@ -51,15 +52,16 @@ export const Login = () => {
 	const [password, setPassword] = useState('')
 	const history = useHistory()
 
-	const handleSubmit = (event: React.MouseEvent) => {
+	async function handleSubmit (event: React.MouseEvent) {
 		event.preventDefault()
-		console.log(`
-            Daniel, do you server logic with username and password here.
-            We will need to look at security later.
-    
-            username: ${username}
-            password: ${password}
-        `)
+
+		try {
+			await Auth.signIn(username, password)
+			alert('Logged in')
+		} catch (e) {
+			alert(e.message)
+		}
+
 		setUsername('')
 		setPassword('')
 
