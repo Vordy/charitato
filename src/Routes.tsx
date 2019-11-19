@@ -3,7 +3,16 @@ import { Route, Switch } from 'react-router-dom'
 import { Login } from 'common/login'
 import { Dashboard } from 'pages/Dashboard'
 
-export const Routes = () => {
+export type Props = {
+	appProps: {
+		isAuthenticated: boolean;
+		userHasAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+	}
+}
+
+// { appProps: { isAuthenticated: boolean; userHasAuthenticated: Dispatch<SetStateAction<boolean>>; }; }
+
+export const Routes = ( appProps: Props ) => {
 	return (
 		<Switch>
 			<Route exact path="/" component={Login} />

@@ -58,20 +58,20 @@ export const Login = () => {
 		try {
 			await Auth.signIn(username, password)
 			alert('Logged in')
+			history.push(`/dashboard/${username}`)
 		} catch (e) {
 			alert(e.message)
 		}
 
 		setUsername('')
 		setPassword('')
-
-		history.push(`/dashboard/${username}`)
 	}
 
 	return (
 		<LoginScreen>
 			<LoginContainer>
 				<GenericInput
+					autoFocus
 					name="username"
 					placeholder="Username"
 					value={username}

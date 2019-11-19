@@ -24,34 +24,34 @@ export const Dashboard = (props: Props) => {
 		hasPotato: false,
 	})
 
-	useEffect(() => {
-		let result: User = {
-			userID: '',
-			hasPotato: false,
-		}
+	// useEffect(() => {
+	// 	let result: User = {
+	// 		userID: '',
+	// 		hasPotato: false,
+	// 	}
 
-		const req = request(dbConfig, response => {
-			console.log(response.statusCode) // 200
-		})
+	// 	const req = request(dbConfig, response => {
+	// 		console.log(response.statusCode) // 200
+	// 	})
 
-		req.write(
-			JSON.stringify({
-				userID: username,
-			})
-		)
+	// 	req.write(
+	// 		JSON.stringify({
+	// 			userID: username,
+	// 		})
+	// 	)
 
-		req.end()
+	// 	req.end()
 
-		req.on('response', function(response) {
-			// console.log('STATUS: ' + response.statusCode);
-			// console.log('HEADERS: ' + JSON.stringify(response.headers));
-			response.setEncoding('utf8')
-			response.on('data', function(chunk) {
-				result = JSON.parse(chunk).body.Items[0]
-				if(result) {setUser(result)}
-			})
-		})
-	}, [])
+	// 	req.on('response', function(response) {
+	// 		// console.log('STATUS: ' + response.statusCode);
+	// 		// console.log('HEADERS: ' + JSON.stringify(response.headers));
+	// 		response.setEncoding('utf8')
+	// 		response.on('data', function(chunk) {
+	// 			result = JSON.parse(chunk).body.Items[0]
+	// 			if(result) {setUser(result)}
+	// 		})
+	// 	})
+	// }, [])
 
 	return user.hasPotato ? (
 		<h1>

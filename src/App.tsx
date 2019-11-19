@@ -1,11 +1,13 @@
 import { HashRouter as Router } from 'react-router-dom'
 import { Routes } from './Routes'
-import React from 'react'
+import React, { useState } from "react";
 
 const App: React.FC = () => {
+	const [isAuthenticated, userHasAuthenticated] = useState(false);
+	
 	return (
 		<Router>
-			<Routes />
+			<Routes appProps={{ isAuthenticated, userHasAuthenticated }} />
 		</Router>
 	)
 }
