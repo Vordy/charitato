@@ -16,14 +16,14 @@ export type Props = {
 
 export const Routes = ( appProps: Props ) => {
 
-	const dBoard = appProps.appProps.isAuthenticated ? <AppliedRoute exact path="/dashboard/:username" component={Dashboard} appProps={appProps} /> : <AppliedRoute exact path="/dashboard/:username" component={Home} appProps={appProps} />
+	// const dBoard = appProps.appProps.isAuthenticated ? <AppliedRoute exact path="/dashboard/:username" component={Dashboard} appProps={appProps} /> : <AppliedRoute exact path="/dashboard/:username" component={Home} appProps={appProps} />
 
 	return (
 		<Switch>
 			<AppliedRoute exact path="/" component={Home} appProps={appProps} />
 			<AppliedRoute exact path="/login" component={Login} appProps={appProps} />
-			{/* <AppliedRoute exact path="/dashboard/:username" component={Dashboard} appProps={appProps} /> */}
-			{dBoard}
+			<AppliedRoute exact path="/dashboard/:username" component={Dashboard} appProps={appProps} />
+			{/* {dBoard} */}
 		</Switch>
 	)
 }

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import { Props } from '../Routes'
+import { API, Auth } from 'aws-amplify'
 
 const SplashHeader = styled.div`
 	font-size: 5em;
@@ -47,21 +48,44 @@ const dbConfig = {
 
 export const Dashboard = (appProps: Props) => {
 	const { username } = useParams()
+	const [user, setUser] = useState(null)
+
+	async function handleLogout(event: React.MouseEvent) {
+		event.preventDefault()
+		await Auth.signOut()
+		appProps.appProps.userHasAuthenticated(false)
+	}
+
+	useEffect(() => {
+		function loadNote() {
+			return API.get('users', `/users/${username}`, null)
+		}
+
+		async function onLoad() {
+			try {
+				const user = await loadNote()
+				setUser(user)
+			} catch (e) {
+				alert(e)
+			}
+		}
+
+		onLoad()
+	}, [])
 
 	return (
 		<SplashHeader>
 			<BoldText>
 				Welcome {username} <br />
-				<SubText>You do not have a potato</SubText>
+				<SubText>Potato: {}</SubText>
+				<SubText>auth: {appProps.appProps.isAuthenticated}</SubText>
 			</BoldText>
 
 			<Button
 				buttonType={ButtonTypes.Primary}
 				buttonSize={ButtonSizes.Large}
 				text={'Log out'}
-				onClickHandler={(e: React.MouseEvent) => {
-					appProps.appProps.userHasAuthenticated(false);
-				}}
+				onClickHandler={handleLogout}
 			/>
 		</SplashHeader>
 	)
