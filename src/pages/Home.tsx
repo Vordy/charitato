@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { useHistory } from 'react-router-dom'
 
 import { Colors } from 'theme/Colors'
 
@@ -50,6 +51,8 @@ const SubText = styled.div`
 `
 
 export const Home = () => {
+	const history = useHistory()
+
 	return (
 		<>
 			<HomeContainer>
@@ -64,7 +67,7 @@ export const Home = () => {
 						buttonSize={ButtonSizes.Large}
 						text={'Send a potato'}
 						onClickHandler={(e: React.MouseEvent) => {
-							console.log('boom')
+							history.push(`/login`)
 						}}
 					/>
 				</SplashHeader>

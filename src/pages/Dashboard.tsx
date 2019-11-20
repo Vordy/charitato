@@ -1,11 +1,39 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { request } from 'http'
+import styled from '@emotion/styled'
 
-interface User {
-	userID: string
-	hasPotato: boolean
-}
+import { useParams } from 'react-router-dom'
+import { Button } from 'common/button/Button'
+import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
+import { Props } from '../Routes'
+
+const SplashHeader = styled.div`
+	font-size: 5em;
+	font-weight: 700;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	padding-left: 32px;
+	padding-top: 100px;
+`
+
+const BoldText = styled.div`
+	font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 56px;
+	line-height: 34px;
+	text-align: center;
+	padding-bottom: 16px;
+`
+
+const SubText = styled.div`
+	font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	font-weight: 100;
+	font-size: 56px;
+	line-height: 84px;
+`
 
 const dbConfig = {
 	protocol: 'https://',
@@ -17,53 +45,24 @@ const dbConfig = {
 	},
 }
 
-export const Dashboard = (props: Props) => {
+export const Dashboard = (appProps: Props) => {
 	const { username } = useParams()
-	const [user, setUser] = useState<User>({
-		userID: 'John Placeholder',
-		hasPotato: false,
-	})
 
-	// useEffect(() => {
-	// 	let result: User = {
-	// 		userID: '',
-	// 		hasPotato: false,
-	// 	}
+	return (
+		<SplashHeader>
+			<BoldText>
+				Welcome {username} <br />
+				<SubText>You do not have a potato</SubText>
+			</BoldText>
 
-	// 	const req = request(dbConfig, response => {
-	// 		console.log(response.statusCode) // 200
-	// 	})
-
-	// 	req.write(
-	// 		JSON.stringify({
-	// 			userID: username,
-	// 		})
-	// 	)
-
-	// 	req.end()
-
-	// 	req.on('response', function(response) {
-	// 		// console.log('STATUS: ' + response.statusCode);
-	// 		// console.log('HEADERS: ' + JSON.stringify(response.headers));
-	// 		response.setEncoding('utf8')
-	// 		response.on('data', function(chunk) {
-	// 			result = JSON.parse(chunk).body.Items[0]
-	// 			if(result) {setUser(result)}
-	// 		})
-	// 	})
-	// }, [])
-
-	return user.hasPotato ? (
-		<h1>
-			Hello {username}. You are now viewing your dashboard. You have been
-			sent a potato.
-		</h1>
-	) : (
-		<h1>
-			Hello {username}. You are now viewing your dashboard. You have no
-			pending potatoes. Bummer.
-		</h1>
+			<Button
+				buttonType={ButtonTypes.Primary}
+				buttonSize={ButtonSizes.Large}
+				text={'Log out'}
+				onClickHandler={(e: React.MouseEvent) => {
+					appProps.appProps.userHasAuthenticated(false);
+				}}
+			/>
+		</SplashHeader>
 	)
 }
-
-interface Props {}

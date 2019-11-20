@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { Auth } from 'aws-amplify'
+import { Props } from '../Routes'
 
 const LoginScreen = styled.div`
 	width: 100%;
@@ -47,7 +48,7 @@ const GoButton = styled.div`
 	}
 `
 
-export const Login = () => {
+export const Login = (appProps: Props) => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const history = useHistory()
@@ -57,7 +58,7 @@ export const Login = () => {
 
 		try {
 			await Auth.signIn(username, password)
-			alert('Logged in')
+			appProps.appProps.userHasAuthenticated(true); //authenticate using props passed from Routes
 			history.push(`/dashboard/${username}`)
 		} catch (e) {
 			alert(e.message)
