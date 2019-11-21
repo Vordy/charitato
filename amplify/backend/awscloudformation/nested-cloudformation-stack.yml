@@ -84,7 +84,7 @@
 				"TemplateURL": "https://s3.amazonaws.com/amplify-charitato-develop-224144-deployment/amplify-cfn-templates/auth/charitato5010011f-cloudformation-template.yml",
 				"Parameters": {
 					"identityPoolName": "charitato5010011f_identitypool_5010011f",
-					"allowUnauthenticatedIdentities": false,
+					"allowUnauthenticatedIdentities": true,
 					"resourceNameTruncated": "charit5010011f",
 					"userPoolName": "charitato5010011f_userpool_5010011f",
 					"autoVerifiedAttributes": "email",
@@ -122,6 +122,66 @@
 					"usernameAttributes": "email, phone_number",
 					"userPoolGroupList": "",
 					"dependsOn": "",
+					"env": "develop"
+				}
+			}
+		},
+		"storageUserTable": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplify-charitato-develop-224144-deployment/amplify-cfn-templates/storage/UserTable-cloudformation-template.json",
+				"Parameters": {
+					"tableName": "UserTable",
+					"partitionKeyName": "id",
+					"partitionKeyType": "S",
+					"env": "develop"
+				}
+			}
+		},
+		"functionUserLambda": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplify-charitato-develop-224144-deployment/amplify-cfn-templates/function/UserLambda-cloudformation-template.json",
+				"Parameters": {
+					"storageUserTableName": {
+						"Fn::GetAtt": [
+							"storageUserTable",
+							"Outputs.Name"
+						]
+					},
+					"storageUserTableArn": {
+						"Fn::GetAtt": [
+							"storageUserTable",
+							"Outputs.Arn"
+						]
+					},
+					"env": "develop"
+				}
+			}
+		},
+		"apiUserAPI": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplify-charitato-develop-224144-deployment/amplify-cfn-templates/api/UserAPI-cloudformation-template.json",
+				"Parameters": {
+					"authRoleName": {
+						"Ref": "AuthRoleName"
+					},
+					"unauthRoleName": {
+						"Ref": "UnauthRoleName"
+					},
+					"functionUserLambdaName": {
+						"Fn::GetAtt": [
+							"functionUserLambda",
+							"Outputs.Name"
+						]
+					},
+					"functionUserLambdaArn": {
+						"Fn::GetAtt": [
+							"functionUserLambda",
+							"Outputs.Arn"
+						]
+					},
 					"env": "develop"
 				}
 			}
