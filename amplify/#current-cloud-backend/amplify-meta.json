@@ -1,0 +1,59 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-charitato-develop-224144-authRole",
+			"UnauthRoleArn": "arn:aws:iam::654870075265:role/amplify-charitato-develop-224144-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::654870075265:role/amplify-charitato-develop-224144-authRole",
+			"Region": "us-east-2",
+			"DeploymentBucketName": "amplify-charitato-develop-224144-deployment",
+			"UnauthRoleName": "amplify-charitato-develop-224144-unauthRole",
+			"StackName": "amplify-charitato-develop-224144",
+			"StackId": "arn:aws:cloudformation:us-east-2:654870075265:stack/amplify-charitato-develop-224144/92cd3ec0-0c21-11ea-a84f-0abbead6f3aa"
+		},
+		"categories": {
+			"auth": {
+				"charitato5010011f": {}
+			}
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"S3BucketSecureURL": "https://charitato-20191120224414-hostingbucket-develop.s3.amazonaws.com",
+				"WebsiteURL": "http://charitato-20191120224414-hostingbucket-develop.s3-website.us-east-2.amazonaws.com",
+				"Region": "us-east-2",
+				"HostingBucketName": "charitato-20191120224414-hostingbucket-develop"
+			},
+			"lastPushTimeStamp": "2019-11-21T06:20:55.629Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-charitato-develop-224144-deployment/amplify-cfn-templates/hosting/template.json",
+				"logicalId": "hostingS3AndCloudFront"
+			},
+			"lastPushDirHash": "IhFq0pM6ZzI0+a5J4R+WTJhDoD4="
+		}
+	},
+	"auth": {
+		"charitato5010011f": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"output": {
+				"AppClientSecret": "16k70jjksta5fgmbbb2qrdfvqjuk0lhk7ephfo1pvbp1tl2tv19d",
+				"UserPoolId": "us-east-2_tukSip755",
+				"AppClientIDWeb": "360pbfv1isqi7ccdk98vmhs0tu",
+				"AppClientID": "6n0me1h3gdj3b9qco0kkdc4jk9",
+				"IdentityPoolId": "us-east-2:f435253a-d3fd-407f-a343-2ef3f0d5dd64",
+				"IdentityPoolName": "charitato5010011f_identitypool_5010011f__develop",
+				"UserPoolName": "charitato5010011f_userpool_5010011f"
+			},
+			"lastPushTimeStamp": "2019-11-21T06:20:55.629Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-charitato-develop-224144-deployment/amplify-cfn-templates/auth/charitato5010011f-cloudformation-template.yml",
+				"logicalId": "authcharitato5010011f"
+			},
+			"lastPushDirHash": "z64Gt20oeFyDz9iLFB7NVZ/M5Qw="
+		}
+	}
+}
