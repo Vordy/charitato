@@ -1,3 +1,9 @@
+// DEPRECATED
+// DEPRECATED
+// DEPRECATED
+// DEPRECATED
+// DEPRECATED
+
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from '@emotion/styled'
