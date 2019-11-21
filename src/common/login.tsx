@@ -7,7 +7,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { Auth } from 'aws-amplify'
+// import { Auth } from 'aws-amplify'
 
 const LoginScreen = styled.div`
 	width: 100%;
@@ -33,7 +33,7 @@ const LoginContainer = styled.div`
 
 const GenericInput = styled.input`
 	width: 90%;
-	height: 20%;
+	height: 20%
 	background-color: white;
 `
 
@@ -61,12 +61,7 @@ export const Login = () => {
 	async function handleSubmit (event: React.MouseEvent) {
 		event.preventDefault()
 
-		try {
-			await Auth.signIn(username, password)
-			alert('Logged in')
-		} catch (e) {
-			alert(e.message)
-		}
+		alert('THIS LOGIN PAGE NO LONGER DOES STUFF')
 
 		setUsername('')
 		setPassword('')
@@ -77,6 +72,7 @@ export const Login = () => {
 	return (
 		<LoginScreen>
 			<LoginContainer>
+				<h3>You should not be here</h3>
 				<GenericInput
 					name="username"
 					placeholder="Username"
