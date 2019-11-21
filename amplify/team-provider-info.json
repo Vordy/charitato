@@ -1,0 +1,19 @@
+{
+    "develop": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-charitato-develop-224144-authRole",
+            "UnauthRoleArn": "arn:aws:iam::654870075265:role/amplify-charitato-develop-224144-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::654870075265:role/amplify-charitato-develop-224144-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-charitato-develop-224144-deployment",
+            "UnauthRoleName": "amplify-charitato-develop-224144-unauthRole",
+            "StackName": "amplify-charitato-develop-224144",
+            "StackId": "arn:aws:cloudformation:us-east-2:654870075265:stack/amplify-charitato-develop-224144/92cd3ec0-0c21-11ea-a84f-0abbead6f3aa"
+        },
+        "categories": {
+            "auth": {
+                "charitato5010011f": {}
+            }
+        }
+    }
+}
