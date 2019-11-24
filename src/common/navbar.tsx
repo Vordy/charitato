@@ -28,10 +28,10 @@ const NavItem = styled(Link)`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding-left: 2%;
-    padding-right: 2%;
-    margin-left: 1%;
-    margin-right: 1%;
+    // padding-left: 2%;
+    // padding-right: 2%;
+    margin-left: 3%;
+    margin-right: 3%;
     text-decoration: none;
     color: ${getTheme().foreground};
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
