@@ -28,7 +28,8 @@ const SplashHeader = styled.div`
     justify-content: center;
     align-items: center;
     display: flex;
-    padding-left: 10%;
+    // padding-left: 10%;
+    padding-right: 30%;
     padding-top: 100px;
 `
 
