@@ -7,6 +7,7 @@ import styled from '@emotion/styled'
 const Bar = styled.div`
     // background-color: ${Colors.RichDark};
     // position: sticky;  //Make it follow scrolling
+    position: absolute;
     top: 0;
     z-index: 10;
     display: flex;
