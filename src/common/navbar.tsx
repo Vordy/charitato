@@ -10,7 +10,7 @@ const Bar = styled.div`
     // background-color: ${Colors.RichDark};
     // position: sticky;  //Make it follow scrolling
     position: absolute;
-    width: 100%;
+    width: 70%; //TEMP FIX
     top: 0;
     z-index: 10;
     display: flex;
