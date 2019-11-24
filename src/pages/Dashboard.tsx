@@ -31,4 +31,4 @@ const Dashboard = () => {
     )
 }
 
-export default withAuthenticator(Dashboard, true)
+export default withAuthenticator(Dashboard, true);
