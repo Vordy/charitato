@@ -18,7 +18,9 @@ const Bar = styled.div`
     justify-content: flex-start;
 `
 
-const LogoItem = styled.img``
+const LogoItem = styled.img`
+    cursor: pointer;
+`
 
 const NavItem = styled(Link)`
     // background-color: ${Colors.Rose};
