@@ -1,18 +1,20 @@
 import { API } from 'aws-amplify'
 import { withAuthenticator } from 'aws-amplify-react'
 import React from 'react'
+import {Colors} from '../theme/Colors'
 
 const signUpConfig = {
     hiddenDefaults: ['phone_number', 'email'],
     signUpFields: [
-        { label: 'Name (i.e. Daniel S)', key: 'name', displayOrder: 1, required: true, type: 'string' },
-        { label: 'Email', key: 'username', displayOrder: 2, required: true, type: 'email' },
-        { label: 'Password', key: 'password', displayOrder: 3, required: true, type: 'password' },
+        { label: 'Name', key: 'name', displayOrder: 1, required: true, type: 'string', placeholder: 'E.g. Roger S',},
+        { label: 'Email', key: 'username', displayOrder: 2, required: true, type: 'email' , placeholder: 'Enter your email',},
+        { label: 'Password', key: 'password', displayOrder: 3, required: true, type: 'password' , placeholder: 'Enter your password',},
     ],
 }
 
 const auth_theme = {
-    SectionBody: { 'background-color': 'red' },
+    button: { backgroundColor: Colors.Rose, borderColor: Colors.Rose },
+    
 }
 
 const Dashboard = () => {
@@ -49,6 +51,6 @@ export default withAuthenticator(
     true,
     undefined,
     undefined,
-    undefined,
+    auth_theme,
     signUpConfig
 )
