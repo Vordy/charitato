@@ -7,6 +7,7 @@ import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import { Homeblob } from 'assets/blobs/Homeblob'
 import { useHistory } from 'react-router'
+import { getTheme } from '../theme/themes'
 
 const HomeContainer = styled.div`
     width: 100%;
@@ -16,7 +17,7 @@ const HomeContainer = styled.div`
     align-items: flex-start;
     display: flex;
     color: ${Colors.RichDark};
-    background-color: ${Colors.White};
+    background-color: ${getTheme};
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
 `
 
