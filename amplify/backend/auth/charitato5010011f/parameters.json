@@ -1,6 +1,6 @@
 {
     "identityPoolName": "charitato5010011f_identitypool_5010011f",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "charit5010011f",
     "userPoolName": "charitato5010011f_userpool_5010011f",
     "autoVerifiedAttributes": [

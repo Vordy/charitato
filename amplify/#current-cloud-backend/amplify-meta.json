@@ -26,7 +26,7 @@
 				"Region": "us-east-2",
 				"HostingBucketName": "charitato-20191120224414-hostingbucket-develop"
 			},
-			"lastPushTimeStamp": "2019-11-21T06:20:55.629Z",
+			"lastPushTimeStamp": "2019-11-21T07:15:24.811Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-charitato-develop-224144-deployment/amplify-cfn-templates/hosting/template.json",
 				"logicalId": "hostingS3AndCloudFront"
@@ -48,12 +48,90 @@
 				"IdentityPoolName": "charitato5010011f_identitypool_5010011f__develop",
 				"UserPoolName": "charitato5010011f_userpool_5010011f"
 			},
-			"lastPushTimeStamp": "2019-11-21T06:20:55.629Z",
+			"lastPushTimeStamp": "2019-11-21T07:15:24.820Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-charitato-develop-224144-deployment/amplify-cfn-templates/auth/charitato5010011f-cloudformation-template.yml",
 				"logicalId": "authcharitato5010011f"
 			},
-			"lastPushDirHash": "z64Gt20oeFyDz9iLFB7NVZ/M5Qw="
+			"lastPushDirHash": "eoDMDW7tTQOBkiOS9qwDoVCXwWU="
+		}
+	},
+	"storage": {
+		"UserTable": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-charitato-develop-224144-deployment/amplify-cfn-templates/storage/UserTable-cloudformation-template.json",
+				"logicalId": "storageUserTable"
+			},
+			"lastPushTimeStamp": "2019-11-21T07:15:24.820Z",
+			"output": {
+				"PartitionKeyName": "id",
+				"Region": "us-east-2",
+				"Arn": "arn:aws:dynamodb:us-east-2:654870075265:table/UserTable-develop",
+				"StreamArn": "arn:aws:dynamodb:us-east-2:654870075265:table/UserTable-develop/stream/2019-11-21T07:12:45.628",
+				"PartitionKeyType": "S",
+				"Name": "UserTable-develop"
+			},
+			"lastPushDirHash": "8eTjEUptgHazqW3dZy16kJ6GPDM="
+		}
+	},
+	"function": {
+		"UserLambda": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "UserTable",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"lastBuildTimeStamp": "2019-11-21T07:12:37.341Z",
+			"lastPackageTimeStamp": "2019-11-21T07:12:42.377Z",
+			"distZipFilename": "UserLambda-47673245525657776655-build.zip",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-charitato-develop-224144-deployment/amplify-cfn-templates/function/UserLambda-cloudformation-template.json",
+				"logicalId": "functionUserLambda"
+			},
+			"lastPushTimeStamp": "2019-11-21T07:15:24.820Z",
+			"output": {
+				"Region": "us-east-2",
+				"Arn": "arn:aws:lambda:us-east-2:654870075265:function:UserLambda-develop",
+				"Name": "UserLambda-develop",
+				"LambdaExecutionRole": "charitatoLambdaRoleba9bbf64-develop"
+			},
+			"lastPushDirHash": "J49mg4HJyK5iL5Mp4P6hALMH+6I="
+		}
+	},
+	"api": {
+		"UserAPI": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "UserLambda",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-charitato-develop-224144-deployment/amplify-cfn-templates/api/UserAPI-cloudformation-template.json",
+				"logicalId": "apiUserAPI"
+			},
+			"lastPushTimeStamp": "2019-11-21T07:15:24.820Z",
+			"output": {
+				"ApiName": "UserAPI",
+				"RootUrl": "https://zy4bwt9bbc.execute-api.us-east-2.amazonaws.com/develop"
+			},
+			"lastPushDirHash": "K5ZzKwg16NzRlZO4rep4rw0RK70="
 		}
 	}
 }
