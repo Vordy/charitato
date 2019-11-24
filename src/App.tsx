@@ -1,18 +1,19 @@
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Link } from 'react-router-dom'
 import { Routes } from './Routes'
+import Amplify from 'aws-amplify'
+import awsconfig from './aws-exports'
 import React from 'react'
+import { NavBar } from './common/navbar'
 
-import Amplify from 'aws-amplify';
-import awsconfig from './aws-exports';
-
-Amplify.configure(awsconfig);
+Amplify.configure(awsconfig)
 
 const App: React.FC = () => {
-	return (
-		<Router>
-			<Routes />
-		</Router>
-	)
+    return (
+        <Router>
+            <NavBar />
+            <Routes />
+        </Router>
+    )
 }
 
 export default App
