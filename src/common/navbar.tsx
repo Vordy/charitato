@@ -1,6 +1,7 @@
 import { Colors } from '../theme/Colors'
-import { switchTheme } from '../theme/themes'
+import { getTheme } from '../theme/themes'
 import { Link } from 'react-router-dom'
+import { switchTheme } from '../theme/themes'
 import Logo from '../assets/logo.svg'
 import React from 'react'
 import styled from '@emotion/styled'
@@ -30,7 +31,7 @@ const NavItem = styled(Link)`
     margin-left: 1%;
     margin-right: 1%;
     text-decoration: none;
-    color: black;
+    color: ${getTheme().foreground};
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
     font-weight: bold;
 `
