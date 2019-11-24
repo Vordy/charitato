@@ -1,8 +1,22 @@
 import { API } from 'aws-amplify'
 import { signUpConfig } from '../common/auth_config'
 import { withAuthenticator } from 'aws-amplify-react'
+import { getTheme } from '../theme/themes'
 import AmplifyTheme from '../theme/auth_theme'
 import React from 'react'
+import styled from '@emotion/styled'
+
+const DashboardContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: ${getTheme().foreground};
+    background-color: ${getTheme().background};
+    font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
+`
 
 const Dashboard = () => {
     const post = async () => {
@@ -24,12 +38,12 @@ const Dashboard = () => {
     }
 
     return (
-        <div>
+        <DashboardContainer>
             <h1>API TEST</h1>
             <button onClick={post}>POST</button>
             <button onClick={get}>GET</button>
             <button onClick={list}>LIST</button>
-        </div>
+        </DashboardContainer>
     )
 }
 
