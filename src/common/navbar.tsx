@@ -1,8 +1,10 @@
 import { Colors } from '../theme/Colors'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/logo.svg'
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from '@emotion/styled'
+import { ThemeContext, Themes } from '../theme/themes'
+import {ThemeProvider } from 'emotion-theming'
 
 const Bar = styled.div`
     // background-color: ${Colors.RichDark};
@@ -35,25 +37,20 @@ const NavItem = styled(Link)`
 `
 
 export const NavBar = () => {
+    const theme = useContext(ThemeContext)
+    
+
     return (
         <Bar>
-            <LogoItem src={Logo} />
+            <LogoItem src={Logo}></LogoItem>
 
-            <NavItem to="/">
-                Home
-            </NavItem>
+            <NavItem to="/">Home</NavItem>
 
-            <NavItem to="/dashboard">
-                Dashboard
-            </NavItem>
+            <NavItem to="/dashboard">Dashboard</NavItem>
 
-            <NavItem to="/">
-                Partners
-            </NavItem>
+            <NavItem to="/">Partners</NavItem>
 
-            <NavItem to="/dashboard">
-                Sign in
-            </NavItem>
+            <NavItem to="/dashboard">Sign in</NavItem>
         </Bar>
     )
 }
