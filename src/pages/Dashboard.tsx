@@ -3,23 +3,16 @@ import { withAuthenticator } from 'aws-amplify-react'
 import React from 'react'
 
 const signUpConfig = {
-    hideAllDefaults: true,
+    hiddenDefaults: ['phone_number', 'email'],
     signUpFields: [
-        {
-            label: 'Email',
-            key: 'username',
-            required: true,
-            displayOrder: 1,
-            type: 'email',
-        },
-        {
-            label: 'Password',
-            key: 'password',
-            required: true,
-            displayOrder: 3,
-            type: 'password',
-        },
+        { label: 'Name (i.e. Daniel S)', key: 'name', displayOrder: 1, required: true, type: 'string' },
+        { label: 'Email', key: 'username', displayOrder: 2, required: true, type: 'email' },
+        { label: 'Password', key: 'password', displayOrder: 3, required: true, type: 'password' },
     ],
+}
+
+const auth_theme = {
+    SectionBody: { 'background-color': 'red' },
 }
 
 const Dashboard = () => {
