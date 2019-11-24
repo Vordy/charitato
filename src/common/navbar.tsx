@@ -1,5 +1,5 @@
 import { Colors } from '../theme/Colors'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Logo from '../assets/logo.svg'
 import React from 'react'
 import styled from '@emotion/styled'
@@ -16,7 +16,7 @@ const Bar = styled.div`
 
 const LogoItem = styled.img``
 
-const NavItem = styled(NavLink)`
+const NavItem = styled(Link)`
     // background-color: ${Colors.Rose};
     display: flex;
     flex-direction: row;
@@ -28,7 +28,7 @@ const NavItem = styled(NavLink)`
     margin-right: 1%;
     text-decoration: none;
     color: black;
-    font-family: 'Roboto', 'Arial', sans-serif;
+    font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
     font-weight: bold;
 `
 

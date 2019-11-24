@@ -9,12 +9,12 @@ import { Homeblob } from 'assets/blobs/Homeblob'
 import { useHistory } from 'react-router'
 
 const HomeContainer = styled.div`
+    background-color: yellow;
     width: 100%;
     height: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-
     display: flex;
     color: ${Colors.RichDark};
     background-color: ${Colors.White};
@@ -22,6 +22,7 @@ const HomeContainer = styled.div`
 `
 
 const SplashHeader = styled.div`
+    background-color: black;
     font-size: 5em;
     font-weight: 700;
     flex-direction: column;

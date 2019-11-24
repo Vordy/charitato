@@ -1,7 +1,6 @@
 import { API } from 'aws-amplify'
 import { signUpConfig } from '../common/auth_config'
 import { withAuthenticator } from 'aws-amplify-react'
-import { Home } from '../pages/Home'
 import AmplifyTheme from '../theme/auth_theme'
 import React from 'react'
 
