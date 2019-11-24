@@ -2,6 +2,26 @@ import { API } from 'aws-amplify'
 import { withAuthenticator } from 'aws-amplify-react'
 import React from 'react'
 
+const signUpConfig = {
+    hideAllDefaults: true,
+    signUpFields: [
+        {
+            label: 'Email',
+            key: 'username',
+            required: true,
+            displayOrder: 1,
+            type: 'email',
+        },
+        {
+            label: 'Password',
+            key: 'password',
+            required: true,
+            displayOrder: 3,
+            type: 'password',
+        },
+    ],
+}
+
 const Dashboard = () => {
     const post = async () => {
         const response = await API.post('UserAPI', '/items', {
@@ -31,4 +51,11 @@ const Dashboard = () => {
     )
 }
 
-export default withAuthenticator(Dashboard, true);
+export default withAuthenticator(
+    Dashboard,
+    true,
+    undefined,
+    undefined,
+    undefined,
+    signUpConfig
+)
