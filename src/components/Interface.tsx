@@ -3,10 +3,6 @@ import { Colors } from '../theme/Colors'
 
 export const InterfaceContainer = styled.div`
     border: solid 1px;
-    margin-right: 5%;
-    margin-left: 5%;
-    width: 20%;
-    height: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -14,12 +10,17 @@ export const InterfaceContainer = styled.div`
     font-weight: bold;
     text-align: center;
     color: ${Colors.RichDark};
+    
+    width: 350px;
+    height: 700px;
+    margin: 2vw;
+    margin-top: 100px;
 `
 
 export const InterfaceHeader = styled.div`
     display: table;
     background-color: ${Colors.Rose};
-    height: 5%;
+    height: 6%;
 `
 
 export const HeaderText = styled.p`
