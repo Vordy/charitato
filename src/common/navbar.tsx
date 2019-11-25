@@ -7,7 +7,6 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 const Bar = styled.div`
-    // background-color: ${Colors.RichDark};
     // position: sticky;  //Make it follow scrolling
     position: absolute;
     width: 70%; //TEMP FIX
