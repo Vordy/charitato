@@ -15,8 +15,8 @@ import {
     SubmitButton,
 } from './Interface'
 import Potato from '../assets/potatoes/MEDIUM.svg'
-import UserPic from '../assets/user.png'
 import React from 'react'
+import UserPic from '../assets/user.png'
 
 export const PotatoInterface = () => {
     return (
@@ -45,8 +45,12 @@ export const PotatoInterface = () => {
             </HistoryContainer>
 
             <SubmitContainer>
-                <SubmitButton><HeaderText>TEST</HeaderText></SubmitButton>
-                <SubmitButton><HeaderText>TEST</HeaderText></SubmitButton>
+                <SubmitButton>
+                    <HeaderText>TEST</HeaderText>
+                </SubmitButton>
+                <SubmitButton>
+                    <HeaderText>TEST</HeaderText>
+                </SubmitButton>
             </SubmitContainer>
 
             <InterfaceHeader />
