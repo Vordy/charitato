@@ -1,4 +1,3 @@
-import { Colors } from '../theme/Colors'
 import { getTheme } from '../theme/themes'
 import { Link } from 'react-router-dom'
 import { switchTheme } from '../theme/themes'
