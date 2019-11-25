@@ -14,6 +14,7 @@ const DashboardContainer = styled.div`
     justify-content: center;
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     color: ${getTheme().foreground};
     background-color: ${getTheme().background};
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
