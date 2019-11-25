@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import { Colors } from '../theme/Colors'
-import {getTheme} from '../theme/themes'
+import { getTheme } from '../theme/themes'
+import styled from '@emotion/styled'
 
 export const InterfaceContainer = styled.div`
     border: solid 1px;
@@ -11,7 +11,7 @@ export const InterfaceContainer = styled.div`
     font-weight: bold;
     text-align: center;
     color: ${getTheme().foreground};
-    
+
     width: 350px;
     height: 700px;
     margin: 2vw;
