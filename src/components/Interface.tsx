@@ -90,10 +90,6 @@ export const SubmitContainer = styled.div`
 
 export const SubmitButton = styled.div`
     display: table;
-    background-color: ${Colors.Rose};
-    color: ${Colors.White};
     width: 35%;
     height: 100%;
-    border-radius: 999px;
-    cursor: pointer;
 `

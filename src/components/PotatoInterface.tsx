@@ -1,3 +1,5 @@
+import { Button } from 'common/button/Button'
+import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import {
     InterfaceContainer,
     InterfaceHeader,
@@ -14,10 +16,10 @@ import {
     SubmitContainer,
     SubmitButton,
 } from './Interface'
+import { UserContext } from 'pages/Dashboard'
 import Potato from 'assets/potatoes/MEDIUM.svg'
 import React from 'react'
 import UserPic from 'assets/user.png'
-import { UserContext } from 'pages/Dashboard'
 
 export const PotatoInterface = () => {
     return (
@@ -55,10 +57,24 @@ export const PotatoInterface = () => {
 
             <SubmitContainer>
                 <SubmitButton>
-                    <HeaderText>TEST</HeaderText>
+                    <Button
+                        buttonType={ButtonTypes.Primary}
+                        buttonSize={ButtonSizes.Small}
+                        text={'Send it'}
+                        onClickHandler={(e: React.MouseEvent) => {
+                            console.log('boom')
+                        }}
+                    />
                 </SubmitButton>
                 <SubmitButton>
-                    <HeaderText>TEST</HeaderText>
+                    <Button
+                        buttonType={ButtonTypes.Primary}
+                        buttonSize={ButtonSizes.Small}
+                        text={'Pay it'}
+                        onClickHandler={(e: React.MouseEvent) => {
+                            console.log('boom')
+                        }}
+                    />
                 </SubmitButton>
             </SubmitContainer>
 
