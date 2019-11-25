@@ -1,11 +1,18 @@
-import { API } from 'aws-amplify'
+import { API, Auth } from 'aws-amplify'
 import { getTheme } from '../theme/themes'
+import { PotatoInterface } from '../components/PotatoInterface'
 import { signUpConfig } from '../common/auth_config'
 import { withAuthenticator } from 'aws-amplify-react'
-import {PotatoInterface} from '../components/PotatoInterface'
 import AmplifyTheme from '../theme/auth_theme'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
+
+const defaultUserContext = {
+    username: 'nouser',
+    name: 'nouser',
+}
+
+const UserContext = React.createContext(defaultUserContext)
 
 const DashboardContainer = styled.div`
     width: 100%;
@@ -20,31 +27,70 @@ const DashboardContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
 `
 
+const getAuth = async () => {
+    try {
+        const user = await Auth.currentAuthenticatedUser()
+        return user
+    } catch (err) {
+        return null
+    }
+}
+
+const setUpUserInstance = async (user: any) => {
+    await API.post('UserAPI', '/items', {
+        body: {
+            id: user.getUsername(),
+            name: user.attributes.name,
+        },
+    })
+}
+
 const Dashboard = () => {
-    const post = async () => {
-        const response = await API.post('UserAPI', '/items', {
-            body: {
-                id: '1',
-                name: 'hello amplify!',
-            },
-        })
-        alert(JSON.stringify(response, null, 2))
-    }
-    const get = async () => {
-        const response = await API.get('UserAPI', '/items/object/1', null)
-        alert(JSON.stringify(response, null, 2))
-    }
-    const list = async () => {
-        const response = await API.get('UserAPI', '/items/1', null)
-        alert(JSON.stringify(response, null, 2))
-    }
+    const [userState, setUserState] = useState(defaultUserContext)
+
+    useEffect(() => {
+        const getUserInstance = async () => {
+            const user = await getAuth()
+            if (user === null) {
+                alert('Site error: user not authenticated while in Dashboard')
+            }
+        
+            console.log(user)
+        
+            const response = await API.get(
+                'UserAPI',
+                `/items/object/${user.username}`,
+                null
+            )
+        
+            if (
+                Object.entries(response).length === 0 &&
+                response.constructor === Object
+            ) {
+                //check if object is empty (no DB entry)
+                setUpUserInstance(user)
+                const newUser = await API.get(
+                    'UserAPI',
+                    `/items/object/${user.username}`,
+                    null
+                )
+                setUserState(newUser)
+            }
+            setUserState(response)
+        }
+        getUserInstance()
+    }, [])
+
+    console.log(userState)
 
     return (
-        <DashboardContainer>
-            <PotatoInterface />
-            <PotatoInterface />
-            <PotatoInterface />
-        </DashboardContainer>
+        <UserContext.Provider value={userState}>
+            <DashboardContainer>
+                <PotatoInterface />
+                <PotatoInterface />
+                <PotatoInterface />
+            </DashboardContainer>
+        </UserContext.Provider>
     )
 }
 
