@@ -6,6 +6,7 @@ import { withAuthenticator } from 'aws-amplify-react'
 import AmplifyTheme from '../theme/auth_theme'
 import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
+import {v4} from 'uuid'
 
 const defaultUserContext = {
     username: 'loading...',
@@ -48,6 +49,8 @@ const setUpUserInstance = async (user: any) => {
 
 const Dashboard = () => {
     const [userState, setUserState] = useState(defaultUserContext)
+
+    v4() //generate a random UUID
 
     useEffect(() => {
         const getUserInstance = async () => {
