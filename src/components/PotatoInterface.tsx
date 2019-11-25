@@ -37,6 +37,10 @@ export const PotatoInterface = () => {
                         <UserIcon src={UserPic} />
                         <UserName>Bob Marley</UserName>
                     </HistoryItem>
+                    <HistoryItem>
+                        <UserIcon src={UserPic} />
+                        <UserName>Bob Marley</UserName>
+                    </HistoryItem>
                 </HistoryScroller>
             </HistoryContainer>
 
