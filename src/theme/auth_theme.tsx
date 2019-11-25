@@ -14,7 +14,7 @@ import { Colors } from './Colors'
 import { getTheme } from './themes'
 
 export const Container = {
-    fontFamily: `"Roboto", "Arial", sans-serif`,
+    fontFamily: "Helvetica Nueue, roboto, Arial, Helvetica, sans-serif"
 }
 export const FormContainer = {}
 export const FormSection = {}
