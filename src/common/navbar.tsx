@@ -2,9 +2,8 @@ import { Colors } from '../theme/Colors'
 import { getTheme } from '../theme/themes'
 import { Link } from 'react-router-dom'
 import { switchTheme } from '../theme/themes'
-import { Auth } from 'aws-amplify'
 import Logo from '../assets/logo.svg'
-import React, { useEffect, useState, Suspense } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
 
 const Bar = styled.div`
@@ -35,29 +34,6 @@ const NavItem = styled(Link)`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
     font-weight: bold;
 `
-
-const isAuth = async () => {
-    try {
-        await Auth.currentAuthenticatedUser()
-        return true
-    } catch (err) {
-        return false
-    }
-}
-
-// const SignInButton = () => {
-//     const handleLogout = () => {
-//         Auth.signOut()
-//     }
-
-//     const isLoggedIn = isAuth()
-
-//     return isLoggedIn ? (
-//         <NavItem to="/" onClick={handleLogout}>Sign out</NavItem>
-//     ) : (
-//         <NavItem to="/">Sign in</NavItem>
-//     )
-// }
 
 export const NavBar = () => {
 
