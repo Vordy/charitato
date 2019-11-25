@@ -16,9 +16,7 @@ export const Container = {
     fontFamily: `"Roboto", "Arial", sans-serif`,
 }
 export const FormContainer = {}
-export const FormSection = {
-
-}
+export const FormSection = {}
 export const FormField = {}
 export const SectionHeader = {}
 export const SectionBody = {}
@@ -30,7 +28,7 @@ export const Button = {
     backgroundColor: Colors.Rose,
     borderColor: Colors.Rose,
     fontWeight: 850,
-    borderRadius: "25px",
+    borderRadius: '25px',
 }
 export const PhotoPickerButton = {}
 export const PhotoPlaceholder = {}
@@ -53,13 +51,18 @@ export const FacebookSignInButton = {}
 export const GoogleSignInButton = {}
 export const OAuthSignInButton = {}
 export const Toast = {}
-export const NavBar = {}
+export const NavBar = {
+    position: 'absolute',
+    top: '0',
+    right: '0',
+    border: 'none',
+}
 export const NavRight = {}
 export const Nav = {}
 export const NavItem = {}
 export const NavButton = {
     backgroundColor: Colors.Rose,
-    borderRadius: "25px",
+    borderRadius: '25px',
 }
 
 const AmplifyTheme = {
