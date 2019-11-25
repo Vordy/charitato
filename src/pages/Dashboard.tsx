@@ -8,11 +8,11 @@ import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 
 const defaultUserContext = {
-    username: 'nouser',
-    name: 'nouser',
+    username: 'loading...',
+    name: 'loading...',
 }
 
-const UserContext = React.createContext(defaultUserContext)
+export const UserContext = React.createContext(defaultUserContext)
 
 const DashboardContainer = styled.div`
     width: 100%;
@@ -41,6 +41,7 @@ const setUpUserInstance = async (user: any) => {
         body: {
             id: user.getUsername(),
             name: user.attributes.name,
+            hasPotato: false
         },
     })
 }
@@ -54,15 +55,13 @@ const Dashboard = () => {
             if (user === null) {
                 alert('Site error: user not authenticated while in Dashboard')
             }
-        
-            console.log(user)
-        
+
             const response = await API.get(
                 'UserAPI',
                 `/items/object/${user.username}`,
                 null
             )
-        
+
             if (
                 Object.entries(response).length === 0 &&
                 response.constructor === Object
@@ -80,8 +79,6 @@ const Dashboard = () => {
         }
         getUserInstance()
     }, [])
-
-    console.log(userState)
 
     return (
         <UserContext.Provider value={userState}>

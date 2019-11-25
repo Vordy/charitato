@@ -17,6 +17,7 @@ import {
 import Potato from '../assets/potatoes/MEDIUM.svg'
 import React from 'react'
 import UserPic from '../assets/user.png'
+import { UserContext } from '../pages/Dashboard'
 
 export const PotatoInterface = () => {
     return (
@@ -27,7 +28,11 @@ export const PotatoInterface = () => {
 
             <PotatoContainer>
                 <PotatoIcon src={Potato} />
-                <PotatoDescriptor>It's super hot!</PotatoDescriptor>
+                <UserContext.Consumer>
+                    {value => (
+                        <PotatoDescriptor>{value.name}</PotatoDescriptor>
+                    )}
+                </UserContext.Consumer>
             </PotatoContainer>
 
             <HistoryContainer>
