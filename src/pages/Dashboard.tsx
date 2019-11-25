@@ -6,11 +6,11 @@ import { withAuthenticator } from 'aws-amplify-react'
 import AmplifyTheme from '../theme/auth_theme'
 import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
-import {v4} from 'uuid'
 
 const defaultUserContext = {
     username: 'loading...',
     name: 'loading...',
+    hasPotato: false,
 }
 
 export const UserContext = React.createContext(defaultUserContext)
@@ -50,8 +50,6 @@ const setUpUserInstance = async (user: any) => {
 const Dashboard = () => {
     const [userState, setUserState] = useState(defaultUserContext)
 
-    v4() //generate a random UUID
-
     useEffect(() => {
         const getUserInstance = async () => {
             const user = await getAuth()
@@ -64,12 +62,12 @@ const Dashboard = () => {
                 `/items/object/${user.username}`,
                 null
             )
-
+            
+            //check if object is empty (no DB entry)
             if (
                 Object.entries(response).length === 0 &&
                 response.constructor === Object
-            ) {
-                //check if object is empty (no DB entry)
+            ) {    
                 setUpUserInstance(user)
                 const newUser = await API.get(
                     'UserAPI',

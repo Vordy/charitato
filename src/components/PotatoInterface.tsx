@@ -14,25 +14,29 @@ import {
     SubmitContainer,
     SubmitButton,
 } from './Interface'
-import Potato from '../assets/potatoes/MEDIUM.svg'
+import Potato from 'assets/potatoes/MEDIUM.svg'
 import React from 'react'
-import UserPic from '../assets/user.png'
-import { UserContext } from '../pages/Dashboard'
+import UserPic from 'assets/user.png'
+import { UserContext } from 'pages/Dashboard'
 
 export const PotatoInterface = () => {
     return (
         <InterfaceContainer>
             <InterfaceHeader>
-                <HeaderText>You have a potato!</HeaderText>
+                <UserContext.Consumer>
+                    {value =>
+                        value.hasPotato ? (
+                            <HeaderText>You have a potato!</HeaderText>
+                        ) : (
+                            <HeaderText>Create a potato!</HeaderText>
+                        )
+                    }
+                </UserContext.Consumer>
             </InterfaceHeader>
 
             <PotatoContainer>
                 <PotatoIcon src={Potato} />
-                <UserContext.Consumer>
-                    {value => (
-                        <PotatoDescriptor>{value.name}</PotatoDescriptor>
-                    )}
-                </UserContext.Consumer>
+                <PotatoDescriptor>It's super hot!</PotatoDescriptor>
             </PotatoContainer>
 
             <HistoryContainer>
