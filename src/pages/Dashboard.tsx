@@ -5,11 +5,12 @@ import { getTheme } from '../theme/themes'
 import AmplifyTheme from '../theme/auth_theme'
 import React from 'react'
 import styled from '@emotion/styled'
+import {PotatoInterface} from '../components/PotatoInterface'
 
 const DashboardContainer = styled.div`
     width: 100%;
     height: 100%;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -39,10 +40,9 @@ const Dashboard = () => {
 
     return (
         <DashboardContainer>
-            <h1>API TEST</h1>
-            <button onClick={post}>POST</button>
-            <button onClick={get}>GET</button>
-            <button onClick={list}>LIST</button>
+            <PotatoInterface />
+            <PotatoInterface />
+            <PotatoInterface />
         </DashboardContainer>
     )
 }
