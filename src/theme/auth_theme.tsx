@@ -11,6 +11,7 @@
  */
 
 import { Colors } from './Colors'
+import { getTheme } from './themes'
 
 export const Container = {
     fontFamily: `"Roboto", "Arial", sans-serif`,
@@ -56,6 +57,8 @@ export const NavBar = {
     top: '0',
     right: '0',
     border: 'none',
+    backgroundColor: getTheme().background,
+    color: getTheme().foreground
 }
 export const NavRight = {}
 export const Nav = {}

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { Colors } from '../theme/Colors'
+import {getTheme} from '../theme/themes'
 
 export const InterfaceContainer = styled.div`
     border: solid 1px;
@@ -9,7 +10,7 @@ export const InterfaceContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
     font-weight: bold;
     text-align: center;
-    color: ${Colors.RichDark};
+    color: ${getTheme().foreground};
     
     width: 350px;
     height: 700px;
