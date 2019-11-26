@@ -114,24 +114,7 @@ const noPotatoInterface = () => {
 
             <SubmitContainer>
                 <SubmitButton>
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Send it'}
-                        onClickHandler={(e: React.MouseEvent) => {
-                            console.log('boom')
-                        }}
-                    />
-                </SubmitButton>
-                <SubmitButton>
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Pay it'}
-                        onClickHandler={(e: React.MouseEvent) => {
-                            console.log('boom')
-                        }}
-                    />
+                    <DashboardModal {...{modalName: "createPotatoModal", openText: "Create potato"}} />
                 </SubmitButton>
             </SubmitContainer>
 
