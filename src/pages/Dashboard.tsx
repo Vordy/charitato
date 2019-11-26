@@ -1,10 +1,10 @@
 import { API, Auth } from 'aws-amplify'
-import { getTheme } from '../theme/themes'
-import { PotatoInterface } from '../components/PotatoInterface'
-import { signUpConfig } from '../common/auth_config'
+import { getTheme } from 'theme/themes'
+import { PotatoInterface } from 'components/PotatoInterface'
+import { signUpConfig } from 'common/auth_config'
 import { withAuthenticator } from 'aws-amplify-react'
-import AmplifyTheme from '../theme/auth_theme'
-import React, { useState, useEffect } from 'react'
+import AmplifyTheme from 'theme/auth_theme'
+import React, { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 
 const DefaultUser = {
@@ -28,27 +28,27 @@ const DashboardContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
 `
 
+const getAuth = async () => {
+    try {
+        const user = await Auth.currentAuthenticatedUser()
+        return user
+    } catch (err) {
+        return null
+    }
+}
+
+const setUpUserInstance = async (user: any) => {
+    await API.post('UserAPI', '/items', {
+        body: {
+            id: user.getUsername(),
+            name: user.attributes.name,
+            hasPotato: false,
+        },
+    })
+}
+
 const Dashboard = () => {
     const [userState, setUserState] = useState(DefaultUser)
-
-    const getAuth = async () => {
-        try {
-            const user = await Auth.currentAuthenticatedUser()
-            return user
-        } catch (err) {
-            return null
-        }
-    }
-
-    const setUpUserInstance = async (user: any) => {
-        await API.post('UserAPI', '/items', {
-            body: {
-                id: user.getUsername(),
-                name: user.attributes.name,
-                hasPotato: false
-            },
-        })
-    }
 
     const getUserInstance = async () => {
         const user = await getAuth()
@@ -61,12 +61,12 @@ const Dashboard = () => {
             `/items/object/${user.username}`,
             null
         )
-        
+
         //check if object is empty (no DB entry)
         if (
             Object.entries(response).length === 0 &&
             response.constructor === Object
-        ) {    
+        ) {
             setUpUserInstance(user)
             const newUser = await API.get(
                 'UserAPI',
