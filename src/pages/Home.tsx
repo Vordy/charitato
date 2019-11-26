@@ -1,23 +1,20 @@
-import React from 'react'
-import styled from '@emotion/styled'
-
-import { Colors } from 'theme/Colors'
-
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
+import { getTheme } from '../theme/themes'
 import { Homeblob } from 'assets/blobs/Homeblob'
 import { useHistory } from 'react-router'
+import React from 'react'
+import styled from '@emotion/styled'
 
 const HomeContainer = styled.div`
     width: 100%;
     height: 100%;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-
+    align-items: center;
     display: flex;
-    color: ${Colors.RichDark};
-    background-color: ${Colors.White};
+    color: ${getTheme().foreground};
+    background-color: ${getTheme().background};
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
 `
 
@@ -28,7 +25,7 @@ const SplashHeader = styled.div`
     justify-content: center;
     align-items: center;
     display: flex;
-    padding-left: 32px;
+    padding-right: 30%;
     padding-top: 100px;
 `
 
@@ -73,7 +70,7 @@ export const Home = () => {
                 </SplashHeader>
             </HomeContainer>
             <Homeblob
-                style={{ position: 'absolute', top: '-10px', right: '-10px' }}
+                style={{ position: 'absolute', top: '-5%', right: '0%' }}
             />
         </>
     )

@@ -1,6 +1,24 @@
 import { API } from 'aws-amplify'
+import { getTheme } from '../theme/themes'
+import { signUpConfig } from '../common/auth_config'
 import { withAuthenticator } from 'aws-amplify-react'
+import { PotatoInterface } from '../components/PotatoInterface'
+import AmplifyTheme from '../theme/auth_theme'
 import React from 'react'
+import styled from '@emotion/styled'
+
+const DashboardContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    color: ${getTheme().foreground};
+    background-color: ${getTheme().background};
+    font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
+`
 
 const Dashboard = () => {
     const post = async () => {
@@ -22,13 +40,19 @@ const Dashboard = () => {
     }
 
     return (
-        <div>
-            <h1>API TEST</h1>
-            <button onClick={post}>POST</button>
-            <button onClick={get}>GET</button>
-            <button onClick={list}>LIST</button>
-        </div>
+        <DashboardContainer>
+            <PotatoInterface />
+            <PotatoInterface />
+            <PotatoInterface />
+        </DashboardContainer>
     )
 }
 
-export default withAuthenticator(Dashboard, true);
+export default withAuthenticator(
+    Dashboard,
+    true,
+    undefined,
+    undefined,
+    AmplifyTheme,
+    signUpConfig
+)

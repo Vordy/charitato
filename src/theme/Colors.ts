@@ -5,4 +5,5 @@ export const Colors = {
 	LavendarCream: '#D8DBE2',
 	SeaGlass: '#43AA8B',
 	Sky: '#1481BA',
+	DarkGray: '#161616',
 }
