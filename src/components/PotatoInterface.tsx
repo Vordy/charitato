@@ -1,20 +1,20 @@
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import {
+    HeaderText,
+    HistoryContainer,
+    HistoryItem,
+    HistoryScroller,
     InterfaceContainer,
     InterfaceHeader,
-    HeaderText,
     PotatoContainer,
-    PotatoIcon,
     PotatoDescriptor,
-    HistoryContainer,
+    PotatoIcon,
     SectionTitle,
-    HistoryScroller,
-    HistoryItem,
+    SubmitButton,
+    SubmitContainer,
     UserIcon,
     UserName,
-    SubmitContainer,
-    SubmitButton,
 } from './Interface'
 import { UserContext } from 'pages/Dashboard'
 import Potato from 'assets/potatoes/MEDIUM.svg'
@@ -22,17 +22,19 @@ import React from 'react'
 import UserPic from 'assets/user.png'
 
 export const PotatoInterface = () => {
+    const potatoState = (hasPotato: boolean) => {
+        return hasPotato ? (
+            <HeaderText>You have a potato!</HeaderText>
+        ) : (
+            <HeaderText>Create a potato!</HeaderText>
+        )
+    }
+
     return (
         <InterfaceContainer>
             <InterfaceHeader>
                 <UserContext.Consumer>
-                    {value =>
-                        value.hasPotato ? (
-                            <HeaderText>You have a potato!</HeaderText>
-                        ) : (
-                            <HeaderText>Create a potato!</HeaderText>
-                        )
-                    }
+                    {value => potatoState(value.hasPotato)}
                 </UserContext.Consumer>
             </InterfaceHeader>
 
