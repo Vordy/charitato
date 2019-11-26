@@ -2,6 +2,7 @@ import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import { Colors } from 'theme/Colors'
 import { getTheme } from 'theme/themes'
+import { SendPotato } from 'components/PotatoActions'
 import newPotatoImage from 'assets/potatoes/FRESH.svg'
 import React, { useState } from 'react'
 import ReactModal from 'react-modal'
@@ -43,6 +44,8 @@ const SubmitButton = styled.div`
 `
 
 const CopyBox = styled.div`
+    overflow-x: hidden;
+    width: 90%;
     background-color: ${Colors.LightGray};
     border: solid 1px black;
     border-radius: 999px;
@@ -74,13 +77,20 @@ ReactModal.setAppElement('body')
 type inputProps = {
     modalName: string
     openText: string
-    modalAction: () => void
+    modalAction: () => Promise<string>
+    startOpen?: boolean
 }
 
 export const DashboardModal = (values: inputProps) => {
     const { modalName, openText, modalAction } = values
+    let startVal = false
 
-    const [showModal, setShowModal] = useState(false) //change to default to false
+    if (values.startOpen !== undefined) {
+        startVal = values.startOpen
+    }
+
+    const [showModal, setShowModal] = useState(startVal) //change to default to false
+    const [potatoState, setPotatoState] = useState('')
 
     const createPotatoModal = () => {
         return (
@@ -89,7 +99,7 @@ export const DashboardModal = (values: inputProps) => {
                 <div>Congrats, you’ve created a charitato!</div>
                 <div>Now it's time to send it</div>
                 <CopyBox>
-                    https://rec.charito.org/rec/id?q=...
+                    {SendPotato(potatoState)}
                     <CopyButton>
                         <Button
                             buttonType={ButtonTypes.Primary}
@@ -125,7 +135,7 @@ export const DashboardModal = (values: inputProps) => {
     const handleOpenModal = () => {
         setShowModal(true)
         const rootHTML = document.getElementById('root')
-        if(rootHTML !== null) {
+        if (rootHTML !== null) {
             rootHTML.style.filter = 'blur(5px)'
         }
     }
@@ -133,7 +143,7 @@ export const DashboardModal = (values: inputProps) => {
     const handleCloseModal = () => {
         setShowModal(false)
         const rootHTML = document.getElementById('root')
-        if(rootHTML !== null) {
+        if (rootHTML !== null) {
             rootHTML.style.filter = 'blur(0px)'
         }
     }
@@ -152,8 +162,11 @@ export const DashboardModal = (values: inputProps) => {
                 buttonType={ButtonTypes.Primary}
                 buttonSize={ButtonSizes.Small}
                 text={openText}
-                onClickHandler={(e: React.MouseEvent) => {
-                    modalAction()
+                onClickHandler={async (e: React.MouseEvent) => {
+                    const resp = await modalAction()
+                    if (modalName === 'createPotatoModal') {
+                        setPotatoState(resp)
+                    }
                     handleOpenModal()
                 }}
             />

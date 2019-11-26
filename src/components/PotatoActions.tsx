@@ -11,7 +11,8 @@ const getAuth = async () => {
     }
 }
 
-const displayPotatoInfo = async (potatoID: string) => {
+//Returns an object of potato info
+export const getPotatoInfo = async (potatoID: string) => {
     const potatoInfo = await API.get(
         'UserAPI',
         `/items/object/${potatoID}`,
@@ -19,13 +20,35 @@ const displayPotatoInfo = async (potatoID: string) => {
     )
 
     const userHistory = potatoInfo.history
+    const userHistoryWithNames = []
 
-    console.log(`User history for potato ${potatoID}`)
-    for (let index = 0; index < userHistory.length; index++) {
-        const element = userHistory[index];
-        const user = await getUserInstance(element)
-        console.log(user.name)
+    if(userHistory === undefined) {
+        return null
     }
+
+    for (let index = 0; index < userHistory.length; index++) {
+        const userIDNum = userHistory[index];
+        const user = await getUserInstance(userIDNum)
+
+        userHistoryWithNames.push(
+            {
+                userID: userIDNum,
+                name: user.name,
+            }
+        )
+
+        // console.log(user.name)
+    }
+
+    const potatoObject = {
+        lastHolder: {
+            userID: userHistoryWithNames[0].userID,
+            name: userHistoryWithNames[0].name
+        },
+        userHistory: userHistoryWithNames
+    }
+
+    return potatoObject
 }
 
 const getUserInstance = async (userID: string) => {
@@ -63,6 +86,7 @@ const addPotatoToUser = async (
     await API.post('UserAPI', '/items', {
         body: {
             ...user,
+            // hasPotato: false, //TODO: uncomment once done testing create potato
             history: newHistory,
         },
     })
@@ -78,21 +102,22 @@ export const NewPotato = async () => {
 
     if (user === null) {
         alert('Critical error: cannot create potato while not authenticated')
-        return
+        return 'noauth'
     }
 
     const userInstance = await getUserInstance(user.username)
 
     await setUpPotatoInstance(user.username, potatoID)
     await addPotatoToUser(potatoID, userInstance)
-    displayPotatoInfo(potatoID)
+    return potatoID;
 }
 
-export const SendPotato = () => {
-    return <div>Sending potato yo!</div>
+// generate URL for potato sending
+export const SendPotato = (potatoID: string) => {
+    return (`${window.location.href}/potato/${potatoID}`)
 }
 
-export const ReceivePotato = () => {
+export const ReceivePotato = (potatoID: string) => {
     return <div>Receiving potato yo!</div>
 }
 
