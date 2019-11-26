@@ -1,18 +1,18 @@
 import {
+    HeaderText,
+    HistoryContainer,
+    HistoryItem,
+    HistoryScroller,
     InterfaceContainer,
     InterfaceHeader,
-    HeaderText,
     PotatoContainer,
-    PotatoIcon,
     PotatoDescriptor,
-    HistoryContainer,
+    PotatoIcon,
     SectionTitle,
-    HistoryScroller,
-    HistoryItem,
+    SubmitButton,
+    SubmitContainer,
     UserIcon,
     UserName,
-    SubmitContainer,
-    SubmitButton,
 } from './Interface'
 import Potato from '../assets/potatoes/MEDIUM.svg'
 import React from 'react'
