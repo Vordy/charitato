@@ -50,7 +50,6 @@ const setUpUserInstance = async (user: any) => {
 
 const Dashboard = () => {
     const [userState, setUserState] = useState(defaultUserContext)
-    const [overlay, setOverlay] = useState(false)
 
     useEffect(() => {
         const getUserInstance = async () => {
