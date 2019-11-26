@@ -21,6 +21,16 @@ const Modal = styled(ReactModal)`
     justify-content: space-between;
     align-items: center;
 `
+export const PotatoIcon = styled.img`
+    width: 50%;
+    height: auto;
+`
+
+export const SubmitButton = styled.div`
+    display: table;
+    width: 35%;
+    height: 100%;
+`
 
 ReactModal.setAppElement('body')
 
@@ -37,18 +47,27 @@ export const CreatePotatoInterface = () => {
 
     return (
         <div>
-            <button onClick={handleOpenModal}>Trigger Modal</button>
+            <Button
+                buttonType={ButtonTypes.Primary}
+                buttonSize={ButtonSizes.Small}
+                text={'Open Modal'}
+                onClickHandler={(e: React.MouseEvent) => {
+                    handleOpenModal()
+                }}
+            />
             <Modal isOpen={showModal} contentLabel="Minimal Modal Example">
-                <img src={newPotatoImage} />
+                <PotatoIcon src={newPotatoImage} />
 
-                <Button
-                    buttonType={ButtonTypes.Primary}
-                    buttonSize={ButtonSizes.Small}
-                    text={'Cancel'}
-                    onClickHandler={(e: React.MouseEvent) => {
-                        handleCloseModal()
-                    }}
-                />
+                <SubmitButton>
+                    <Button
+                        buttonType={ButtonTypes.Primary}
+                        buttonSize={ButtonSizes.Small}
+                        text={'Cancel'}
+                        onClickHandler={(e: React.MouseEvent) => {
+                            handleCloseModal()
+                        }}
+                    />
+                </SubmitButton>
             </Modal>
         </div>
     )

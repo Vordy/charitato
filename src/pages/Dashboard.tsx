@@ -1,5 +1,4 @@
 import { API, Auth } from 'aws-amplify'
-import { CreatePotatoInterface } from 'components/DashboardModals'
 import { getTheme } from '../theme/themes'
 import { PotatoInterface } from '../components/PotatoInterface'
 import { signUpConfig } from '../common/auth_config'
@@ -85,9 +84,6 @@ const Dashboard = () => {
     return (
         <UserContext.Provider value={userState}>
             <DashboardContainer>
-                <CreatePotatoInterface />
-                <PotatoInterface />
-                <PotatoInterface />
                 <PotatoInterface />
             </DashboardContainer>
         </UserContext.Provider>
