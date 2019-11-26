@@ -106,7 +106,9 @@ const noPotatoInterface = () => {
 
             <NewPotatoValueContainer>
                 <SectionTitle>The value of your new potato:</SectionTitle>
-                <NewPotatoValue>$1</NewPotatoValue>
+                <NewPotatoValue>
+                <p>$1</p>
+                </NewPotatoValue>
             </NewPotatoValueContainer>
 
             <SubmitContainer>

@@ -45,7 +45,9 @@ export const PotatoIcon = styled.img`
     height: auto;
 `
 
-export const PotatoDescriptor = styled.p``
+export const PotatoDescriptor = styled.p`
+    font-weight: 300;
+`
 
 export const HistoryContainer = styled.div`
     display: flex;
@@ -86,7 +88,9 @@ export const NewPotatoValue = styled.div`
     height: 100px;
     width: 100px;
     font-size: 200%;
-    align-self: center;
+    display: table;
+    margin-top: 20px;
+    box-shadow: 0px 0px 18px ${Colors.LightGreen};
 `
 
 export const UserIcon = styled.img`
