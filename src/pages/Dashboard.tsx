@@ -7,13 +7,13 @@ import AmplifyTheme from '../theme/auth_theme'
 import React, { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 
-const defaultUserContext = {
+const DefaultUser = {
     username: 'loading...',
     name: 'loading...',
     hasPotato: false,
 }
 
-export const UserContext = React.createContext(defaultUserContext)
+export const UserContext = React.createContext(DefaultUser)
 
 const DashboardContainer = styled.div`
     width: 100%;
@@ -28,56 +28,57 @@ const DashboardContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
 `
 
-const getAuth = async () => {
-    try {
-        const user = await Auth.currentAuthenticatedUser()
-        return user
-    } catch (err) {
-        return null
-    }
-}
-
-const setUpUserInstance = async (user: any) => {
-    await API.post('UserAPI', '/items', {
-        body: {
-            id: user.getUsername(),
-            name: user.attributes.name,
-            hasPotato: false
-        },
-    })
-}
-
 const Dashboard = () => {
-    const [userState, setUserState] = useState(defaultUserContext)
+    const [userState, setUserState] = useState(DefaultUser)
 
-    useEffect(() => {
-        const getUserInstance = async () => {
-            const user = await getAuth()
-            if (user === null) {
-                alert('Site error: user not authenticated while in Dashboard')
-            }
+    const getAuth = async () => {
+        try {
+            const user = await Auth.currentAuthenticatedUser()
+            return user
+        } catch (err) {
+            return null
+        }
+    }
 
-            const response = await API.get(
+    const setUpUserInstance = async (user: any) => {
+        await API.post('UserAPI', '/items', {
+            body: {
+                id: user.getUsername(),
+                name: user.attributes.name,
+                hasPotato: false
+            },
+        })
+    }
+
+    const getUserInstance = async () => {
+        const user = await getAuth()
+        if (user === null) {
+            alert('Site error: user not authenticated while in Dashboard')
+        }
+
+        const response = await API.get(
+            'UserAPI',
+            `/items/object/${user.username}`,
+            null
+        )
+        
+        //check if object is empty (no DB entry)
+        if (
+            Object.entries(response).length === 0 &&
+            response.constructor === Object
+        ) {    
+            setUpUserInstance(user)
+            const newUser = await API.get(
                 'UserAPI',
                 `/items/object/${user.username}`,
                 null
             )
-            
-            //check if object is empty (no DB entry)
-            if (
-                Object.entries(response).length === 0 &&
-                response.constructor === Object
-            ) {    
-                setUpUserInstance(user)
-                const newUser = await API.get(
-                    'UserAPI',
-                    `/items/object/${user.username}`,
-                    null
-                )
-                setUserState(newUser)
-            }
-            setUserState(response)
+            setUserState(newUser)
         }
+        setUserState(response)
+    }
+
+    useEffect(() => {
         getUserInstance()
     }, [])
 
