@@ -58,7 +58,14 @@ export const PotatoInterface = () => {
 
             <SubmitContainer>
                 <SubmitButton>
-                    <DashboardModal {...{modalName: "createPotatoModal", openText: "Send it"}} />
+                    <Button
+                        buttonType={ButtonTypes.Primary}
+                        buttonSize={ButtonSizes.Small}
+                        text={'Pay it'}
+                        onClickHandler={(e: React.MouseEvent) => {
+                            console.log('boom')
+                        }}
+                    />
                 </SubmitButton>
                 <SubmitButton>
                     <Button
