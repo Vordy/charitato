@@ -1,4 +1,5 @@
 import { API, Auth } from 'aws-amplify'
+import { CreatePotatoInterface } from 'components/DashboardModals'
 import { getTheme } from '../theme/themes'
 import { PotatoInterface } from '../components/PotatoInterface'
 import { signUpConfig } from '../common/auth_config'
@@ -42,13 +43,14 @@ const setUpUserInstance = async (user: any) => {
         body: {
             id: user.getUsername(),
             name: user.attributes.name,
-            hasPotato: false
+            hasPotato: false,
         },
     })
 }
 
 const Dashboard = () => {
     const [userState, setUserState] = useState(defaultUserContext)
+    const [overlay, setOverlay] = useState(false)
 
     useEffect(() => {
         const getUserInstance = async () => {
@@ -62,12 +64,12 @@ const Dashboard = () => {
                 `/items/object/${user.username}`,
                 null
             )
-            
+
             //check if object is empty (no DB entry)
             if (
                 Object.entries(response).length === 0 &&
                 response.constructor === Object
-            ) {    
+            ) {
                 setUpUserInstance(user)
                 const newUser = await API.get(
                     'UserAPI',
@@ -84,6 +86,7 @@ const Dashboard = () => {
     return (
         <UserContext.Provider value={userState}>
             <DashboardContainer>
+                <CreatePotatoInterface />
                 <PotatoInterface />
                 <PotatoInterface />
                 <PotatoInterface />
