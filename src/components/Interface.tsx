@@ -109,6 +109,7 @@ export const SubmitContainer = styled.div`
     flex-direction: row;
     justify-content: space-around;
     height: 5%;
+    margin-bottom: 20px;
 `
 
 export const SubmitButton = styled.div`
