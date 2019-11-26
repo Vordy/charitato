@@ -74,10 +74,11 @@ ReactModal.setAppElement('body')
 type inputProps = {
     modalName: string
     openText: string
+    modalAction: () => void
 }
 
 export const DashboardModal = (values: inputProps) => {
-    const { modalName, openText } = values
+    const { modalName, openText, modalAction } = values
 
     const [showModal, setShowModal] = useState(false) //change to default to false
 
@@ -152,6 +153,7 @@ export const DashboardModal = (values: inputProps) => {
                 buttonSize={ButtonSizes.Small}
                 text={openText}
                 onClickHandler={(e: React.MouseEvent) => {
+                    modalAction()
                     handleOpenModal()
                 }}
             />

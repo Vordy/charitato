@@ -21,8 +21,9 @@ import {
     UserName,
 } from './Interface'
 import { UserContext } from 'pages/Dashboard'
-import Potato_Hot from 'assets/potatoes/MEDIUM.svg'
+import { NewPotato } from 'components/PotatoActions'
 import Potato_Fresh from 'assets/potatoes/FRESH.svg'
+import Potato_Hot from 'assets/potatoes/MEDIUM.svg'
 import React, { useCallback } from 'react'
 import UserPic from 'assets/user.png'
 
@@ -116,13 +117,19 @@ const noPotatoInterface = () => {
             <NewPotatoValueContainer>
                 <SectionTitle>The value of your new potato:</SectionTitle>
                 <NewPotatoValue>
-                <p>$1</p>
+                    <p>$1</p>
                 </NewPotatoValue>
             </NewPotatoValueContainer>
 
             <SubmitContainer>
                 <SubmitButton>
-                    <DashboardModal {...{modalName: "createPotatoModal", openText: "Create potato"}} />
+                    <DashboardModal
+                        {...{
+                            modalName: 'createPotatoModal',
+                            openText: 'Create potato',
+                            modalAction: NewPotato,
+                        }}
+                    />
                 </SubmitButton>
             </SubmitContainer>
 
