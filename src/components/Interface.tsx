@@ -36,9 +36,7 @@ export const SectionTitle = styled.p`
     margin-left: 5%;
 `
 
-export const PotatoContainer = styled.div`
-    // border: solid 1px;
-`
+export const PotatoContainer = styled.div``
 
 export const PotatoIcon = styled.img`
     width: 50%;

@@ -1,14 +1,14 @@
-import { getTheme } from '../theme/themes'
+import { getTheme } from 'theme/themes'
 import { Link } from 'react-router-dom'
-import { switchTheme } from '../theme/themes'
-import Logo from '../assets/logo.svg'
+import { switchTheme } from 'theme/themes'
+import Logo from 'assets/logo.svg'
 import React from 'react'
 import styled from '@emotion/styled'
 
 const Bar = styled.div`
     // position: sticky;  //Make it follow scrolling
     position: absolute;
-    width: 70%; //TEMP FIX
+    width: 70%; //TODO: adjusted this for the dashboard sign out button
     top: 0;
     z-index: 10;
     display: flex;
