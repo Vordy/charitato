@@ -93,3 +93,11 @@ export const SubmitButton = styled.div`
     width: 35%;
     height: 100%;
 `
+
+export const InfoText = styled.p`
+    font-size: 8pt;
+    text-align: left;
+    margin-left: 2%;
+    margin-right: 2%;
+    font-weight: 1;
+`

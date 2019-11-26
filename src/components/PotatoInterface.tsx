@@ -5,6 +5,7 @@ import {
     HistoryContainer,
     HistoryItem,
     HistoryScroller,
+    InfoText,
     InterfaceContainer,
     InterfaceHeader,
     PotatoContainer,
@@ -79,6 +80,14 @@ export const PotatoInterface = () => {
                     />
                 </SubmitButton>
             </SubmitContainer>
+
+            <InfoText>
+                This potato is worth $1.00 USD. You can send it to a friend by
+                clicking “Send it” or you can pay it off. The next screen will
+                display the options available to you for both actions. All
+                proceeds from potato donations go towards the charity/nonprofit
+                of your choice.
+            </InfoText>
 
             <InterfaceHeader />
         </InterfaceContainer>
