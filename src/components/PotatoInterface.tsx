@@ -27,7 +27,7 @@ import Potato_Hot from 'assets/potatoes/MEDIUM.svg'
 import React, { useCallback } from 'react'
 import UserPic from 'assets/user.png'
 
-const hasPotatoInterface = () => {
+const HasPotatoInterface = () => {
     return (
         <InterfaceContainer>
             <InterfaceHeader>
@@ -97,7 +97,7 @@ const hasPotatoInterface = () => {
     )
 }
 
-const noPotatoInterface = () => {
+const NoPotatoInterface = () => {
     return (
         <InterfaceContainer>
             <InterfaceHeader>
@@ -147,7 +147,7 @@ const noPotatoInterface = () => {
 
 export const PotatoInterface = () => {
     const potatoState = useCallback((hasPotato: boolean) => {
-        return hasPotato ? hasPotatoInterface() : noPotatoInterface()
+        return hasPotato ? HasPotatoInterface() : NoPotatoInterface()
     }, [])
 
     return (
