@@ -1,6 +1,6 @@
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
-import {CreatePotatoInterface} from 'components/DashboardModals'
+import { DashboardModal } from 'components/DashboardModals'
 import {
     InterfaceContainer,
     InterfaceHeader,
@@ -25,7 +25,6 @@ import UserPic from 'assets/user.png'
 export const PotatoInterface = () => {
     return (
         <InterfaceContainer>
-            <CreatePotatoInterface />
             <InterfaceHeader>
                 <UserContext.Consumer>
                     {value =>
@@ -59,14 +58,7 @@ export const PotatoInterface = () => {
 
             <SubmitContainer>
                 <SubmitButton>
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Send it'}
-                        onClickHandler={(e: React.MouseEvent) => {
-                            console.log('boom')
-                        }}
-                    />
+                    <DashboardModal {...{modalName: "createPotatoModal", openText: "Send it"}} />
                 </SubmitButton>
                 <SubmitButton>
                     <Button

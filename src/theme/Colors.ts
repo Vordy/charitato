@@ -6,4 +6,5 @@ export const Colors = {
 	SeaGlass: '#43AA8B',
 	Sky: '#1481BA',
 	DarkGray: '#161616',
+	LightGray: '#E3E3E3',
 }
