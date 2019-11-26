@@ -32,9 +32,9 @@ const LoginContainer = styled.div`
 `
 
 const GenericInput = styled.input`
-	width: 90%;
-	height: 20%
-	background-color: white;
+    width: 90%;
+    height: 20%;
+    background-color: white;
 `
 
 const GoButton = styled.div`
@@ -58,7 +58,7 @@ export const Login = () => {
     const [password, setPassword] = useState('')
     const history = useHistory()
 
-    async function handleSubmit(event: React.MouseEvent) {
+    const handleSubmit = async (event: React.MouseEvent) => {
         event.preventDefault()
 
         alert('THIS LOGIN PAGE NO LONGER DOES STUFF')
@@ -69,6 +69,14 @@ export const Login = () => {
         history.push(`/dashboard/${username}`)
     }
 
+    const InputChangeEvent = (
+        keyBoardEvent: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        if (keyBoardEvent) {
+            setUsername(keyBoardEvent.target.value)
+        }
+    }
+
     return (
         <LoginScreen>
             <LoginContainer>
@@ -77,27 +85,15 @@ export const Login = () => {
                     name="username"
                     placeholder="Username"
                     value={username}
-                    onChange={(
-                        keyBoardEvent: React.ChangeEvent<HTMLInputElement>
-                    ) => {
-                        if (keyBoardEvent) {
-                            setUsername(keyBoardEvent.target.value)
-                        }
-                    }}
-                ></GenericInput>
+                    onChange={InputChangeEvent}
+                />
                 <GenericInput
                     name="password"
                     type="password"
                     placeholder="Password"
                     value={password}
-                    onChange={(
-                        keyBoardEvent: React.ChangeEvent<HTMLInputElement>
-                    ) => {
-                        if (keyBoardEvent) {
-                            setPassword(keyBoardEvent.target.value)
-                        }
-                    }}
-                ></GenericInput>
+                    onChange={InputChangeEvent}
+                />
                 <GoButton onClick={handleSubmit}>Login</GoButton>
             </LoginContainer>
         </LoginScreen>
