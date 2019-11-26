@@ -79,15 +79,7 @@ type inputProps = {
 export const DashboardModal = (values: inputProps) => {
     const { modalName, openText } = values
 
-    const [showModal, setShowModal] = useState(true) //change to default to false
-
-    const handleOpenModal = () => {
-        setShowModal(true)
-    }
-
-    const handleCloseModal = () => {
-        setShowModal(false)
-    }
+    const [showModal, setShowModal] = useState(false) //change to default to false
 
     const createPotatoModal = () => {
         return (
@@ -105,14 +97,14 @@ export const DashboardModal = (values: inputProps) => {
                             onClickHandler={(e: React.MouseEvent) => {
                                 handleCloseModal()
                             }}
-                        />    
-                    </CopyButton>    
+                        />
+                    </CopyButton>
                 </CopyBox>
 
                 <OrContainer>
-                    <Line/>
+                    <Line />
                     OR
-                    <Line/>
+                    <Line />
                 </OrContainer>
 
                 <SubmitButton>
@@ -127,6 +119,22 @@ export const DashboardModal = (values: inputProps) => {
                 </SubmitButton>
             </Test>
         )
+    }
+
+    const handleOpenModal = () => {
+        setShowModal(true)
+        const rootHTML = document.getElementById('root')
+        if(rootHTML !== null) {
+            rootHTML.style.filter = 'blur(5px)'
+        }
+    }
+
+    const handleCloseModal = () => {
+        setShowModal(false)
+        const rootHTML = document.getElementById('root')
+        if(rootHTML !== null) {
+            rootHTML.style.filter = 'blur(0px)'
+        }
     }
 
     const SelectModal = (modalName: string) => {
