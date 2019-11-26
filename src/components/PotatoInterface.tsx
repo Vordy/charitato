@@ -16,23 +16,21 @@ import {
 } from './Interface'
 import { UserContext } from 'pages/Dashboard'
 import Potato from 'assets/potatoes/MEDIUM.svg'
-import React from 'react'
+import React, { useCallback } from 'react'
 import UserPic from 'assets/user.png'
 
 export const PotatoInterface = () => {
-    const potatoState = (hasPotato: boolean) => {
-        return hasPotato ? (
-            <HeaderText>You have a potato!</HeaderText>
-        ) : (
-            <HeaderText>Create a potato!</HeaderText>
-        )
-    }
+    const potatoHeader = useCallback((hasPotato: boolean) => {
+        const potatoText = hasPotato ? 'You have a potato!' : 'Create a potato!'
+
+        return <HeaderText>{potatoText}</HeaderText>
+    }, [])
 
     return (
         <InterfaceContainer>
             <InterfaceHeader>
                 <UserContext.Consumer>
-                    {value => potatoState(value.hasPotato)}
+                    {value => potatoHeader(value.hasPotato)}
                 </UserContext.Consumer>
             </InterfaceHeader>
 
