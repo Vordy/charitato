@@ -2,21 +2,29 @@ import { Auth, API } from 'aws-amplify'
 import { v4 } from 'uuid'
 import React from 'react'
 
-const displayPotatoInfo = async (potatoID: string) => {
-    const potatoInfo = await API.get(
-        'UserAPI',
-        `/items/object/${potatoID}`,
-        null
-    )
-    console.log(potatoInfo)
-}
-
 const getAuth = async () => {
     try {
         const user = await Auth.currentAuthenticatedUser()
         return user
     } catch (err) {
         return null
+    }
+}
+
+const displayPotatoInfo = async (potatoID: string) => {
+    const potatoInfo = await API.get(
+        'UserAPI',
+        `/items/object/${potatoID}`,
+        null
+    )
+
+    const userHistory = potatoInfo.history
+
+    console.log(`User history for potato ${potatoID}`)
+    for (let index = 0; index < userHistory.length; index++) {
+        const element = userHistory[index];
+        const user = await getUserInstance(element)
+        console.log(user.name)
     }
 }
 
@@ -33,31 +41,28 @@ const setUpPotatoInstance = async (userID: string, potatoID: string) => {
             version: '1b', //version 1, potato entry
             history: [userID],
             timeCreated: Math.floor(Date.now() / 1000),
+            timeOfDeath: Math.floor(Math.random() * 432000) + Math.floor(Date.now() / 1000), //Random between 0 and 4 days TODO: make this better, less hardocded
         },
     })
 }
 
 const addPotatoToUser = async (
-    userID: string,
     potatoID: string,
-    name: string,
-    potatoHistory: Array<string>
+    user: any
 ) => {
-    let newHistory = potatoHistory
+
+    let newHistory = user.history
 
     if(newHistory === undefined) {
         newHistory = [potatoID]
     }
     else {
-        potatoHistory.push(potatoID)
+        newHistory.push(potatoID)
     }
-    
+        
     await API.post('UserAPI', '/items', {
         body: {
-            id: userID,
-            version: '1a', //version 1, user entry
-            name: name,
-            hasPotato: true,
+            ...user,
             history: newHistory,
         },
     })
@@ -78,9 +83,8 @@ export const NewPotato = async () => {
 
     const userInstance = await getUserInstance(user.username)
 
-    console.log(userInstance)
     await setUpPotatoInstance(user.username, potatoID)
-    await addPotatoToUser(user.username, potatoID, userInstance.name, userInstance.history)
+    await addPotatoToUser(potatoID, userInstance)
     displayPotatoInfo(potatoID)
 }
 
