@@ -1,6 +1,9 @@
 import React from 'react';
+import {v4} from 'uuid'
 
 export const NewPotato = () => {
+    const potatoID = v4()
+    
     return (
         <div>Creating potato yo!</div>
     )

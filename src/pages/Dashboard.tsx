@@ -86,8 +86,6 @@ const Dashboard = () => {
         <UserContext.Provider value={userState}>
             <DashboardContainer>
                 <PotatoInterface />
-                <PotatoInterface />
-                <PotatoInterface />
             </DashboardContainer>
         </UserContext.Provider>
     )

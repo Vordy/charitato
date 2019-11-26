@@ -1,5 +1,6 @@
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
+import { DashboardModal } from 'components/DashboardModals'
 import {
     HeaderText,
     HistoryContainer,
@@ -56,7 +57,7 @@ const hasPotatoInterface = () => {
                     <Button
                         buttonType={ButtonTypes.Primary}
                         buttonSize={ButtonSizes.Small}
-                        text={'Send it'}
+                        text={'Pay it'}
                         onClickHandler={(e: React.MouseEvent) => {
                             console.log('boom')
                         }}
