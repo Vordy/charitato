@@ -8,6 +8,8 @@ import {
     InfoText,
     InterfaceContainer,
     InterfaceHeader,
+    NewPotatoValue,
+    NewPotatoValueContainer,
     PotatoContainer,
     PotatoDescriptor,
     PotatoIcon,
@@ -18,27 +20,20 @@ import {
     UserName,
 } from './Interface'
 import { UserContext } from 'pages/Dashboard'
-import Potato from 'assets/potatoes/MEDIUM.svg'
+import Potato_Hot from 'assets/potatoes/MEDIUM.svg'
+import Potato_Fresh from 'assets/potatoes/FRESH.svg'
 import React, { useCallback } from 'react'
 import UserPic from 'assets/user.png'
 
-export const PotatoInterface = () => {
-    const potatoHeader = useCallback((hasPotato: boolean) => {
-        const potatoText = hasPotato ? 'You have a potato!' : 'Create a potato!'
-
-        return <HeaderText>{potatoText}</HeaderText>
-    }, [])
-
+const hasPotatoInterface = () => {
     return (
         <InterfaceContainer>
             <InterfaceHeader>
-                <UserContext.Consumer>
-                    {value => potatoHeader(value.hasPotato)}
-                </UserContext.Consumer>
+                <HeaderText>You have a potato!</HeaderText>
             </InterfaceHeader>
 
             <PotatoContainer>
-                <PotatoIcon src={Potato} />
+                <PotatoIcon src={Potato_Hot} />
                 <PotatoDescriptor>It's super hot!</PotatoDescriptor>
             </PotatoContainer>
 
@@ -89,5 +84,74 @@ export const PotatoInterface = () => {
 
             <InterfaceHeader />
         </InterfaceContainer>
+    )
+}
+
+const noPotatoInterface = () => {
+    return (
+        <InterfaceContainer>
+            <InterfaceHeader>
+                <HeaderText>Create a potato!</HeaderText>
+            </InterfaceHeader>
+
+            <PotatoContainer>
+                <PotatoIcon src={Potato_Fresh} />
+                <PotatoDescriptor>
+                    You don't have a potato right now.
+                </PotatoDescriptor>
+                <PotatoDescriptor>
+                    Create one to send to your friends!
+                </PotatoDescriptor>
+            </PotatoContainer>
+
+            <NewPotatoValueContainer>
+                <SectionTitle>The value of your new potato:</SectionTitle>
+                <NewPotatoValue>$1</NewPotatoValue>
+            </NewPotatoValueContainer>
+
+            <SubmitContainer>
+                <SubmitButton>
+                    <Button
+                        buttonType={ButtonTypes.Primary}
+                        buttonSize={ButtonSizes.Small}
+                        text={'Send it'}
+                        onClickHandler={(e: React.MouseEvent) => {
+                            console.log('boom')
+                        }}
+                    />
+                </SubmitButton>
+                <SubmitButton>
+                    <Button
+                        buttonType={ButtonTypes.Primary}
+                        buttonSize={ButtonSizes.Small}
+                        text={'Pay it'}
+                        onClickHandler={(e: React.MouseEvent) => {
+                            console.log('boom')
+                        }}
+                    />
+                </SubmitButton>
+            </SubmitContainer>
+
+            <InfoText>
+                This potato is worth $1.00 USD. To create a potato of greater
+                value please download our app for iOS or Android. All proceeds
+                from potato donations go towards the charity/nonprofit of your
+                choice.
+            </InfoText>
+
+            <InterfaceHeader />
+        </InterfaceContainer>
+    )
+}
+
+export const PotatoInterface = () => {
+    const potatoState = useCallback((hasPotato: boolean) => {
+        return hasPotato ? hasPotatoInterface() : noPotatoInterface()
+    }, [])
+
+    return (
+        <UserContext.Consumer>
+            {value => potatoState(value.hasPotato)}
+        </UserContext.Consumer>
     )
 }

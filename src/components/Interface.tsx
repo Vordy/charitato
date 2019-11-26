@@ -70,6 +70,25 @@ export const HistoryItem = styled.div`
     flex-direction: row;
 `
 
+export const NewPotatoValueContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 40%;
+    align-self: center;
+`
+
+export const NewPotatoValue = styled.div`
+    border: solid 10px ${Colors.LightGreen};
+    border-radius: 999px;
+    height: 100px;
+    width: 100px;
+    font-size: 200%;
+    align-self: center;
+`
+
 export const UserIcon = styled.img`
     align-self: center;
     width: 10%;
