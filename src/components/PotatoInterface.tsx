@@ -1,6 +1,6 @@
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
-import { DashboardModal } from 'components/DashboardModals'
+import { DashboardModal, ShowModal } from 'components/DashboardModals'
 import {
     HeaderText,
     HistoryContainer,
@@ -26,6 +26,13 @@ import Potato_Fresh from 'assets/potatoes/FRESH.svg'
 import Potato_Hot from 'assets/potatoes/MEDIUM.svg'
 import React, { useCallback } from 'react'
 import UserPic from 'assets/user.png'
+
+
+const defaultModal = {
+    name: "error: no modal",
+    data: {}
+}
+export const ModalContext = React.createContext(defaultModal)
 
 const HasPotatoInterface = () => {
     return (
@@ -98,6 +105,14 @@ const HasPotatoInterface = () => {
 }
 
 const NoPotatoInterface = () => {
+    const createPotatoModalData = {
+        name: "createPotatoModal",
+        data: {
+            openText: "Create potato",
+            startOpen: false,
+        }
+    }
+
     return (
         <InterfaceContainer>
             <InterfaceHeader>
@@ -123,6 +138,9 @@ const NoPotatoInterface = () => {
 
             <SubmitContainer>
                 <SubmitButton>
+                    <ModalContext.Provider value={createPotatoModalData}>
+                        <ShowModal />
+                    </ModalContext.Provider>
                     <DashboardModal
                         {...{
                             modalName: 'createPotatoModal',

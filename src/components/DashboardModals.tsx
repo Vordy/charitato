@@ -2,9 +2,10 @@ import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import { Colors } from 'theme/Colors'
 import { getTheme } from 'theme/themes'
-import { SendPotato } from 'components/PotatoActions'
+import { ModalContext } from 'components/PotatoInterface'
+import { SendPotato, NewPotato } from 'components/PotatoActions'
 import newPotatoImage from 'assets/potatoes/FRESH.svg'
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import ReactModal from 'react-modal'
 import styled from '@emotion/styled'
 
@@ -79,6 +80,84 @@ type inputProps = {
     openText: string
     modalAction: () => Promise<string>
     startOpen?: boolean
+}
+
+const CreatePotatoModal = (props: any) => {
+    let startVal = false
+    if (props.data.startOpen !== undefined) {
+        startVal = props.data.startOpen
+    }
+
+    const [showModal, setShowModal] = useState(startVal) //change to default to false
+    const [potatoState, setPotatoState] = useState('')
+
+    const handleOpenModal = () => {
+        setShowModal(true)
+        const rootHTML = document.getElementById('root')
+        if (rootHTML !== null) {
+            rootHTML.style.filter = 'blur(5px)'
+        }
+    }
+
+    const handleCloseModal = () => {
+        setShowModal(false)
+        const rootHTML = document.getElementById('root')
+        if (rootHTML !== null) {
+            rootHTML.style.filter = 'blur(0px)'
+        }
+    }
+
+    return (
+        <div>
+            <Button
+                buttonType={ButtonTypes.Primary}
+                buttonSize={ButtonSizes.Small}
+                text={props.data.openText}
+                onClickHandler={async (e: React.MouseEvent) => {
+                    const resp = await NewPotato()
+                    // setPotatoState(resp)
+                    handleOpenModal()
+                }}
+            />
+            <Modal isOpen={showModal} contentLabel={props.name}>
+                <Test>
+                    <PotatoIcon src={newPotatoImage} />
+                    <div>Congrats, you’ve created a charitato!</div>
+                    <div>Now it's time to send it</div>
+                    <CopyBox>
+                        {SendPotato(potatoState)}
+                        <CopyButton>
+                            <Button
+                                buttonType={ButtonTypes.Primary}
+                                buttonSize={ButtonSizes.Small}
+                                text={'Copy'}
+                                onClickHandler={(e: React.MouseEvent) => {
+                                    handleCloseModal()
+                                }}
+                            />
+                        </CopyButton>
+                    </CopyBox>
+
+                    <OrContainer>
+                        <Line />
+                        OR
+                        <Line />
+                    </OrContainer>
+
+                    <SubmitButton>
+                        <Button
+                            buttonType={ButtonTypes.Primary}
+                            buttonSize={ButtonSizes.Small}
+                            text={'Friends'}
+                            onClickHandler={(e: React.MouseEvent) => {
+                                handleCloseModal()
+                            }}
+                        />
+                    </SubmitButton>
+                </Test>
+            </Modal>
+        </div>
+    )
 }
 
 export const DashboardModal = (values: inputProps) => {
@@ -174,5 +253,34 @@ export const DashboardModal = (values: inputProps) => {
                 {SelectModal(modalName)}
             </Modal>
         </div>
+    )
+}
+
+export const ShowModal = () => {
+    const modalState = useCallback((props: any) => {
+        if (props.name === 'createPotatoModal') {
+            return CreatePotatoModal(props)
+        } else {
+            return <div>{props.name}</div>
+        }
+    }, [])
+
+    const createPotatoModalData = {
+        name: "createPotatoModal",
+        data: {
+            openText: "Create potato",
+            startOpen: false,
+        }
+    }
+    // <ModalContext.Consumer>
+        //     {value => modalState(value)}
+        // </ModalContext.Consumer>
+    return (
+        <>
+        {CreatePotatoModal(createPotatoModalData)}
+        {/* <ModalContext.Consumer>
+            {value => modalState(value)}
+        </ModalContext.Consumer> */}
+        </>    
     )
 }
