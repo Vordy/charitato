@@ -106,3 +106,21 @@ export const NewsItem = styled.div`
     display: flex;
     flex-direction: row;
 `;
+
+export const MenuContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: ${Colors.LavendarCream};
+    border-radius: 999px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+`;
+
+export const MenuItem = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+`;
