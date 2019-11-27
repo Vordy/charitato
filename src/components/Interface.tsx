@@ -19,9 +19,9 @@ export const InterfaceContainer = styled.div`
 `
 
 export const InterfaceHeader = styled.div`
-    display: table;
+    display: flex;
     background-color: ${Colors.Rose};
-    height: 6%;
+    padding-left: 8px;
 `
 
 export const HeaderText = styled.p`
@@ -95,3 +95,14 @@ export const SubmitButton = styled.div`
     border-radius: 999px;
     cursor: pointer;
 `
+
+export const NewsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+`;
+
+export const NewsItem = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
