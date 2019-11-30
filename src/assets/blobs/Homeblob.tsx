@@ -11,15 +11,15 @@ export const Homeblob = (props: Props) => {
             style={props.style}
         >
             <style />
-            <g filter="url(#filter0_i)">
+            <g filter="url(#filter0_i_HomeBlob)">
                 <path
                     d="M151 235C303.001 345 216.999 481.5 121.499 589C71.1739 645.649 38.2777 714.897 21.5 763C-1.34508 828.5 -4.00008 821.712 4.5 958.5C13.0001 1095.29 406.293 1479 675 1203C943.707 927 744.9 948.312 752.5 928.712C760.1 909.112 804.333 336.879 737.5 -41.2874C593.167 -57.6207 239.799 -58.0872 176.999 -41.2872C114.199 -24.4872 -1.00047 125 151 235Z"
-                    fill="url(#paint0_linear)"
+                    fill="url(#paint0_linear_HomeBlob)"
                 />
             </g>
             <defs>
                 <filter
-                    id="filter0_i"
+                    id="filter0_i_HomeBlob"
                     x="0.0527344"
                     y="-53.7129"
                     width="850.144"
@@ -59,7 +59,7 @@ export const Homeblob = (props: Props) => {
                     />
                 </filter>
                 <linearGradient
-                    id="paint0_linear"
+                    id="paint0_linear_HomeBlob"
                     x1="119.5"
                     y1="161.212"
                     x2="774.001"
