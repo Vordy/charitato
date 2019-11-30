@@ -13,25 +13,32 @@ import {
     SubmitContainer,
     UserIcon,
     UserName,
-} from './Interface'
-import Potato from '../assets/potatoes/MEDIUM.svg'
+} from 'components/Interface'
+import { localize } from 'assets/strings/localize'
+import Potato from 'assets/potatoes/MEDIUM.svg'
 import React from 'react'
-import UserPic from '../assets/user.png'
+import UserPic from 'assets/user.png'
 
 export const PotatoInterface = () => {
     return (
         <InterfaceContainer>
             <InterfaceHeader>
-                <HeaderText>You have a potato!</HeaderText>
+                <HeaderText>
+                    {localize('char.dashboard.potato.haveAPotato')}
+                </HeaderText>
             </InterfaceHeader>
 
             <PotatoContainer>
                 <PotatoIcon src={Potato} />
-                <PotatoDescriptor>It's super hot!</PotatoDescriptor>
+                <PotatoDescriptor>
+                    {localize('char.dashboard.potato.status.superHot')}
+                </PotatoDescriptor>
             </PotatoContainer>
 
             <HistoryContainer>
-                <SectionTitle>History</SectionTitle>
+                <SectionTitle>
+                    {localize('char.dashboard.potato.history')}
+                </SectionTitle>
                 <HistoryScroller>
                     <HistoryItem>
                         <UserIcon src={UserPic} />

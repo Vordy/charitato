@@ -1,5 +1,6 @@
 import { getTheme, switchTheme } from 'theme/themes'
 import { Link } from 'react-router-dom'
+import { localize } from 'assets/strings/localize'
 import Logo from 'assets/logo.svg'
 import React from 'react'
 import styled from '@emotion/styled'
@@ -37,13 +38,15 @@ export const NavBar = () => {
         <Bar>
             <LogoItem src={Logo} onClick={switchTheme} />
 
-            <NavItem to="/">Home</NavItem>
+            <NavItem to="/">{localize('char.navbar.main.home')}</NavItem>
 
-            <NavItem to="/dashboard">Dashboard</NavItem>
+            <NavItem to="/dashboard">
+                {localize('char.navbar.main.dashboard')}
+            </NavItem>
 
-            <NavItem to="/">Partners</NavItem>
+            <NavItem to="/">{localize('char.navbar.main.partners')}</NavItem>
 
-            <NavItem to="/">Milestones</NavItem>
+            <NavItem to="/">{localize('char.navbar.main.milestones')}</NavItem>
         </Bar>
     )
 }
