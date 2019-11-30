@@ -3,27 +3,26 @@ import React, { CSSProperties } from 'react'
 export const Homeblob = (props: Props) => {
     return (
         <svg
-            width="668"
-            height="1301"
-            viewBox="0 0 668 1301"
+            width="690"
+            height="1492"
+            viewBox="0 0 690 1492"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             style={props.style}
         >
-            <style />
             <g filter="url(#filter0_i)">
                 <path
-                    d="M151 235C303.001 345 216.999 481.5 121.499 589C71.1739 645.649 38.2777 714.897 21.5 763C-1.34508 828.5 -4.00008 821.712 4.5 958.5C13.0001 1095.29 406.293 1479 675 1203C943.707 927 744.9 948.312 752.5 928.712C760.1 909.112 804.333 336.879 737.5 -41.2874C593.167 -57.6207 239.799 -58.0872 176.999 -41.2872C114.199 -24.4872 -1.00047 125 151 235Z"
+                    d="M170.538 280.114C344.626 406.127 246.126 562.498 136.75 685.647C79.1113 750.543 37.4267 830.444 18.2109 885.55C12.2187 902.733 -19.5851 1023.02 18.2107 1111.8C56.0065 1200.58 462.927 1705.21 770.681 1389.03C1078.44 1072.85 972.446 649.89 951.183 543.925C918.542 381.253 856.695 140.11 734.719 37.0084C528.562 -137.248 267.606 -68.2665 200.315 -36.3935C119.113 2.06845 -3.55072 154.101 170.538 280.114Z"
                     fill="url(#paint0_linear)"
                 />
             </g>
             <defs>
                 <filter
                     id="filter0_i"
-                    x="0.0527344"
-                    y="-53.7129"
-                    width="850.144"
-                    height="1358.2"
+                    x="0"
+                    y="-77"
+                    width="986"
+                    height="1569"
                     filterUnits="userSpaceOnUse"
                     colorInterpolationFilters="sRGB"
                 >
@@ -40,8 +39,8 @@ export const Homeblob = (props: Props) => {
                         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
                         result="hardAlpha"
                     />
-                    <feOffset dx="37" dy="4" />
-                    <feGaussianBlur stdDeviation="17" />
+                    <feOffset />
+                    <feGaussianBlur stdDeviation="40" />
                     <feComposite
                         in2="hardAlpha"
                         operator="arithmetic"
@@ -50,7 +49,7 @@ export const Homeblob = (props: Props) => {
                     />
                     <feColorMatrix
                         type="matrix"
-                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.14 0"
+                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"
                     />
                     <feBlend
                         mode="normal"
@@ -60,14 +59,14 @@ export const Homeblob = (props: Props) => {
                 </filter>
                 <linearGradient
                     id="paint0_linear"
-                    x1="119.5"
-                    y1="161.212"
-                    x2="774.001"
-                    y2="919.712"
+                    x1="134.46"
+                    y1="195.585"
+                    x2="884.263"
+                    y2="1064.33"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stopColor="#FF0099" />
-                    <stop offset="1" stopColor="#FFE600" />
+                    <stop stop-color="#FF0099" />
+                    <stop offset="1" stopColor="#FFE600" stopOpacity="0.7" />
                 </linearGradient>
             </defs>
         </svg>
