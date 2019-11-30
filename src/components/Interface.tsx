@@ -1,5 +1,5 @@
-import { Colors } from '../theme/Colors'
-import { getTheme } from '../theme/themes'
+import { Colors } from 'theme/Colors'
+import { getTheme } from 'theme/themes'
 import styled from '@emotion/styled'
 
 export const InterfaceContainer = styled.div`
