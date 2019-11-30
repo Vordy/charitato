@@ -20,6 +20,8 @@ const DashboardContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
 `
 
+const ALERT_NUMBER = 2
+
 const Dashboard = () => {
     const post = async () => {
         const response = await API.post('UserAPI', '/items', {
@@ -28,15 +30,15 @@ const Dashboard = () => {
                 name: 'hello amplify!',
             },
         })
-        alert(JSON.stringify(response, null, 2))
+        alert(JSON.stringify(response, null, ALERT_NUMBER))
     }
     const get = async () => {
         const response = await API.get('UserAPI', '/items/object/1', null)
-        alert(JSON.stringify(response, null, 2))
+        alert(JSON.stringify(response, null, ALERT_NUMBER))
     }
     const list = async () => {
         const response = await API.get('UserAPI', '/items/1', null)
-        alert(JSON.stringify(response, null, 2))
+        alert(JSON.stringify(response, null, ALERT_NUMBER))
     }
 
     return (

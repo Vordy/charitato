@@ -50,6 +50,10 @@ const SubText = styled.div`
 export const Home = () => {
     const history = useHistory()
 
+    const onClickEvent = (event: React.MouseEvent) => {
+        history.push('/dashboard')
+    }
+
     return (
         <>
             <HomeContainer>
@@ -63,9 +67,7 @@ export const Home = () => {
                         buttonType={ButtonTypes.Primary}
                         buttonSize={ButtonSizes.Large}
                         text={'Send a potato'}
-                        onClickHandler={(e: React.MouseEvent) => {
-                            history.push('/dashboard')
-                        }}
+                        onClickHandler={onClickEvent}
                     />
                 </SplashHeader>
             </HomeContainer>

@@ -1,6 +1,5 @@
-import { getTheme } from 'theme/themes'
+import { getTheme, switchTheme } from 'theme/themes'
 import { Link } from 'react-router-dom'
-import { switchTheme } from 'theme/themes'
 import Logo from 'assets/logo.svg'
 import React from 'react'
 import styled from '@emotion/styled'
@@ -34,10 +33,9 @@ const NavItem = styled(Link)`
 `
 
 export const NavBar = () => {
-
     return (
         <Bar>
-            <LogoItem src={Logo} onClick={switchTheme}></LogoItem>
+            <LogoItem src={Logo} onClick={switchTheme} />
 
             <NavItem to="/">Home</NavItem>
 

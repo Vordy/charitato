@@ -5,11 +5,11 @@ import { Login } from 'common/login'
 import Dashboard from 'pages/Dashboard'
 
 export const Routes = () => {
-	return (
-		<Switch>
-			<Route exact path="/" component={Home} />
-			<Route exact path="/login" component={Login} />
-			<Route exact path="/dashboard" component={Dashboard} />
-		</Switch>
-	)
+    return (
+        <Switch>
+            <Route exact={true} path="/" component={Home} />
+            <Route exact={true} path="/login" component={Login} />
+            <Route exact={true} path="/dashboard" component={Dashboard} />
+        </Switch>
+    )
 }
