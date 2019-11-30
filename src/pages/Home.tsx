@@ -69,7 +69,7 @@ export const Home = () => {
                     <Button
                         buttonType={ButtonTypes.Primary}
                         buttonSize={ButtonSizes.Large}
-                        text={'Send a potato'}
+                        text={localize('char.home.spash.button.sendAPotato')}
                         onClickHandler={onClickEvent}
                     />
                 </SplashHeader>
