@@ -40,7 +40,8 @@ const getAuth = async () => {
 const setUpUserInstance = async (user: any) => {
     await API.post('UserAPI', '/items', {
         body: {
-            id: user.getUsername(),
+            id: user.username,
+            version: '1a', //version 1, user instance
             name: user.attributes.name,
             hasPotato: false,
         },
@@ -85,8 +86,6 @@ const Dashboard = () => {
     return (
         <UserContext.Provider value={userState}>
             <DashboardContainer>
-                <PotatoInterface />
-                <PotatoInterface />
                 <PotatoInterface />
             </DashboardContainer>
         </UserContext.Provider>

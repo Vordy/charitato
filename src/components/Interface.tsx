@@ -43,7 +43,9 @@ export const PotatoIcon = styled.img`
     height: auto;
 `
 
-export const PotatoDescriptor = styled.p``
+export const PotatoDescriptor = styled.p`
+    font-weight: 300;
+`
 
 export const HistoryContainer = styled.div`
     display: flex;
@@ -68,6 +70,27 @@ export const HistoryItem = styled.div`
     flex-direction: row;
 `
 
+export const NewPotatoValueContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 40%;
+    align-self: center;
+`
+
+export const NewPotatoValue = styled.div`
+    border: solid 10px ${Colors.LightGreen};
+    border-radius: 999px;
+    height: 100px;
+    width: 100px;
+    font-size: 200%;
+    display: table;
+    margin-top: 20px;
+    box-shadow: 0px 0px 18px ${Colors.LightGreen};
+`
+
 export const UserIcon = styled.img`
     align-self: center;
     width: 10%;
@@ -84,14 +107,19 @@ export const SubmitContainer = styled.div`
     flex-direction: row;
     justify-content: space-around;
     height: 5%;
+    margin-bottom: 20px;
 `
 
 export const SubmitButton = styled.div`
     display: table;
-    background-color: ${Colors.Rose};
-    color: ${Colors.White};
     width: 35%;
     height: 100%;
-    border-radius: 999px;
-    cursor: pointer;
+`
+
+export const InfoText = styled.p`
+    font-size: 8pt;
+    text-align: left;
+    margin-left: 2%;
+    margin-right: 2%;
+    font-weight: 1;
 `
