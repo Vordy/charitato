@@ -6,14 +6,7 @@ import { withAuthenticator } from 'aws-amplify-react'
 import AmplifyTheme from 'theme/auth_theme'
 import React, { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
-
-const DefaultUser = {
-    username: 'loading...',
-    name: 'loading...',
-    hasPotato: false,
-}
-
-export const UserContext = React.createContext(DefaultUser)
+import { UserStateResource } from 'common/user_state'
 
 const DashboardContainer = styled.div`
     width: 100%;
@@ -28,69 +21,19 @@ const DashboardContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
 `
 
-const getAuth = async () => {
-    try {
-        const user = await Auth.currentAuthenticatedUser()
-        return user
-    } catch (err) {
-        return null
-    }
-}
-
-const setUpUserInstance = async (user: any) => {
-    await API.post('UserAPI', '/items', {
-        body: {
-            id: user.username,
-            version: '1a', //version 1, user instance
-            name: user.attributes.name,
-            hasPotato: false,
-        },
-    })
-}
+// const user = UserStateResource()
 
 const ALERT_NUMBER = 2
 
 const Dashboard = () => {
-    const [userState, setUserState] = useState(DefaultUser)
+    const [userState, setUserState] = useState({})
 
-    const getUserInstance = async () => {
-        const user = await getAuth()
-        if (user === null) {
-            alert('Site error: user not authenticated while in Dashboard')
-        }
-
-        const response = await API.get(
-            'UserAPI',
-            `/items/object/${user.username}`,
-            null
-        )
-
-        //check if object is empty (no DB entry)
-        if (
-            Object.entries(response).length === 0 &&
-            response.constructor === Object
-        ) {
-            setUpUserInstance(user)
-            const newUser = await API.get(
-                'UserAPI',
-                `/items/object/${user.username}`,
-                null
-            )
-            setUserState(newUser)
-        }
-        setUserState(response)
-    }
-
-    useEffect(() => {
-        getUserInstance()
-    }, [])
+    const user = UserStateResource()
 
     return (
-        <UserContext.Provider value={userState}>
-            <DashboardContainer>
-                <PotatoInterface />
-            </DashboardContainer>
-        </UserContext.Provider>
+        <DashboardContainer>
+            <div>Yo</div>
+        </DashboardContainer>
     )
 }
 

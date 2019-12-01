@@ -1,4 +1,5 @@
 import { Auth, API } from 'aws-amplify'
+import { useState, useEffect } from 'react'
 
 type User = {
     username: string
@@ -6,7 +7,10 @@ type User = {
 }
 
 type Instance = {
+    id: string
+    version: string
     hasPotato: boolean
+    name: string
 }
 
 type UserState = {
@@ -35,12 +39,26 @@ const getInstance = async (username: string): Promise<Instance> => {
     return response
 }
 
+const setUpUserInstance = async (user: User) => {
+    const initialUser: Instance = {
+        id: user.username,
+        version: '1a', // version 1, user instance
+        name: user.name,
+        hasPotato: false,
+    }
+
+    await API.post('UserAPI', '/items', { body: initialUser })
+
+    return initialUser
+}
+
 const getUserState = async () => {
     let result: UserState = {
         isAuth: false,
         hasInstance: false,
     }
 
+    console.log('Setting up user state: ')
     const user = await getAuth()
     if (user === null) {
         return result
@@ -50,16 +68,33 @@ const getUserState = async () => {
         result.name = user.name
     }
 
-    const instance = await getInstance(user.username)
+    let instance = await getInstance(user.username)
     if (
         Object.entries(instance).length === 0 &&
         instance.constructor === Object
     ) {
-        return result
-    } else {
-        result.hasInstance = true
-        result.hasPotato = instance.hasPotato
+        instance = await setUpUserInstance(user)
     }
 
+    result.hasInstance = true
+    result.hasPotato = instance.hasPotato
+
+    console.log(result)
     return result
+}
+
+export const UserStateResource = () => {
+    const [data, setData] = useState({ state: {}, isLoading: false })
+
+    useEffect(() => {
+        const userState = async () => {
+            setData({ state: {}, isLoading: true })
+            const result = await getUserState()
+            setData({ state: result, isLoading: true })
+        }
+
+        userState()
+    }, [])
+
+    return data
 }
