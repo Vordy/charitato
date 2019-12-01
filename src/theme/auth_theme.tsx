@@ -1,4 +1,5 @@
-/* Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+/**
+ * Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -14,7 +15,7 @@ import { Colors } from './Colors'
 import { getTheme } from './themes'
 
 export const Container = {
-    fontFamily: "Helvetica Nueue, roboto, Arial, Helvetica, sans-serif"
+    fontFamily: 'Helvetica Nueue, roboto, Arial, Helvetica, sans-serif',
 }
 export const FormContainer = {}
 export const FormSection = {}
@@ -28,8 +29,8 @@ export const Input = {}
 export const Button = {
     backgroundColor: Colors.Rose,
     borderColor: Colors.Rose,
-    fontWeight: 850,
     borderRadius: '25px',
+    fontWeight: 850,
 }
 export const PhotoPickerButton = {}
 export const PhotoPlaceholder = {}
@@ -53,12 +54,12 @@ export const GoogleSignInButton = {}
 export const OAuthSignInButton = {}
 export const Toast = {}
 export const NavBar = {
-    position: 'absolute',
-    top: '0',
-    right: '0',
-    border: 'none',
     backgroundColor: getTheme().background,
-    color: getTheme().foreground
+    border: 'none',
+    color: getTheme().foreground,
+    position: 'absolute',
+    right: '0',
+    top: '0',
 }
 export const NavRight = {}
 export const Nav = {}
@@ -69,46 +70,41 @@ export const NavButton = {
 }
 
 const AmplifyTheme = {
+    a: A,
+    actionRow: ActionRow,
+    amazonSignInButton: AmazonSignInButton,
+    button: Button,
     container: Container,
+    facebookSignInButton: FacebookSignInButton,
     formContainer: FormContainer,
-    formSection: FormSection,
     formField: FormField,
-
-    sectionHeader: SectionHeader,
+    formRow: FormRow,
+    formSection: FormSection,
+    googleSignInButton: GoogleSignInButton,
+    hint: Hint,
+    input: Input,
+    inputLabel: InputLabel,
+    label: Label,
+    nav: Nav,
+    navBar: NavBar,
+    navButton: NavButton,
+    navItem: NavItem,
+    navRight: NavRight,
+    oAuthSignInButton: OAuthSignInButton,
+    photoPickerButton: PhotoPickerButton,
+    photoPlaceholder: PhotoPlaceholder,
+    radio: Radio,
     sectionBody: SectionBody,
     sectionFooter: SectionFooter,
     sectionFooterPrimaryContent: SectionFooterPrimaryContent,
     sectionFooterSecondaryContent: SectionFooterSecondaryContent,
-
-    input: Input,
-    button: Button,
-    photoPickerButton: PhotoPickerButton,
-    photoPlaceholder: PhotoPlaceholder,
+    sectionHeader: SectionHeader,
     signInButton: SignInButton,
-    signInButtonIcon: SignInButtonIcon,
     signInButtonContent: SignInButtonContent,
-    amazonSignInButton: AmazonSignInButton,
-    facebookSignInButton: FacebookSignInButton,
-    googleSignInButton: GoogleSignInButton,
-    oAuthSignInButton: OAuthSignInButton,
-
-    formRow: FormRow,
+    signInButtonIcon: SignInButtonIcon,
     strike: Strike,
     strikeContent: StrikeContent,
-    actionRow: ActionRow,
-    a: A,
-
-    hint: Hint,
-    radio: Radio,
-    label: Label,
-    inputLabel: InputLabel,
     toast: Toast,
-
-    navBar: NavBar,
-    nav: Nav,
-    navRight: NavRight,
-    navItem: NavItem,
-    navButton: NavButton,
 }
 
 export default AmplifyTheme

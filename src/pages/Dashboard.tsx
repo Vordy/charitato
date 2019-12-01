@@ -48,6 +48,8 @@ const setUpUserInstance = async (user: any) => {
     })
 }
 
+const ALERT_NUMBER = 2
+
 const Dashboard = () => {
     const [userState, setUserState] = useState(DefaultUser)
 

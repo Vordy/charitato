@@ -8,10 +8,9 @@ import React from 'react'
 export const Routes = () => {
     return (
         <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/dashboard" component={Dashboard} />
-			<Route exact path="/potato/:potatoID" component={RecPotato} />
+            <Route exact={true} path="/" component={Home} />
+            <Route exact={true} path="/login" component={Login} />
+            <Route exact={true} path="/dashboard" component={Dashboard} />
         </Switch>
     )
 }

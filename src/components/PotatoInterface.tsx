@@ -13,19 +13,16 @@ import {
     NewPotatoValueContainer,
     PotatoContainer,
     PotatoDescriptor,
-    PotatoIcon,
     SectionTitle,
     SubmitButton,
     SubmitContainer,
     UserIcon,
     UserName,
 } from './Interface'
-import { UserContext } from 'pages/Dashboard'
-import { NewPotato } from 'components/PotatoActions'
-import Potato_Fresh from 'assets/potatoes/FRESH.svg'
-import Potato_Hot from 'assets/potatoes/MEDIUM.svg'
+import { Potato, PotatoTypes } from 'assets/potatoes/potato'
 import React, { useCallback } from 'react'
-import UserPic from 'assets/user.png'
+
+import AnonUserPic from 'assets/users/user.png'
 
 
 const defaultModal = {
@@ -42,7 +39,10 @@ const HasPotatoInterface = () => {
             </InterfaceHeader>
 
             <PotatoContainer>
-                <PotatoIcon src={Potato_Hot} />
+                <Potato
+                    type={PotatoTypes.Medium}
+                    style={{ width: '50%', height: 'auto' }}
+                />
                 <PotatoDescriptor>It's super hot!</PotatoDescriptor>
             </PotatoContainer>
 
@@ -50,19 +50,19 @@ const HasPotatoInterface = () => {
                 <SectionTitle>History</SectionTitle>
                 <HistoryScroller>
                     <HistoryItem>
-                        <UserIcon src={UserPic} />
+                        <UserIcon src={AnonUserPic} />
                         <UserName>Bob Marley</UserName>
                     </HistoryItem>
                     <HistoryItem>
-                        <UserIcon src={UserPic} />
+                        <UserIcon src={AnonUserPic} />
                         <UserName>Bob Marley</UserName>
                     </HistoryItem>
                     <HistoryItem>
-                        <UserIcon src={UserPic} />
+                        <UserIcon src={AnonUserPic} />
                         <UserName>Bob Marley</UserName>
                     </HistoryItem>
                     <HistoryItem>
-                        <UserIcon src={UserPic} />
+                        <UserIcon src={AnonUserPic} />
                         <UserName>Bob Marley</UserName>
                     </HistoryItem>
                 </HistoryScroller>
