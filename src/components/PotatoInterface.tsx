@@ -7,17 +7,16 @@ import {
     InterfaceHeader,
     PotatoContainer,
     PotatoDescriptor,
-    PotatoIcon,
     SectionTitle,
     SubmitButton,
     SubmitContainer,
     UserIcon,
     UserName,
 } from 'components/Interface'
+import { Potato, PotatoTypes } from 'assets/potatoes/potato'
+import AnonUserPic from 'assets/users/user.png'
 import { localize } from 'assets/strings/localize'
-import Potato from 'assets/potatoes/MEDIUM.svg'
 import React from 'react'
-import UserPic from 'assets/user.png'
 
 export const PotatoInterface = () => {
     return (
@@ -29,7 +28,10 @@ export const PotatoInterface = () => {
             </InterfaceHeader>
 
             <PotatoContainer>
-                <PotatoIcon src={Potato} />
+                <Potato
+                    type={PotatoTypes.Medium}
+                    style={{ width: '50%', height: 'auto' }}
+                />
                 <PotatoDescriptor>
                     {localize('char.dashboard.potato.status.superHot')}
                 </PotatoDescriptor>
@@ -41,11 +43,11 @@ export const PotatoInterface = () => {
                 </SectionTitle>
                 <HistoryScroller>
                     <HistoryItem>
-                        <UserIcon src={UserPic} />
+                        <UserIcon src={AnonUserPic} />
                         <UserName>Bob Marley</UserName>
                     </HistoryItem>
                     <HistoryItem>
-                        <UserIcon src={UserPic} />
+                        <UserIcon src={AnonUserPic} />
                         <UserName>Bob Marley</UserName>
                     </HistoryItem>
                 </HistoryScroller>
