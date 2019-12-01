@@ -11,7 +11,7 @@ const getAuth = async () => {
     }
 }
 
-//Returns an object of potato info
+// Returns an object of potato info
 export const getPotatoInfo = async (potatoID: string) => {
     const potatoInfo = await API.get(
         'UserAPI',
@@ -61,10 +61,10 @@ const setUpPotatoInstance = async (userID: string, potatoID: string) => {
     await API.post('UserAPI', '/items', {
         body: {
             id: potatoID,
-            version: '1b', //version 1, potato entry
+            version: '1b', // version 1, potato entry
             history: [userID],
             timeCreated: Math.floor(Date.now() / 1000),
-            timeOfDeath: Math.floor(Math.random() * 432000) + Math.floor(Date.now() / 1000), //Random between 0 and 4 days TODO: make this better, less hardocded
+            timeOfDeath: Math.floor(Math.random() * 432000) + Math.floor(Date.now() / 1000), // Random between 0 and 4 days TODO: make this better, less hardocded
         },
     })
 }
@@ -95,7 +95,7 @@ const addPotatoToUser = async (
 // ModalActions
 // ============================================================
 
-//NewPotato - generates a new potato, adds to user history and adds user to potato history
+// NewPotato - generates a new potato, adds to user history and adds user to potato history
 export const NewPotato = async () => {
     const potatoID = v4() //get id for potato
     const user = await getAuth() //get id for user
