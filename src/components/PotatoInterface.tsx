@@ -1,6 +1,5 @@
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
-import { DashboardModal, ShowModal } from 'components/DashboardModals'
 import {
     HeaderText,
     HistoryContainer,
@@ -9,8 +8,6 @@ import {
     InfoText,
     InterfaceContainer,
     InterfaceHeader,
-    NewPotatoValue,
-    NewPotatoValueContainer,
     PotatoContainer,
     PotatoDescriptor,
     SectionTitle,
@@ -20,7 +17,7 @@ import {
     UserName,
 } from './Interface'
 import { Potato, PotatoTypes } from 'assets/potatoes/potato'
-import React, { useCallback } from 'react'
+import React  from 'react'
 
 import AnonUserPic from 'assets/users/user.png'
 
