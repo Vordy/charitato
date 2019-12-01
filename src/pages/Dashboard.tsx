@@ -1,9 +1,9 @@
 import { API } from 'aws-amplify'
-import { getTheme } from '../theme/themes'
-import { signUpConfig } from '../common/auth_config'
+import { getTheme } from 'theme/themes'
+import { signUpConfig } from 'common/auth_config'
 import { withAuthenticator } from 'aws-amplify-react'
-import { PotatoInterface } from '../components/PotatoInterface'
-import AmplifyTheme from '../theme/auth_theme'
+import { PotatoInterface } from 'components/PotatoInterface'
+import AmplifyTheme from 'theme/auth_theme'
 import React from 'react'
 import styled from '@emotion/styled'
 

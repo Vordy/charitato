@@ -1,7 +1,8 @@
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
-import { getTheme } from '../theme/themes'
+import { getTheme } from 'theme/themes'
 import { Homeblob } from 'assets/blobs/Homeblob'
+import { localize } from 'assets/strings/localize'
 import { useHistory } from 'react-router'
 import React from 'react'
 import styled from '@emotion/styled'
@@ -59,14 +60,16 @@ export const Home = () => {
             <HomeContainer>
                 <SplashHeader>
                     <BoldText>
-                        Let’s make the world better <br />
-                        <SubText>one potato at a time</SubText>
+                        {localize('char.home.splash.mainText')} <br />
+                        <SubText>
+                            {localize('char.home.splash.subText')}
+                        </SubText>
                     </BoldText>
 
                     <Button
                         buttonType={ButtonTypes.Primary}
                         buttonSize={ButtonSizes.Large}
-                        text={'Send a potato'}
+                        text={localize('char.home.spash.button.sendAPotato')}
                         onClickHandler={onClickEvent}
                     />
                 </SplashHeader>

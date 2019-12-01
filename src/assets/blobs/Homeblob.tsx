@@ -3,9 +3,9 @@ import React, { CSSProperties } from 'react'
 export const Homeblob = (props: Props) => {
     return (
         <svg
-            width="668"
-            height="1301"
-            viewBox="0 0 668 1301"
+            width="690"
+            height="1492"
+            viewBox="0 0 690 1492"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             style={props.style}
@@ -40,8 +40,8 @@ export const Homeblob = (props: Props) => {
                         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
                         result="hardAlpha"
                     />
-                    <feOffset dx="37" dy="4" />
-                    <feGaussianBlur stdDeviation="17" />
+                    <feOffset />
+                    <feGaussianBlur stdDeviation="40" />
                     <feComposite
                         in2="hardAlpha"
                         operator="arithmetic"
@@ -50,7 +50,7 @@ export const Homeblob = (props: Props) => {
                     />
                     <feColorMatrix
                         type="matrix"
-                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.14 0"
+                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"
                     />
                     <feBlend
                         mode="normal"
@@ -66,8 +66,8 @@ export const Homeblob = (props: Props) => {
                     y2="919.712"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stopColor="#FF0099" />
-                    <stop offset="1" stopColor="#FFE600" />
+                    <stop stop-color="#FF0099" />
+                    <stop offset="1" stopColor="#FFE600" stopOpacity="0.7" />
                 </linearGradient>
             </defs>
         </svg>
