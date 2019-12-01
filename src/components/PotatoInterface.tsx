@@ -104,73 +104,8 @@ const HasPotatoInterface = () => {
     )
 }
 
-const NoPotatoInterface = () => {
-    const createPotatoModalData = {
-        name: "createPotatoModal",
-        data: {
-            openText: "Create potato",
-            startOpen: false,
-        }
-    }
-
-    return (
-        <InterfaceContainer>
-            <InterfaceHeader>
-                <HeaderText>Create a potato!</HeaderText>
-            </InterfaceHeader>
-
-            <PotatoContainer>
-                <PotatoIcon src={Potato_Fresh} />
-                <PotatoDescriptor>
-                    You don't have a potato right now.
-                </PotatoDescriptor>
-                <PotatoDescriptor>
-                    Create one to send to your friends!
-                </PotatoDescriptor>
-            </PotatoContainer>
-
-            <NewPotatoValueContainer>
-                <SectionTitle>The value of your new potato:</SectionTitle>
-                <NewPotatoValue>
-                    <p>$1</p>
-                </NewPotatoValue>
-            </NewPotatoValueContainer>
-
-            <SubmitContainer>
-                <SubmitButton>
-                    <ModalContext.Provider value={createPotatoModalData}>
-                        <ShowModal />
-                    </ModalContext.Provider>
-                    <DashboardModal
-                        {...{
-                            modalName: 'createPotatoModal',
-                            openText: 'Create potato',
-                            modalAction: NewPotato,
-                        }}
-                    />
-                </SubmitButton>
-            </SubmitContainer>
-
-            <InfoText>
-                This potato is worth $1.00 USD. To create a potato of greater
-                value please download our app for iOS or Android. All proceeds
-                from potato donations go towards the charity/nonprofit of your
-                choice.
-            </InfoText>
-
-            <InterfaceHeader />
-        </InterfaceContainer>
-    )
-}
-
 export const PotatoInterface = () => {
-    const potatoState = useCallback((hasPotato: boolean) => {
-        return hasPotato ? HasPotatoInterface() : NoPotatoInterface()
-    }, [])
-
     return (
-        <UserContext.Consumer>
-            {value => potatoState(value.hasPotato)}
-        </UserContext.Consumer>
+        <HasPotatoInterface />
     )
 }
