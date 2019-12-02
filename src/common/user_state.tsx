@@ -1,7 +1,5 @@
 import { Auth, API } from 'aws-amplify'
 import { useState, useEffect } from 'react'
-import { ICognitoUserData, CognitoUser } from 'amazon-cognito-identity-js'
-import { userInfo } from 'os'
 
 type User = {
     username: string
@@ -19,7 +17,7 @@ type UserState = {
     isAuth: boolean
     hasInstance: boolean
     username?: string
-    user?: CognitoUser
+    user?: User
     instance?: Instance
 }
 
@@ -36,7 +34,7 @@ const defaultUserResource: UserResource = {
     isLoading: false,
 }
 
-const getAuth = async (): Promise<CognitoUser | null> => {
+const getAuth = async (): Promise<User | null> => {
     try {
         const user = await Auth.currentAuthenticatedUser()
         console.log(user)
@@ -80,7 +78,7 @@ const getUserState = async () => {
         return result
     } else {
         result.isAuth = true
-        result.username = user.getUsername(() => {})
+        result.username = user.username
         result.user = user
     }
 
