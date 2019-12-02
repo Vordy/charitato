@@ -112,9 +112,8 @@ export const MenuContainer = styled.div`
     flex-direction: row;
     justify-content: center;
     background-color: ${Colors.LavendarCream};
+    height: 8%;
     border-radius: 999px;
-    padding-left: 16px;
-    padding-right: 16px;
     padding-top: 8px;
     padding-bottom: 8px;
 `;
@@ -123,4 +122,18 @@ export const MenuItem = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
+    background-color: ${Colors.White};
+    border-radius: 999px;
+    margin-left: 8px;
+    margin-right: 8px;
+`;
+
+export const MenuItemSelected = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: ${Colors.Rose};
+    border-radius: 999px;
+    margin-left: 8px;
+    margin-right: 8px;
 `;
