@@ -1,4 +1,3 @@
-import { API, Auth } from 'aws-amplify'
 import { getTheme } from 'theme/themes'
 import { PotatoInterface } from 'components/PotatoInterface'
 import { signUpConfig } from 'common/auth_config'
@@ -6,7 +5,7 @@ import { withAuthenticator } from 'aws-amplify-react'
 import AmplifyTheme from 'theme/auth_theme'
 import React, { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
-import { UserStateResource } from 'common/user_state'
+import { UserStateResource, UserResource } from 'common/user_state'
 
 const DashboardContainer = styled.div`
     width: 100%;
@@ -21,18 +20,24 @@ const DashboardContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
 `
 
-// const user = UserStateResource()
-
 const ALERT_NUMBER = 2
 
+const Loading = () => {
+    return <div>Loading...</div>
+}
+
 const Dashboard = () => {
+    const user: UserResource = UserStateResource()
     const [userState, setUserState] = useState({})
 
-    const user = UserStateResource()
+    // useEffect(() => {
+    //     if(user.isLoading)
+    // })
 
     return (
         <DashboardContainer>
-            <div>Yo</div>
+            {user.isLoading && <Loading />}
+            {!user.isLoading && <div>{user.state.username}</div>}
         </DashboardContainer>
     )
 }

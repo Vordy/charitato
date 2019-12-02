@@ -1,5 +1,7 @@
 import { Auth, API } from 'aws-amplify'
 import { useState, useEffect } from 'react'
+import { ICognitoUserData, CognitoUser } from 'amazon-cognito-identity-js'
+import { userInfo } from 'os'
 
 type User = {
     username: string
@@ -17,13 +19,27 @@ type UserState = {
     isAuth: boolean
     hasInstance: boolean
     username?: string
-    name?: string
-    hasPotato?: boolean
+    user?: CognitoUser
+    instance?: Instance
 }
 
-const getAuth = async (): Promise<User | null> => {
+export type UserResource = {
+    state: UserState
+    isLoading: boolean
+}
+
+const defaultUserResource: UserResource = {
+    state: {
+        isAuth: false,
+        hasInstance: false,
+    },
+    isLoading: false,
+}
+
+const getAuth = async (): Promise<CognitoUser | null> => {
     try {
         const user = await Auth.currentAuthenticatedUser()
+        console.log(user)
         return user
     } catch (err) {
         return null
@@ -36,6 +52,7 @@ const getInstance = async (username: string): Promise<Instance> => {
         `/items/object/${username}`,
         null
     )
+    console.log(response)
     return response
 }
 
@@ -58,14 +75,13 @@ const getUserState = async () => {
         hasInstance: false,
     }
 
-    console.log('Setting up user state: ')
     const user = await getAuth()
     if (user === null) {
         return result
     } else {
         result.isAuth = true
-        result.username = user.username
-        result.name = user.name
+        result.username = user.getUsername(() => {})
+        result.user = user
     }
 
     let instance = await getInstance(user.username)
@@ -77,20 +93,20 @@ const getUserState = async () => {
     }
 
     result.hasInstance = true
-    result.hasPotato = instance.hasPotato
+    result.instance = instance
 
     console.log(result)
     return result
 }
 
 export const UserStateResource = () => {
-    const [data, setData] = useState({ state: {}, isLoading: false })
+    const [data, setData] = useState(defaultUserResource)
 
     useEffect(() => {
         const userState = async () => {
-            setData({ state: {}, isLoading: true })
+            setData({ state: data.state, isLoading: true })
             const result = await getUserState()
-            setData({ state: result, isLoading: true })
+            setData({ state: result, isLoading: false })
         }
 
         userState()
