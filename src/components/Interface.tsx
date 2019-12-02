@@ -36,14 +36,38 @@ export const SectionTitle = styled.p`
     margin-left: 5%;
 `
 
-export const PotatoContainer = styled.div``
-
-export const PotatoIcon = styled.img`
-    width: 50%;
-    height: auto;
+export const PotatoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `
 
-export const PotatoDescriptor = styled.p``
+export const PotatoButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 48px;
+`;
+
+export const PotatoButton = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: ${Colors.LavendarCream};
+    border-radius: 999px;
+    margin-left: 32px;
+    margin-right: 32px;
+`;
+
+export const PotatoIcon = styled.img``
+
+export const PotatoStatus = styled.p`
+    text-align: center;
+`;
+
+export const PotatoDescriptor = styled.p`
+    text-align: center;
+`
 
 export const HistoryContainer = styled.div`
     display: flex;
@@ -105,4 +129,36 @@ export const NewsContainer = styled.div`
 export const NewsItem = styled.div`
     display: flex;
     flex-direction: row;
+`;
+export const MenuContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: ${Colors.LavendarCream};
+    position: fixed;
+    bottom: 0;
+    height: 8%;
+    border-radius: 999px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+`;
+
+export const MenuItem = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: ${Colors.White};
+    border-radius: 999px;
+    margin-left: 8px;
+    margin-right: 8px;
+`;
+
+export const MenuItemSelected = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: ${Colors.Rose};
+    border-radius: 999px;
+    margin-left: 8px;
+    margin-right: 8px;
 `;

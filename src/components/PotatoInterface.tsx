@@ -13,6 +13,9 @@ import {
     SubmitContainer,
     UserIcon,
     UserName,
+    PotatoStatus,
+    PotatoButtonContainer,
+    PotatoButton,
 } from './Interface'
 import Potato from '../assets/potatoes/MEDIUM.svg'
 import React from 'react'
@@ -20,40 +23,14 @@ import UserPic from '../assets/user.png'
 
 export const PotatoInterface = () => {
     return (
-        <InterfaceContainer>
-            <InterfaceHeader>
-                <HeaderText>You have a potato!</HeaderText>
-            </InterfaceHeader>
-
-            <PotatoContainer>
-                <PotatoIcon src={Potato} />
-                <PotatoDescriptor>It's super hot!</PotatoDescriptor>
-            </PotatoContainer>
-
-            <HistoryContainer>
-                <SectionTitle>History</SectionTitle>
-                <HistoryScroller>
-                    <HistoryItem>
-                        <UserIcon src={UserPic} />
-                        <UserName>Bob Marley</UserName>
-                    </HistoryItem>
-                    <HistoryItem>
-                        <UserIcon src={UserPic} />
-                        <UserName>Bob Marley</UserName>
-                    </HistoryItem>
-                </HistoryScroller>
-            </HistoryContainer>
-
-            <SubmitContainer>
-                <SubmitButton>
-                    <HeaderText>TEST</HeaderText>
-                </SubmitButton>
-                <SubmitButton>
-                    <HeaderText>TEST</HeaderText>
-                </SubmitButton>
-            </SubmitContainer>
-
-            <InterfaceHeader />
-        </InterfaceContainer>
+        <PotatoContainer>
+            <PotatoIcon src={Potato} />
+            <PotatoStatus>You have a potato!</PotatoStatus>
+            <PotatoDescriptor>It's super hot!</PotatoDescriptor>
+            <PotatoButtonContainer>
+                <PotatoButton></PotatoButton>
+                <PotatoButton></PotatoButton>
+            </PotatoButtonContainer>
+        </PotatoContainer>
     )
 }
