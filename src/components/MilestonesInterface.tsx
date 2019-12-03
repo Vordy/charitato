@@ -7,7 +7,7 @@ export const MilestonesInterface = () => {
     return (
         <div>
             <div>Milestones Interface</div>
-            <div>Username: {user.state.username}</div>
+            <div>Username: {user.username}</div>
         </div>
     )
 }

@@ -7,7 +7,7 @@ export const AccountInterface = () => {
     return (
         <div>
             <div>Account Interface</div>
-            <div>Username: {user.state.username}</div>
+            <div>Username: {user.username}</div>
         </div>
     )
 }

@@ -17,7 +17,7 @@ import { FriendsInterface } from 'components/FriendsInterface'
 import { LeaderboardsInterface } from 'components/LeaderboardsInterface'
 import { AccountInterface } from 'components/AccountInterface'
 import { Colors } from 'theme/Colors'
-import { useParams } from 'react-router'
+import { useParams, useHistory } from 'react-router'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -63,24 +63,24 @@ const MenuBar = styled.div`
 export const UserContext = createContext(defaultUserState)
 
 enum DashboardPages {
-    POTATO = 'Potato',
-    MILESTONES = 'Milestones',
-    FRIENDS = 'Friends',
-    LEADERBOARDS = 'Leaderboards',
-    ACCOUNT = 'Account',
+    POTATO = 'potato',
+    MILESTONES = 'milestones',
+    FRIENDS = 'friends',
+    LEADERBOARDS = 'leaderboards',
+    ACCOUNT = 'account',
 }
 
 // TODO: do this more elegantly
 const inputToDashboard = (inputPage: string) => {
-    switch (inputPage) {
+    switch (inputPage.toLowerCase()) {
         case DashboardPages.POTATO:
             return DashboardPages.POTATO
         case DashboardPages.MILESTONES:
             return DashboardPages.MILESTONES
         case DashboardPages.FRIENDS:
             return DashboardPages.FRIENDS
-        case DashboardPages.FRIENDS:
-            return DashboardPages.FRIENDS
+        case DashboardPages.LEADERBOARDS:
+            return DashboardPages.LEADERBOARDS
         case DashboardPages.ACCOUNT:
             return DashboardPages.ACCOUNT
         default:
@@ -96,17 +96,19 @@ const Loading = () => {
 const Dashboard = () => {
     const [currentPage, setCurrentPage] = useState(DashboardPages.POTATO)
     const { inputPage } = useParams()
+    const history = useHistory()
+
+    const user: UserResource = UserStateResource()
 
     useEffect(() => {
         console.log(`useEffect: ${inputPage}`)
         if (inputPage !== undefined) {
             if (inputPage in DashboardPages) {
-                setCurrentPage(inputToDashboard(inputPage))
+                // setCurrentPage(inputToDashboard(inputPage))
+                history.push(`/dashboard/${inputPage}`)
             }
         }
     }, [inputPage])
-
-    const user: UserResource = UserStateResource()
 
     const handlePageChange = (page: DashboardPages) => {
         setCurrentPage(page)
