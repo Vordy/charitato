@@ -47,7 +47,7 @@ const MenuBar = styled.div`
 
 export const UserContext = createContext(defaultUserResource)
 
-// TODO: this can also be off-loaded into another file
+// TODO: this can be off-loaded into another file when we make it look nicer
 const Loading = () => {
     return <div>Loading...</div>
 }
