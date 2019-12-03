@@ -1,6 +1,7 @@
 import { getTheme } from 'theme/themes'
 import { Link } from 'react-router-dom'
 import { Logo } from 'assets/logo/logo'
+import { localize } from 'assets/strings/localize'
 import React from 'react'
 import styled from '@emotion/styled'
 
@@ -33,13 +34,15 @@ export const NavBar = () => {
         <Bar>
             <Logo style={{ cursor: 'pointer' }} />
 
-            <NavItem to="/">Home</NavItem>
+            <NavItem to="/">{localize('char.navbar.main.home')}</NavItem>
 
-            <NavItem to="/dashboard">Dashboard</NavItem>
+            <NavItem to="/dashboard">
+                {localize('char.navbar.main.dashboard')}
+            </NavItem>
 
-            <NavItem to="/">Partners</NavItem>
+            <NavItem to="/">{localize('char.navbar.main.partners')}</NavItem>
 
-            <NavItem to="/">Milestones</NavItem>
+            <NavItem to="/">{localize('char.navbar.main.milestones')}</NavItem>
         </Bar>
     )
 }
