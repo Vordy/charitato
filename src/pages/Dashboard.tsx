@@ -16,6 +16,7 @@ import { MilestonesInterface } from 'components/MilestonesInterface'
 import { FriendsInterface } from 'components/FriendsInterface'
 import { LeaderboardsInterface } from 'components/LeaderboardsInterface'
 import { AccountInterface } from 'components/AccountInterface'
+import { Colors } from 'theme/Colors'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -39,10 +40,22 @@ const DashboardContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
 `
 
+const MenuBarContainer = styled.div`
+    background-color: ${getTheme().background};
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+`
+
 const MenuBar = styled.div`
+    width: 70%;
     display: flex;
     flex-direction: row;
     align-items: center;
+    background-color: ${Colors.LightGray};
+    padding: 10px;
+    border-radius: 999px;
 `
 
 export const UserContext = createContext(defaultUserResource)
@@ -83,48 +96,50 @@ const Dashboard = () => {
                     )}
                 </UserContext.Provider>
             </DashboardContainer>
-            <MenuBar>
-                <Button
-                    buttonType={ButtonTypes.Primary}
-                    buttonSize={ButtonSizes.Large}
-                    text={'Milestones'}
-                    onClickHandler={(event: React.MouseEvent) => {
-                        handlePageChange('MILESTONES')
-                    }}
-                />
-                <Button
-                    buttonType={ButtonTypes.Primary}
-                    buttonSize={ButtonSizes.Large}
-                    text={'Leaderboards'}
-                    onClickHandler={(event: React.MouseEvent) => {
-                        handlePageChange('LEADERBOARDS')
-                    }}
-                />
-                <Button
-                    buttonType={ButtonTypes.Primary}
-                    buttonSize={ButtonSizes.Large}
-                    text={'Potato'}
-                    onClickHandler={(event: React.MouseEvent) => {
-                        handlePageChange('POTATO')
-                    }}
-                />
-                <Button
-                    buttonType={ButtonTypes.Primary}
-                    buttonSize={ButtonSizes.Large}
-                    text={'Friends'}
-                    onClickHandler={(event: React.MouseEvent) => {
-                        handlePageChange('FRIENDS')
-                    }}
-                />
-                <Button
-                    buttonType={ButtonTypes.Primary}
-                    buttonSize={ButtonSizes.Large}
-                    text={'Account'}
-                    onClickHandler={(event: React.MouseEvent) => {
-                        handlePageChange('ACCOUNT')
-                    }}
-                />
-            </MenuBar>
+            <MenuBarContainer>
+                <MenuBar>
+                    <Button
+                        buttonType={ButtonTypes.Primary}
+                        buttonSize={ButtonSizes.Large}
+                        text={'Milestones'}
+                        onClickHandler={(event: React.MouseEvent) => {
+                            handlePageChange('MILESTONES')
+                        }}
+                    />
+                    <Button
+                        buttonType={ButtonTypes.Primary}
+                        buttonSize={ButtonSizes.Large}
+                        text={'Leaderboards'}
+                        onClickHandler={(event: React.MouseEvent) => {
+                            handlePageChange('LEADERBOARDS')
+                        }}
+                    />
+                    <Button
+                        buttonType={ButtonTypes.Primary}
+                        buttonSize={ButtonSizes.Large}
+                        text={'Potato'}
+                        onClickHandler={(event: React.MouseEvent) => {
+                            handlePageChange('POTATO')
+                        }}
+                    />
+                    <Button
+                        buttonType={ButtonTypes.Primary}
+                        buttonSize={ButtonSizes.Large}
+                        text={'Friends'}
+                        onClickHandler={(event: React.MouseEvent) => {
+                            handlePageChange('FRIENDS')
+                        }}
+                    />
+                    <Button
+                        buttonType={ButtonTypes.Primary}
+                        buttonSize={ButtonSizes.Large}
+                        text={'Account'}
+                        onClickHandler={(event: React.MouseEvent) => {
+                            handlePageChange('ACCOUNT')
+                        }}
+                    />
+                </MenuBar>
+            </MenuBarContainer>
         </DashboardPage>
     )
 }
