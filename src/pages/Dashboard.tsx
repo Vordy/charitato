@@ -49,10 +49,11 @@ const MenuBarContainer = styled.div`
 `
 
 const MenuBar = styled.div`
-    width: 70%;
+    width: 50%;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     background-color: ${Colors.LightGray};
     padding: 10px;
     border-radius: 999px;
@@ -100,7 +101,7 @@ const Dashboard = () => {
                 <MenuBar>
                     <Button
                         buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Large}
+                        buttonSize={ButtonSizes.Small}
                         text={'Milestones'}
                         onClickHandler={(event: React.MouseEvent) => {
                             handlePageChange('MILESTONES')
@@ -108,7 +109,7 @@ const Dashboard = () => {
                     />
                     <Button
                         buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Large}
+                        buttonSize={ButtonSizes.Small}
                         text={'Leaderboards'}
                         onClickHandler={(event: React.MouseEvent) => {
                             handlePageChange('LEADERBOARDS')
@@ -116,7 +117,7 @@ const Dashboard = () => {
                     />
                     <Button
                         buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Large}
+                        buttonSize={ButtonSizes.Small}
                         text={'Potato'}
                         onClickHandler={(event: React.MouseEvent) => {
                             handlePageChange('POTATO')
@@ -124,7 +125,7 @@ const Dashboard = () => {
                     />
                     <Button
                         buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Large}
+                        buttonSize={ButtonSizes.Small}
                         text={'Friends'}
                         onClickHandler={(event: React.MouseEvent) => {
                             handlePageChange('FRIENDS')
@@ -132,7 +133,7 @@ const Dashboard = () => {
                     />
                     <Button
                         buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Large}
+                        buttonSize={ButtonSizes.Small}
                         text={'Account'}
                         onClickHandler={(event: React.MouseEvent) => {
                             handlePageChange('ACCOUNT')
