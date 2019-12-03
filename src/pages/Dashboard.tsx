@@ -7,7 +7,7 @@ import AmplifyTheme from 'theme/auth_theme'
 import React, { createContext, useState } from 'react'
 import styled from '@emotion/styled'
 import {
-    defaultUserResource,
+    defaultUserState,
     UserResource,
     UserStateResource,
 } from 'common/user_state'
@@ -59,7 +59,7 @@ const MenuBar = styled.div`
     border-radius: 999px;
 `
 
-export const UserContext = createContext(defaultUserResource)
+export const UserContext = createContext(defaultUserState)
 
 // TODO: this can be off-loaded into another file when we make it look nicer
 const Loading = () => {
@@ -78,7 +78,7 @@ const Dashboard = () => {
     return (
         <DashboardPage>
             <DashboardContainer>
-                <UserContext.Provider value={user}>
+                <UserContext.Provider value={user.state}>
                     {user.isLoading && <Loading />}
                     {!user.isLoading && currentPage === 'POTATO' && (
                         <PotatoInterface />

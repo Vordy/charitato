@@ -1,37 +1,39 @@
 import { API, Auth } from 'aws-amplify'
 import { useEffect, useState } from 'react'
 
+// User: from Cognito User Auth
 interface User {
     username: string
     name: string
 }
 
-interface Instance {
+// DBInstance: from DynamoDB table
+interface DBInstance {
     id: string
     version: string
     hasPotato: boolean
     name: string
 }
 
+// UserState: combination of User and DBInstance
 interface UserState {
-    isAuth: boolean
-    hasInstance: boolean
     username?: string
     user?: User
-    instance?: Instance
+    instance?: DBInstance
 }
 
+// UserResource: wrapped return of UserState and an isLoading bool
 export interface UserResource {
     state: UserState
     isLoading: boolean
 }
 
+// Default values for exporting into Contexts
+export const defaultUserState: UserState = {}
+
 export const defaultUserResource: UserResource = {
     isLoading: false,
-    state: {
-        hasInstance: false,
-        isAuth: false,
-    },
+    state: {},
 }
 
 const getAuth = async (): Promise<User | null> => {
@@ -44,8 +46,8 @@ const getAuth = async (): Promise<User | null> => {
     }
 }
 
-const getInstance = async (username: string): Promise<Instance> => {
-    const response: Instance = await API.get(
+const getInstance = async (username: string): Promise<DBInstance> => {
+    const response: DBInstance = await API.get(
         'UserAPI',
         `/items/object/${username}`,
         null
@@ -54,8 +56,8 @@ const getInstance = async (username: string): Promise<Instance> => {
     return response
 }
 
-const setUpUserInstance = async (user: User): Promise<Instance> => {
-    const initialUser: Instance = {
+const setUpUserInstance = async (user: User): Promise<DBInstance> => {
+    const initialUser: DBInstance = {
         hasPotato: false,
         id: user.username,
         name: user.name,
@@ -68,16 +70,12 @@ const setUpUserInstance = async (user: User): Promise<Instance> => {
 }
 
 const getUserState = async (): Promise<UserState> => {
-    const result: UserState = {
-        hasInstance: false,
-        isAuth: false,
-    }
+    const result: UserState = {}
 
     const user = await getAuth()
     if (user === null) {
         return result
     } else {
-        result.isAuth = true
         result.username = user.username
         result.user = user
     }
@@ -90,7 +88,6 @@ const getUserState = async (): Promise<UserState> => {
         instance = await setUpUserInstance(user)
     }
 
-    result.hasInstance = true
     result.instance = instance
 
     // console.log(result) //TODO: remove this later
