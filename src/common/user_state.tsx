@@ -101,7 +101,6 @@ export const UserStateResource = () => {
     const [data, setData] = useState(defaultUserResource)
 
     useEffect(() => {
-        console.log('request state') // printing to insure state is only requested occasionally
         const userState = async () => {
             setData({ state: defaultUserResource.state, isLoading: true })
             const result = await getUserState()

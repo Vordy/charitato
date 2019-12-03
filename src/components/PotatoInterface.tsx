@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from 'pages/Dashboard'
 
 export const PotatoInterface = () => {
@@ -9,7 +9,7 @@ export const PotatoInterface = () => {
         if (user.state.instance) {
             setHasPotato(user.state.instance.hasPotato)
         }
-    }, [user.state.instance])
+    }, [user.state.instance]) // only recalls useEffect if the user instance changes
 
     return (
         <div>
