@@ -1,19 +1,19 @@
-import { Auth, API } from 'aws-amplify'
-import { useState, useEffect } from 'react'
+import { API, Auth } from 'aws-amplify'
+import { useEffect, useState } from 'react'
 
-type User = {
+interface User {
     username: string
     name: string
 }
 
-type Instance = {
+interface Instance {
     id: string
     version: string
     hasPotato: boolean
     name: string
 }
 
-type UserState = {
+interface UserState {
     isAuth: boolean
     hasInstance: boolean
     username?: string
@@ -21,17 +21,17 @@ type UserState = {
     instance?: Instance
 }
 
-export type UserResource = {
+export interface UserResource {
     state: UserState
     isLoading: boolean
 }
 
 export const defaultUserResource: UserResource = {
-    state: {
-        isAuth: false,
-        hasInstance: false,
-    },
     isLoading: false,
+    state: {
+        hasInstance: false,
+        isAuth: false,
+    },
 }
 
 const getAuth = async (): Promise<User | null> => {
@@ -56,10 +56,10 @@ const getInstance = async (username: string): Promise<Instance> => {
 
 const setUpUserInstance = async (user: User): Promise<Instance> => {
     const initialUser: Instance = {
-        id: user.username,
-        version: '1a', // version 1, user instance
-        name: user.name,
         hasPotato: false,
+        id: user.username,
+        name: user.name,
+        version: '1a', // version 1, user instance
     }
 
     await API.post('UserAPI', '/items', { body: initialUser })
@@ -68,9 +68,9 @@ const setUpUserInstance = async (user: User): Promise<Instance> => {
 }
 
 const getUserState = async (): Promise<UserState> => {
-    let result: UserState = {
-        isAuth: false,
+    const result: UserState = {
         hasInstance: false,
+        isAuth: false,
     }
 
     const user = await getAuth()
@@ -101,7 +101,6 @@ export const UserStateResource = () => {
     const [data, setData] = useState(defaultUserResource)
 
     useEffect(() => {
-        console.log('use effect called')
         const userState = async () => {
             setData({ state: defaultUserResource.state, isLoading: true })
             const result = await getUserState()

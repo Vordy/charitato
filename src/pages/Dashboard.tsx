@@ -1,16 +1,16 @@
+import { Button } from 'common/button/Button'
+import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import { getTheme } from 'theme/themes'
 import { signUpConfig } from 'common/auth_config'
 import { withAuthenticator } from 'aws-amplify-react'
 import AmplifyTheme from 'theme/auth_theme'
-import React, { useState, createContext, useContext } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import styled from '@emotion/styled'
 import {
-    UserStateResource,
-    UserResource,
     defaultUserResource,
+    UserResource,
+    UserStateResource,
 } from 'common/user_state'
-import { Button } from 'common/button/Button'
-import { ButtonTypes, ButtonSizes } from 'common/button/ButtonUtils'
 
 const DashboardPage = styled.div`
     width: 100%;

@@ -17,14 +17,13 @@ import {
     UserName,
 } from './Interface'
 import { Potato, PotatoTypes } from 'assets/potatoes/potato'
-import React  from 'react'
+import React from 'react'
 
 import AnonUserPic from 'assets/users/user.png'
 
-
 const defaultModal = {
-    name: "error: no modal",
-    data: {}
+    data: {},
+    name: 'error: no modal',
 }
 export const ModalContext = React.createContext(defaultModal)
 
@@ -102,7 +101,5 @@ const HasPotatoInterface = () => {
 }
 
 export const PotatoInterface = () => {
-    return (
-        <HasPotatoInterface />
-    )
+    return <HasPotatoInterface />
 }
