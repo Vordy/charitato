@@ -9,6 +9,17 @@ import {
     UserResource,
     defaultUserResource,
 } from 'common/user_state'
+import { Button } from 'common/button/Button'
+import { ButtonTypes, ButtonSizes } from 'common/button/ButtonUtils'
+
+const DashboardPage = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+`
 
 const DashboardContainer = styled.div`
     width: 100%;
@@ -21,6 +32,12 @@ const DashboardContainer = styled.div`
     color: ${getTheme().foreground};
     background-color: ${getTheme().background};
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
+`
+
+const MenuBar = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 `
 
 export const UserContext = createContext(defaultUserResource)
@@ -58,6 +75,8 @@ const LeaderboardsInterface = () => {
     return <div>Leaderboards INTERFACE</div>
 }
 
+const TempMenuBar = () => {}
+
 const Dashboard = () => {
     const [currentPage, setCurrentPage] = useState('POTATO')
 
@@ -68,26 +87,70 @@ const Dashboard = () => {
     }
 
     return (
-        <DashboardContainer>
-            <UserContext.Provider value={user}>
-                {user.isLoading && <Loading />}
-                {!user.isLoading && currentPage === 'POTATO' && (
-                    <PotatoInterface />
-                )}
-                {!user.isLoading && currentPage === 'MILESTONES' && (
-                    <MilestonesInterface />
-                )}
-                {!user.isLoading && currentPage === 'FRIENDS' && (
-                    <FriendsInterface />
-                )}
-                {!user.isLoading && currentPage === 'LEADERBOARDS' && (
-                    <LeaderboardsInterface />
-                )}
-                {!user.isLoading && currentPage === 'ACCOUNT' && (
-                    <AccountInterface />
-                )}
-            </UserContext.Provider>
-        </DashboardContainer>
+        <DashboardPage>
+            <DashboardContainer>
+                <UserContext.Provider value={user}>
+                    {user.isLoading && <Loading />}
+                    {!user.isLoading && currentPage === 'POTATO' && (
+                        <PotatoInterface />
+                    )}
+                    {!user.isLoading && currentPage === 'MILESTONES' && (
+                        <MilestonesInterface />
+                    )}
+                    {!user.isLoading && currentPage === 'FRIENDS' && (
+                        <FriendsInterface />
+                    )}
+                    {!user.isLoading && currentPage === 'LEADERBOARDS' && (
+                        <LeaderboardsInterface />
+                    )}
+                    {!user.isLoading && currentPage === 'ACCOUNT' && (
+                        <AccountInterface />
+                    )}
+                </UserContext.Provider>
+            </DashboardContainer>
+            <MenuBar>
+                <Button
+                    buttonType={ButtonTypes.Primary}
+                    buttonSize={ButtonSizes.Large}
+                    text={'Milestones'}
+                    onClickHandler={(event: React.MouseEvent) => {
+                        handlePageChange('MILESTONES')
+                    }}
+                />
+                <Button
+                    buttonType={ButtonTypes.Primary}
+                    buttonSize={ButtonSizes.Large}
+                    text={'Leaderboards'}
+                    onClickHandler={(event: React.MouseEvent) => {
+                        handlePageChange('LEADERBOARDS')
+                    }}
+                />
+                <Button
+                    buttonType={ButtonTypes.Primary}
+                    buttonSize={ButtonSizes.Large}
+                    text={'Potato'}
+                    onClickHandler={(event: React.MouseEvent) => {
+                        handlePageChange('POTATO')
+                    }}
+                />
+                <Button
+                    buttonType={ButtonTypes.Primary}
+                    buttonSize={ButtonSizes.Large}
+                    text={'Friends'}
+                    onClickHandler={(event: React.MouseEvent) => {
+                        handlePageChange('FRIENDS')
+                    }}
+                />
+                <Button
+                    buttonType={ButtonTypes.Primary}
+                    buttonSize={ButtonSizes.Large}
+                    text={'Account'}
+                    onClickHandler={(event: React.MouseEvent) => {
+                        handlePageChange('ACCOUNT')
+                    }}
+                />
+            </MenuBar>
+        </DashboardPage>
     )
 }
 
