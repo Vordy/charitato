@@ -26,7 +26,7 @@ export type UserResource = {
     isLoading: boolean
 }
 
-const defaultUserResource: UserResource = {
+export const defaultUserResource: UserResource = {
     state: {
         isAuth: false,
         hasInstance: false,
