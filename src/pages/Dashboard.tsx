@@ -4,7 +4,7 @@ import { getTheme } from 'theme/themes'
 import { signUpConfig } from 'common/auth_config'
 import { withAuthenticator } from 'aws-amplify-react'
 import AmplifyTheme from 'theme/auth_theme'
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import {
     defaultUserState,
@@ -17,6 +17,7 @@ import { FriendsInterface } from 'components/FriendsInterface'
 import { LeaderboardsInterface } from 'components/LeaderboardsInterface'
 import { AccountInterface } from 'components/AccountInterface'
 import { Colors } from 'theme/Colors'
+import { useParams } from 'react-router'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -61,17 +62,53 @@ const MenuBar = styled.div`
 
 export const UserContext = createContext(defaultUserState)
 
+enum DashboardPages {
+    POTATO = 'Potato',
+    MILESTONES = 'Milestones',
+    FRIENDS = 'Friends',
+    LEADERBOARDS = 'Leaderboards',
+    ACCOUNT = 'Account',
+}
+
+// TODO: do this more elegantly
+const inputToDashboard = (inputPage: string) => {
+    switch (inputPage) {
+        case DashboardPages.POTATO:
+            return DashboardPages.POTATO
+        case DashboardPages.MILESTONES:
+            return DashboardPages.MILESTONES
+        case DashboardPages.FRIENDS:
+            return DashboardPages.FRIENDS
+        case DashboardPages.FRIENDS:
+            return DashboardPages.FRIENDS
+        case DashboardPages.ACCOUNT:
+            return DashboardPages.ACCOUNT
+        default:
+            return DashboardPages.POTATO
+    }
+}
+
 // TODO: this can be off-loaded into another file when we make it look nicer
 const Loading = () => {
     return <div>Loading...</div>
 }
 
 const Dashboard = () => {
-    const [currentPage, setCurrentPage] = useState('POTATO')
+    const [currentPage, setCurrentPage] = useState(DashboardPages.POTATO)
+    const { inputPage } = useParams()
+
+    useEffect(() => {
+        console.log(`useEffect: ${inputPage}`)
+        if (inputPage !== undefined) {
+            if (inputPage in DashboardPages) {
+                setCurrentPage(inputToDashboard(inputPage))
+            }
+        }
+    }, [inputPage])
 
     const user: UserResource = UserStateResource()
 
-    const handlePageChange = (page: string) => {
+    const handlePageChange = (page: DashboardPages) => {
         setCurrentPage(page)
     }
 
@@ -80,21 +117,26 @@ const Dashboard = () => {
             <DashboardContainer>
                 <UserContext.Provider value={user.state}>
                     {user.isLoading && <Loading />}
-                    {!user.isLoading && currentPage === 'POTATO' && (
-                        <PotatoInterface />
-                    )}
-                    {!user.isLoading && currentPage === 'MILESTONES' && (
-                        <MilestonesInterface />
-                    )}
-                    {!user.isLoading && currentPage === 'FRIENDS' && (
-                        <FriendsInterface />
-                    )}
-                    {!user.isLoading && currentPage === 'LEADERBOARDS' && (
-                        <LeaderboardsInterface />
-                    )}
-                    {!user.isLoading && currentPage === 'ACCOUNT' && (
-                        <AccountInterface />
-                    )}
+                    {!user.isLoading &&
+                        currentPage === DashboardPages.POTATO && (
+                            <PotatoInterface />
+                        )}
+                    {!user.isLoading &&
+                        currentPage === DashboardPages.MILESTONES && (
+                            <MilestonesInterface />
+                        )}
+                    {!user.isLoading &&
+                        currentPage === DashboardPages.FRIENDS && (
+                            <FriendsInterface />
+                        )}
+                    {!user.isLoading &&
+                        currentPage === DashboardPages.LEADERBOARDS && (
+                            <LeaderboardsInterface />
+                        )}
+                    {!user.isLoading &&
+                        currentPage === DashboardPages.ACCOUNT && (
+                            <AccountInterface />
+                        )}
                 </UserContext.Provider>
             </DashboardContainer>
             <MenuBarContainer>
@@ -104,7 +146,7 @@ const Dashboard = () => {
                         buttonSize={ButtonSizes.Small}
                         text={'Milestones'}
                         onClickHandler={(event: React.MouseEvent) => {
-                            handlePageChange('MILESTONES')
+                            handlePageChange(DashboardPages.MILESTONES)
                         }}
                     />
                     <Button
@@ -112,7 +154,7 @@ const Dashboard = () => {
                         buttonSize={ButtonSizes.Small}
                         text={'Leaderboards'}
                         onClickHandler={(event: React.MouseEvent) => {
-                            handlePageChange('LEADERBOARDS')
+                            handlePageChange(DashboardPages.LEADERBOARDS)
                         }}
                     />
                     <Button
@@ -120,7 +162,7 @@ const Dashboard = () => {
                         buttonSize={ButtonSizes.Small}
                         text={'Potato'}
                         onClickHandler={(event: React.MouseEvent) => {
-                            handlePageChange('POTATO')
+                            handlePageChange(DashboardPages.POTATO)
                         }}
                     />
                     <Button
@@ -128,7 +170,7 @@ const Dashboard = () => {
                         buttonSize={ButtonSizes.Small}
                         text={'Friends'}
                         onClickHandler={(event: React.MouseEvent) => {
-                            handlePageChange('FRIENDS')
+                            handlePageChange(DashboardPages.FRIENDS)
                         }}
                     />
                     <Button
@@ -136,7 +178,7 @@ const Dashboard = () => {
                         buttonSize={ButtonSizes.Small}
                         text={'Account'}
                         onClickHandler={(event: React.MouseEvent) => {
-                            handlePageChange('ACCOUNT')
+                            handlePageChange(DashboardPages.ACCOUNT)
                         }}
                     />
                 </MenuBar>
