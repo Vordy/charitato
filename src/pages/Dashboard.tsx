@@ -4,13 +4,18 @@ import { getTheme } from 'theme/themes'
 import { signUpConfig } from 'common/auth_config'
 import { withAuthenticator } from 'aws-amplify-react'
 import AmplifyTheme from 'theme/auth_theme'
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useState } from 'react'
 import styled from '@emotion/styled'
 import {
     defaultUserResource,
     UserResource,
     UserStateResource,
 } from 'common/user_state'
+import { PotatoInterface } from 'components/PotatoInterface'
+import { MilestonesInterface } from 'components/MilestonesInterface'
+import { FriendsInterface } from 'components/FriendsInterface'
+import { LeaderboardsInterface } from 'components/LeaderboardsInterface'
+import { AccountInterface } from 'components/AccountInterface'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -45,35 +50,6 @@ export const UserContext = createContext(defaultUserResource)
 // TODO: this can also be off-loaded into another file
 const Loading = () => {
     return <div>Loading...</div>
-}
-
-// TODO: These will be replaced by the actual interfaces from the Figma Prototype
-// They should not be in this file either, this is just for developing the dashboard
-const PotatoInterface = () => {
-    const user = useContext(UserContext)
-
-    return (
-        <div>
-            <div>Potato Interface</div>
-            <div>Username: {user.state.username}</div>
-        </div>
-    )
-}
-
-const MilestonesInterface = () => {
-    return <div>Milestones INTERFACE</div>
-}
-
-const FriendsInterface = () => {
-    return <div>Friends INTERFACE</div>
-}
-
-const AccountInterface = () => {
-    return <div>Account INTERFACE</div>
-}
-
-const LeaderboardsInterface = () => {
-    return <div>Leaderboards INTERFACE</div>
 }
 
 const Dashboard = () => {
