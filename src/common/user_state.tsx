@@ -37,7 +37,7 @@ export const defaultUserResource: UserResource = {
 const getAuth = async (): Promise<User | null> => {
     try {
         const user = await Auth.currentAuthenticatedUser()
-        console.log(user)
+        // console.log(user) // TODO: remove this later
         return user
     } catch (err) {
         return null
@@ -50,11 +50,11 @@ const getInstance = async (username: string): Promise<Instance> => {
         `/items/object/${username}`,
         null
     )
-    console.log(response)
+    // console.log(response) // TODO: remove this later
     return response
 }
 
-const setUpUserInstance = async (user: User) => {
+const setUpUserInstance = async (user: User): Promise<Instance> => {
     const initialUser: Instance = {
         id: user.username,
         version: '1a', // version 1, user instance
@@ -67,7 +67,7 @@ const setUpUserInstance = async (user: User) => {
     return initialUser
 }
 
-const getUserState = async () => {
+const getUserState = async (): Promise<UserState> => {
     let result: UserState = {
         isAuth: false,
         hasInstance: false,
@@ -93,7 +93,7 @@ const getUserState = async () => {
     result.hasInstance = true
     result.instance = instance
 
-    console.log(result)
+    // console.log(result) //TODO: remove this later
     return result
 }
 
@@ -101,8 +101,9 @@ export const UserStateResource = () => {
     const [data, setData] = useState(defaultUserResource)
 
     useEffect(() => {
+        console.log('use effect called')
         const userState = async () => {
-            setData({ state: data.state, isLoading: true })
+            setData({ state: defaultUserResource.state, isLoading: true })
             const result = await getUserState()
             setData({ state: result, isLoading: false })
         }

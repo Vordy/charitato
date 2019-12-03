@@ -42,6 +42,7 @@ const MenuBar = styled.div`
 
 export const UserContext = createContext(defaultUserResource)
 
+// TODO: this can also be off-loaded into another file
 const Loading = () => {
     return <div>Loading...</div>
 }
@@ -74,8 +75,6 @@ const AccountInterface = () => {
 const LeaderboardsInterface = () => {
     return <div>Leaderboards INTERFACE</div>
 }
-
-const TempMenuBar = () => {}
 
 const Dashboard = () => {
     const [currentPage, setCurrentPage] = useState('POTATO')
