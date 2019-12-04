@@ -19,7 +19,7 @@ const InterfaceContainer = styled.div`
     text-align: center;
 `
 
-const PotatoContainer = styled.div`
+const MainContainer = styled.div`
     display: flex;
     justify-content: center;
     align-content: center;
@@ -67,6 +67,7 @@ interface ModeProps {
 
 // default potato info if no potato
 const potatoInfo = {
+    id: '',
     potatoType: PotatoTypes.Fresh,
     potatoTitleText: "You don't have a potato",
     potatoSubTitleText: 'Bake one up for your friends!',
@@ -129,7 +130,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
     }
 
     return (
-        <PotatoContainer>
+        <MainContainer>
             <Potato
                 style={{ alignSelf: 'center', cursor: 'pointer' }}
                 type={potatoContext.potatoType}
@@ -162,18 +163,65 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
                     </PotatoButton>
                 )}
             </PotatoButtonContainer>
-        </PotatoContainer>
+        </MainContainer>
     )
 }
 
+const BigText = styled.p`
+    font-size: 4vw;
+    text-align: center;
+`
+
+const SendContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const CopyContainer = styled.div`
+    background-color: ${Colors.Sky};
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`
+
+const CopyBox = styled.div`
+    background-color: ${Colors.LightGray};
+    border-radius
+`
+
+const CopyButton = styled.div`
+    width: 10%;
+    background-color: ${Colors.Rose};
+`
+
+const CopyIcon = styled.img``
+
 const SendingMode = ({ changeMode }: ModeProps) => {
-    return <div>Sending mode dawg</div>
+    const potatoContext = useContext(PotatoContext)
+    const url = window.location.host + '/rec/' + potatoContext.id
+
+    return (
+        <MainContainer>
+            <BigText>Send the charitato before it explodes!</BigText>
+            <SendContainer>
+                <CopyContainer>
+                    <CopyBox>{url}</CopyBox>
+                    <CopyButton>
+                        <CopyIcon src={''} /> {/*TODO: Add  icon*/}
+                    </CopyButton>
+                </CopyContainer>
+            </SendContainer>
+        </MainContainer>
+    )
 }
 
 // gets potato state and displays the mode
 // TODO: make this more elegant
 export const PotatoInterface = () => {
-    const [mode, setMode] = useState('PotatoMode')
+    const [mode, setMode] = useState('SendingMode')
     const userState = useContext(UserContext)
     let potato = defaultPotatoResource
 
@@ -182,6 +230,10 @@ export const PotatoInterface = () => {
             potato = PotatoStateResource(userState.instance.currentPotato)
 
             potatoInfo.potatoTitleText = 'You have a potato!'
+
+            if (potato.state.id) {
+                potatoInfo.id = potato.state.id
+            }
 
             if (potato.state.timeCreated && potato.state.timeOfDeath) {
                 const potatoState = calculatePotatoType(
