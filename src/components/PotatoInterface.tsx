@@ -121,7 +121,11 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
     }
 
     const handleNewPotatoClick = () => {
-        // changeMode('TESTMODE')
+        changeMode('SendingMode')
+    }
+
+    const handlePotatoInfoClick = () => {
+        alert('TODO: Potato Info Mode')
     }
 
     return (
@@ -152,7 +156,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
                 {!potatoButtonGrayedOut && (
                     <PotatoButton
                         style={{ cursor: 'pointer' }}
-                        onClick={handleNewPotatoClick}
+                        onClick={handlePotatoInfoClick}
                     >
                         i
                     </PotatoButton>
