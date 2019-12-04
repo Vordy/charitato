@@ -1,23 +1,23 @@
+import { AccountInterface } from 'components/AccountInterface'
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
+import { Colors } from 'theme/Colors'
+import { FriendsInterface } from 'components/FriendsInterface'
 import { getTheme } from 'theme/themes'
+import { LeaderboardsInterface } from 'components/LeaderboardsInterface'
+import { MilestonesInterface } from 'components/MilestonesInterface'
+import { PotatoInterface } from 'components/PotatoInterface'
 import { signUpConfig } from 'common/auth_config'
+import { useHistory, useParams } from 'react-router'
 import { withAuthenticator } from 'aws-amplify-react'
-import AmplifyTheme from 'theme/auth_theme'
-import React, { createContext, useState, useEffect } from 'react'
-import styled from '@emotion/styled'
 import {
     defaultUserState,
     UserResource,
     UserStateResource,
 } from 'common/user_state'
-import { PotatoInterface } from 'components/PotatoInterface'
-import { MilestonesInterface } from 'components/MilestonesInterface'
-import { FriendsInterface } from 'components/FriendsInterface'
-import { LeaderboardsInterface } from 'components/LeaderboardsInterface'
-import { AccountInterface } from 'components/AccountInterface'
-import { Colors } from 'theme/Colors'
-import { useParams, useHistory } from 'react-router'
+import AmplifyTheme from 'theme/auth_theme'
+import React, { createContext, useEffect, useState } from 'react'
+import styled from '@emotion/styled'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -101,10 +101,10 @@ const Dashboard = () => {
     const user: UserResource = UserStateResource()
 
     useEffect(() => {
-        console.log(`useEffect: ${currentPage} to ${inputPage}`)
+        // console.log(`useEffect: ${currentPage} to ${inputPage}`)
         if (inputPage !== undefined) {
             if (inputPage.toUpperCase() in DashboardPages) {
-                console.log(`Setting to ${inputToDashboard(inputPage)}`)
+                // console.log(`Setting to ${inputToDashboard(inputPage)}`)
                 setCurrentPage(inputToDashboard(inputPage))
             }
         }
