@@ -24,7 +24,7 @@ const PotatoTitleText = styled.p`
     margin: 0px;
     margin-top: 20px;
     font-size: 3vw;
-    font-weight: normal;
+    font-weight: bold;
 `
 
 const PotatoSubTitleText = styled.p`
@@ -36,7 +36,7 @@ const PotatoButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 40px;
 `
 
 const PotatoButton = styled.div`
@@ -55,9 +55,28 @@ const PotatoButton = styled.div`
     box-shadow: 4px 4px 18px rgba(0, 0, 0, 0.08);
 `
 
-export const PotatoInterface = () => {
+interface PotatoModeProps {
+    changeMode: React.Dispatch<React.SetStateAction<string>>
+}
+
+const PotatoMode = ({ changeMode }: PotatoModeProps) => {
     const userState = useContext(UserContext)
     const [hasPotato, setHasPotato] = useState(false)
+
+    const potatoInfo = {
+        potatoType: PotatoTypes.Fresh,
+        potatoTitleText: "You don't have a potato",
+        potatoSubTitleText: 'Bake one up for your friends!',
+    }
+
+    if (userState.instance) {
+        if (userState.instance.hasPotato) {
+            // TODO: Implement potato info fetching from Instance
+            potatoInfo.potatoTitleText = 'You have a potato!'
+            potatoInfo.potatoType = PotatoTypes.KindaMedium
+            potatoInfo.potatoSubTitleText = "It's kinda medium-ish"
+        }
+    }
 
     useEffect(() => {
         if (userState.instance) {
@@ -65,20 +84,34 @@ export const PotatoInterface = () => {
         }
     }, [userState.instance]) // only recalls useEffect if the user instance changes
 
+    const handleNewPotatoClick = () => {
+        // changeMode('TESTMODE')
+    }
+
+    return (
+        <PotatoContainer>
+            <Potato
+                style={{ alignSelf: 'center', cursor: 'pointer' }}
+                type={potatoInfo.potatoType}
+            />
+            <PotatoTitleText>{potatoInfo.potatoTitleText}</PotatoTitleText>
+            <PotatoSubTitleText>
+                {potatoInfo.potatoSubTitleText}
+            </PotatoSubTitleText>
+            <PotatoButtonContainer>
+                <PotatoButton onClick={handleNewPotatoClick}>+</PotatoButton>
+                <PotatoButton>i</PotatoButton>
+            </PotatoButtonContainer>
+        </PotatoContainer>
+    )
+}
+
+export const PotatoInterface = () => {
+    const [mode, setMode] = useState('PotatoMode')
+
     return (
         <InterfaceContainer>
-            <PotatoContainer>
-                <Potato
-                    style={{ alignSelf: 'center', cursor: 'pointer' }}
-                    type={PotatoTypes.Hot}
-                />
-                <PotatoTitleText>You have a potato!</PotatoTitleText>
-                <PotatoSubTitleText>It's Super Hot!</PotatoSubTitleText>
-                <PotatoButtonContainer>
-                    <PotatoButton>+</PotatoButton>
-                    <PotatoButton>i</PotatoButton>
-                </PotatoButtonContainer>
-            </PotatoContainer>
+            {mode === 'PotatoMode' && <PotatoMode changeMode={setMode} />}
         </InterfaceContainer>
     )
 }
