@@ -15,6 +15,8 @@ interface DBInstance {
     version: string
     hasPotato: boolean
     name: string
+    currentPotato: string
+    history: []
 }
 
 // UserState: combination of User and DBInstance
@@ -64,6 +66,8 @@ const setUpUserInstance = async (user: User): Promise<DBInstance> => {
         id: user.username,
         name: user.attributes.name,
         version: '1a', // version 1, user instance
+        currentPotato: '',
+        history: [],
     }
 
     await API.post('UserAPI', '/items', { body: initialUser })

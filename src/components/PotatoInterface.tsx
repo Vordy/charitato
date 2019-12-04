@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { UserContext } from 'pages/Dashboard'
 import styled from '@emotion/styled'
 import { Potato, PotatoTypes } from 'assets/potatoes/potato'
 import { Colors } from 'theme/Colors'
+import { PotatoResource, PotatoStateResource } from 'common/potato_state'
 
 const InterfaceContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
@@ -59,9 +60,31 @@ interface PotatoModeProps {
     changeMode: React.Dispatch<React.SetStateAction<string>>
 }
 
+const calculatePotatoType = (
+    timeCreated: string,
+    timeOfDeath: string
+): { potato: PotatoTypes; subText: string } => {
+    const currentTime = 10 // TODO: get unix time
+    const percentDone = (currentTime / (+timeOfDeath - +timeCreated)) * 100
+
+    if (percentDone < 20) {
+        return {
+            potato: PotatoTypes.SortaColdish,
+            subText: "It's sorta coldish",
+        }
+    } else if (percentDone < 40) {
+        return { potato: PotatoTypes.KindaMedium, subText: "It's kinda medium" }
+    } else if (percentDone < 60) {
+        return { potato: PotatoTypes.Medium, subText: "It's medium" }
+    } else if (percentDone < 80) {
+        return { potato: PotatoTypes.Hot, subText: "It's getting hot!" }
+    } else {
+        return { potato: PotatoTypes.SuperHot, subText: "It's Super Hot!" }
+    }
+}
+
 const PotatoMode = ({ changeMode }: PotatoModeProps) => {
     const userState = useContext(UserContext)
-    const [hasPotato, setHasPotato] = useState(false)
 
     const potatoInfo = {
         potatoType: PotatoTypes.Fresh,
@@ -72,17 +95,23 @@ const PotatoMode = ({ changeMode }: PotatoModeProps) => {
     if (userState.instance) {
         if (userState.instance.hasPotato) {
             // TODO: Implement potato info fetching from Instance
+            const potato: PotatoResource = PotatoStateResource(
+                userState.instance.currentPotato
+            )
+
             potatoInfo.potatoTitleText = 'You have a potato!'
-            potatoInfo.potatoType = PotatoTypes.KindaMedium
-            potatoInfo.potatoSubTitleText = "It's kinda medium-ish"
+
+            if (potato.state.timeCreated && potato.state.timeOfDeath) {
+                const potatoState = calculatePotatoType(
+                    potato.state.timeCreated,
+                    potato.state.timeOfDeath
+                )
+
+                potatoInfo.potatoType = potatoState.potato
+                potatoInfo.potatoSubTitleText = potatoState.subText
+            }
         }
     }
-
-    useEffect(() => {
-        if (userState.instance) {
-            setHasPotato(userState.instance.hasPotato)
-        }
-    }, [userState.instance]) // only recalls useEffect if the user instance changes
 
     const handleNewPotatoClick = () => {
         // changeMode('TESTMODE')
