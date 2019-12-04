@@ -28,7 +28,7 @@ const DashboardPage = styled.div`
     align-items: center;
 `
 
-const DashboardContainer = styled.div`
+const InterfaceContainer = styled.div`
     width: 100%;
     height: 100%;
     flex-direction: row;
@@ -101,7 +101,7 @@ const Dashboard = () => {
     const user: UserResource = UserStateResource()
 
     useEffect(() => {
-        console.log(`useEffect: ${inputPage}`)
+        console.log(`useEffect: ${currentPage} to ${inputPage}`)
         if (inputPage !== undefined) {
             if (inputPage.toUpperCase() in DashboardPages) {
                 console.log(`Setting to ${inputToDashboard(inputPage)}`)
@@ -110,13 +110,9 @@ const Dashboard = () => {
         }
     }, [inputPage])
 
-    const handlePageChange = (page: DashboardPages) => {
-        setCurrentPage(page)
-    }
-
     return (
         <DashboardPage>
-            <DashboardContainer>
+            <InterfaceContainer>
                 <UserContext.Provider value={user.state}>
                     {user.isLoading && <Loading />}
                     {!user.isLoading &&
@@ -140,7 +136,7 @@ const Dashboard = () => {
                             <AccountInterface />
                         )}
                 </UserContext.Provider>
-            </DashboardContainer>
+            </InterfaceContainer>
             <MenuBarContainer>
                 <MenuBar>
                     <Button
