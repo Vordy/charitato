@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react'
 // User: from Cognito User Auth
 interface User {
     username: string
-    name: string
+    attributes: {
+        name: string
+    }
 }
 
 // DBInstance: from DynamoDB table
@@ -60,7 +62,7 @@ const setUpUserInstance = async (user: User): Promise<DBInstance> => {
     const initialUser: DBInstance = {
         hasPotato: false,
         id: user.username,
-        name: user.name,
+        name: user.attributes.name,
         version: '1a', // version 1, user instance
     }
 
