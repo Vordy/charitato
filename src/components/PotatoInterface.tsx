@@ -61,16 +61,19 @@ const PotatoButton = styled.div`
     box-shadow: 4px 4px 18px rgba(0, 0, 0, 0.08);
 `
 
+// For passing in the page changer to the modes
 interface PotatoModeProps {
     changeMode: React.Dispatch<React.SetStateAction<string>>
 }
 
+// default potato info if no potato
 const potatoInfo = {
     potatoType: PotatoTypes.Fresh,
     potatoTitleText: "You don't have a potato",
     potatoSubTitleText: 'Bake one up for your friends!',
 }
 
+// for passing down potato info into modes
 const PotatoContext = createContext(potatoInfo)
 
 // Calculates the color and text of a potato based on time
@@ -109,6 +112,7 @@ const calculatePotatoType = (
     }
 }
 
+// for viewing a potato (or lack thereof)
 const PotatoMode = ({ changeMode }: PotatoModeProps) => {
     const potatoContext = useContext(PotatoContext)
 
@@ -134,6 +138,8 @@ const PotatoMode = ({ changeMode }: PotatoModeProps) => {
     )
 }
 
+// gets potato state and displays the mode
+// TODO: make this more elegant
 export const PotatoInterface = () => {
     const [mode, setMode] = useState('PotatoMode')
     const userState = useContext(UserContext)
@@ -141,7 +147,6 @@ export const PotatoInterface = () => {
 
     if (userState.instance) {
         if (userState.instance.hasPotato) {
-            // TODO: Implement potato info fetching from Instance
             potato = PotatoStateResource(userState.instance.currentPotato)
 
             potatoInfo.potatoTitleText = 'You have a potato!'
