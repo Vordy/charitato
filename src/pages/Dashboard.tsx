@@ -103,9 +103,9 @@ const Dashboard = () => {
     useEffect(() => {
         console.log(`useEffect: ${inputPage}`)
         if (inputPage !== undefined) {
-            if (inputPage in DashboardPages) {
-                // setCurrentPage(inputToDashboard(inputPage))
-                history.push(`/dashboard/${inputPage}`)
+            if (inputPage.toUpperCase() in DashboardPages) {
+                console.log(`Setting to ${inputToDashboard(inputPage)}`)
+                setCurrentPage(inputToDashboard(inputPage))
             }
         }
     }, [inputPage])
@@ -148,7 +148,8 @@ const Dashboard = () => {
                         buttonSize={ButtonSizes.Small}
                         text={'Milestones'}
                         onClickHandler={(event: React.MouseEvent) => {
-                            handlePageChange(DashboardPages.MILESTONES)
+                            // handlePageChange(DashboardPages.MILESTONES)
+                            history.push(`/dashboard/milestones`)
                         }}
                     />
                     <Button
@@ -156,7 +157,8 @@ const Dashboard = () => {
                         buttonSize={ButtonSizes.Small}
                         text={'Leaderboards'}
                         onClickHandler={(event: React.MouseEvent) => {
-                            handlePageChange(DashboardPages.LEADERBOARDS)
+                            // handlePageChange(DashboardPages.LEADERBOARDS)
+                            history.push(`/dashboard/leaderboards`)
                         }}
                     />
                     <Button
@@ -164,7 +166,8 @@ const Dashboard = () => {
                         buttonSize={ButtonSizes.Small}
                         text={'Potato'}
                         onClickHandler={(event: React.MouseEvent) => {
-                            handlePageChange(DashboardPages.POTATO)
+                            // handlePageChange(DashboardPages.POTATO)
+                            history.push(`/dashboard/potato`)
                         }}
                     />
                     <Button
@@ -172,7 +175,8 @@ const Dashboard = () => {
                         buttonSize={ButtonSizes.Small}
                         text={'Friends'}
                         onClickHandler={(event: React.MouseEvent) => {
-                            handlePageChange(DashboardPages.FRIENDS)
+                            // handlePageChange(DashboardPages.FRIENDS)
+                            history.push(`/dashboard/friends`)
                         }}
                     />
                     <Button
@@ -180,7 +184,8 @@ const Dashboard = () => {
                         buttonSize={ButtonSizes.Small}
                         text={'Account'}
                         onClickHandler={(event: React.MouseEvent) => {
-                            handlePageChange(DashboardPages.ACCOUNT)
+                            // handlePageChange(DashboardPages.ACCOUNT)
+                            history.push(`/dashboard/account`)
                         }}
                     />
                 </MenuBar>
