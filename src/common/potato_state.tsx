@@ -15,7 +15,7 @@ export interface PotatoResource {
 
 export const defaultPotatoState: PotatoState = {}
 
-const defaultPotatoResource: PotatoResource = {
+export const defaultPotatoResource: PotatoResource = {
     state: {},
     isLoading: false,
 }

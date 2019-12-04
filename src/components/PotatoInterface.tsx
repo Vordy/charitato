@@ -1,9 +1,14 @@
-import React, { useContext, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import { UserContext } from 'pages/Dashboard'
 import styled from '@emotion/styled'
 import { Potato, PotatoTypes } from 'assets/potatoes/potato'
 import { Colors } from 'theme/Colors'
-import { PotatoResource, PotatoStateResource } from 'common/potato_state'
+import {
+    PotatoResource,
+    PotatoStateResource,
+    defaultPotatoState,
+    defaultPotatoResource,
+} from 'common/potato_state'
 
 const InterfaceContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
@@ -60,6 +65,15 @@ interface PotatoModeProps {
     changeMode: React.Dispatch<React.SetStateAction<string>>
 }
 
+const potatoInfo = {
+    potatoType: PotatoTypes.Fresh,
+    potatoTitleText: "You don't have a potato",
+    potatoSubTitleText: 'Bake one up for your friends!',
+}
+
+const PotatoContext = createContext(potatoInfo)
+
+// Calculates the color and text of a potato based on time
 const calculatePotatoType = (
     timeCreated: string,
     timeOfDeath: string
@@ -73,31 +87,62 @@ const calculatePotatoType = (
             subText: "It's sorta coldish",
         }
     } else if (percentDone < 40) {
-        return { potato: PotatoTypes.KindaMedium, subText: "It's kinda medium" }
+        return {
+            potato: PotatoTypes.KindaMedium,
+            subText: "It's kinda medium",
+        }
     } else if (percentDone < 60) {
-        return { potato: PotatoTypes.Medium, subText: "It's medium" }
+        return {
+            potato: PotatoTypes.Medium,
+            subText: "It's medium",
+        }
     } else if (percentDone < 80) {
-        return { potato: PotatoTypes.Hot, subText: "It's getting hot!" }
+        return {
+            potato: PotatoTypes.Hot,
+            subText: "It's getting hot!",
+        }
     } else {
-        return { potato: PotatoTypes.SuperHot, subText: "It's Super Hot!" }
+        return {
+            potato: PotatoTypes.SuperHot,
+            subText: "It's Super Hot!",
+        }
     }
 }
 
 const PotatoMode = ({ changeMode }: PotatoModeProps) => {
-    const userState = useContext(UserContext)
+    const potatoContext = useContext(PotatoContext)
 
-    const potatoInfo = {
-        potatoType: PotatoTypes.Fresh,
-        potatoTitleText: "You don't have a potato",
-        potatoSubTitleText: 'Bake one up for your friends!',
+    const handleNewPotatoClick = () => {
+        // changeMode('TESTMODE')
     }
+
+    return (
+        <PotatoContainer>
+            <Potato
+                style={{ alignSelf: 'center', cursor: 'pointer' }}
+                type={potatoContext.potatoType}
+            />
+            <PotatoTitleText>{potatoContext.potatoTitleText}</PotatoTitleText>
+            <PotatoSubTitleText>
+                {potatoContext.potatoSubTitleText}
+            </PotatoSubTitleText>
+            <PotatoButtonContainer>
+                <PotatoButton onClick={handleNewPotatoClick}>+</PotatoButton>
+                <PotatoButton>i</PotatoButton>
+            </PotatoButtonContainer>
+        </PotatoContainer>
+    )
+}
+
+export const PotatoInterface = () => {
+    const [mode, setMode] = useState('PotatoMode')
+    const userState = useContext(UserContext)
+    let potato = defaultPotatoResource
 
     if (userState.instance) {
         if (userState.instance.hasPotato) {
             // TODO: Implement potato info fetching from Instance
-            const potato: PotatoResource = PotatoStateResource(
-                userState.instance.currentPotato
-            )
+            potato = PotatoStateResource(userState.instance.currentPotato)
 
             potatoInfo.potatoTitleText = 'You have a potato!'
 
@@ -113,34 +158,14 @@ const PotatoMode = ({ changeMode }: PotatoModeProps) => {
         }
     }
 
-    const handleNewPotatoClick = () => {
-        // changeMode('TESTMODE')
-    }
-
-    return (
-        <PotatoContainer>
-            <Potato
-                style={{ alignSelf: 'center', cursor: 'pointer' }}
-                type={potatoInfo.potatoType}
-            />
-            <PotatoTitleText>{potatoInfo.potatoTitleText}</PotatoTitleText>
-            <PotatoSubTitleText>
-                {potatoInfo.potatoSubTitleText}
-            </PotatoSubTitleText>
-            <PotatoButtonContainer>
-                <PotatoButton onClick={handleNewPotatoClick}>+</PotatoButton>
-                <PotatoButton>i</PotatoButton>
-            </PotatoButtonContainer>
-        </PotatoContainer>
-    )
-}
-
-export const PotatoInterface = () => {
-    const [mode, setMode] = useState('PotatoMode')
-
     return (
         <InterfaceContainer>
-            {mode === 'PotatoMode' && <PotatoMode changeMode={setMode} />}
+            <PotatoContext.Provider value={potatoInfo}>
+                {potato.isLoading && <div>Loading...</div>}
+                {!potato.isLoading && mode === 'PotatoMode' && (
+                    <PotatoMode changeMode={setMode} />
+                )}
+            </PotatoContext.Provider>
         </InterfaceContainer>
     )
 }
