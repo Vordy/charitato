@@ -46,7 +46,6 @@ const PotatoButtonContainer = styled.div`
 `
 
 const PotatoButton = styled.div`
-    cursor: pointer;
     margin-left: 10px;
     margin-right: 10px;
     display: flex;
@@ -62,7 +61,7 @@ const PotatoButton = styled.div`
 `
 
 // For passing in the page changer to the modes
-interface PotatoModeProps {
+interface ModeProps {
     changeMode: React.Dispatch<React.SetStateAction<string>>
 }
 
@@ -113,8 +112,13 @@ const calculatePotatoType = (
 }
 
 // for viewing a potato (or lack thereof)
-const PotatoMode = ({ changeMode }: PotatoModeProps) => {
+const PotatoMode = ({ changeMode }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
+    let potatoButtonGrayedOut = false
+
+    if (potatoContext.potatoType === PotatoTypes.Fresh) {
+        potatoButtonGrayedOut = true
+    }
 
     const handleNewPotatoClick = () => {
         // changeMode('TESTMODE')
@@ -131,11 +135,35 @@ const PotatoMode = ({ changeMode }: PotatoModeProps) => {
                 {potatoContext.potatoSubTitleText}
             </PotatoSubTitleText>
             <PotatoButtonContainer>
-                <PotatoButton onClick={handleNewPotatoClick}>+</PotatoButton>
-                <PotatoButton>i</PotatoButton>
+                {potatoButtonGrayedOut && (
+                    <PotatoButton style={{ opacity: '30%' }}>+</PotatoButton>
+                )}
+                {!potatoButtonGrayedOut && (
+                    <PotatoButton
+                        style={{ cursor: 'pointer' }}
+                        onClick={handleNewPotatoClick}
+                    >
+                        +
+                    </PotatoButton>
+                )}
+                {potatoButtonGrayedOut && (
+                    <PotatoButton style={{ opacity: '30%' }}>i</PotatoButton>
+                )}
+                {!potatoButtonGrayedOut && (
+                    <PotatoButton
+                        style={{ cursor: 'pointer' }}
+                        onClick={handleNewPotatoClick}
+                    >
+                        i
+                    </PotatoButton>
+                )}
             </PotatoButtonContainer>
         </PotatoContainer>
     )
+}
+
+const SendingMode = ({ changeMode }: ModeProps) => {
+    return <div>Sending mode dawg</div>
 }
 
 // gets potato state and displays the mode
@@ -169,6 +197,9 @@ export const PotatoInterface = () => {
                 {potato.isLoading && <div>Loading...</div>}
                 {!potato.isLoading && mode === 'PotatoMode' && (
                     <PotatoMode changeMode={setMode} />
+                )}
+                {!potato.isLoading && mode === 'SendingMode' && (
+                    <SendingMode changeMode={setMode} />
                 )}
             </PotatoContext.Provider>
         </InterfaceContainer>
