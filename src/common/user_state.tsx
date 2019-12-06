@@ -44,6 +44,13 @@ export const defaultUserResource: UserResource = {
 const db_API_name = 'UserAPI'
 const db_API_path = '/items'
 
+const objectIsEmpty = (obj: {}): boolean => {
+    if (Object.entries(obj).length === 0 && obj.constructor === Object) {
+        return true
+    }
+    return false
+}
+
 const getAuth = async (): Promise<User | null> => {
     try {
         const user = await Auth.currentAuthenticatedUser()
@@ -89,10 +96,8 @@ const getUserState = async (): Promise<UserState> => {
     }
 
     let instance = await getInstance(user.username)
-    if (
-        Object.entries(instance).length === 0 &&
-        instance.constructor === Object
-    ) {
+
+    if (objectIsEmpty(instance)) {
         instance = await setUpUserInstance(user)
     }
 
@@ -107,13 +112,20 @@ export const UserStateResource = () => {
 
     useEffect(() => {
         const userState = async () => {
+            let errorFlag = false
+
             setData({
                 state: defaultUserResource.state,
                 isError: false,
                 isLoading: true,
             })
             const result = await getUserState()
-            setData({ state: result, isError: false, isLoading: false })
+
+            if (objectIsEmpty(result)) {
+                errorFlag = true
+            }
+
+            setData({ state: result, isError: errorFlag, isLoading: false })
         }
 
         userState()
