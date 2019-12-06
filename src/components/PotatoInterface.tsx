@@ -9,6 +9,8 @@ import {
     defaultPotatoState,
     defaultPotatoResource,
 } from 'common/potato_state'
+import { Button } from 'common/button/Button'
+import { ButtonTypes, ButtonSizes } from 'common/button/ButtonUtils'
 
 const InterfaceContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
@@ -180,7 +182,6 @@ const SendContainer = styled.div`
 `
 
 const CopyContainer = styled.div`
-    background-color: ${Colors.Sky};
     width: 50%;
     display: flex;
     flex-direction: row;
@@ -189,19 +190,16 @@ const CopyContainer = styled.div`
 
 const CopyBox = styled.div`
     background-color: ${Colors.LightGray};
-    border-radius
+    border-radius: 999px;
 `
-
-const CopyButton = styled.div`
-    width: 10%;
-    background-color: ${Colors.Rose};
-`
-
-const CopyIcon = styled.img``
 
 const SendingMode = ({ changeMode }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
     const url = window.location.host + '/rec/' + potatoContext.id
+
+    const handleCopy = (event: React.MouseEvent) => {
+        console.log('Boom')
+    }
 
     return (
         <MainContainer>
@@ -209,9 +207,12 @@ const SendingMode = ({ changeMode }: ModeProps) => {
             <SendContainer>
                 <CopyContainer>
                     <CopyBox>{url}</CopyBox>
-                    <CopyButton>
-                        <CopyIcon src={''} /> {/*TODO: Add  icon*/}
-                    </CopyButton>
+                    <Button
+                        buttonType={ButtonTypes.Primary}
+                        buttonSize={ButtonSizes.Small}
+                        text={'Copy'}
+                        onClickHandler={handleCopy}
+                    />
                 </CopyContainer>
             </SendContainer>
         </MainContainer>
