@@ -35,7 +35,7 @@ export interface UserResource {
 export const defaultUserState: UserState = {}
 
 // Default values for exporting into UserContext
-export const defaultUserResource: UserResource = {
+const defaultUserResource: UserResource = {
     isError: false,
     isLoading: false,
     state: {},
