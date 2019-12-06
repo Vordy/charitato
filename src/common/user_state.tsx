@@ -41,8 +41,8 @@ const defaultUserResource: UserResource = {
     state: {},
 }
 
-const db_API_name = 'UserAPI'
-const db_API_path = '/items'
+const APIName = 'UserAPI'
+const APIPath = '/items'
 
 const objectIsEmpty = (obj: {}): boolean => {
     if (Object.entries(obj).length === 0 && obj.constructor === Object) {
@@ -79,7 +79,7 @@ const setUpUserInstance = async (user: User): Promise<DBInstance> => {
         version: '1.0.0a', // version 1, user instance
     }
 
-    await API.post(db_API_name, db_API_path, { body: initialUser })
+    await API.post(APIName, APIPath, { body: initialUser })
 
     return initialUser
 }
@@ -115,9 +115,9 @@ export const UserStateResource = () => {
             let errorFlag = false
 
             setData({
-                state: defaultUserResource.state,
-                isError: false,
+                isError: errorFlag,
                 isLoading: true,
+                state: defaultUserResource.state,
             })
             const result = await getUserState()
 
