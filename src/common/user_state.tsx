@@ -28,15 +28,21 @@ interface UserState {
 export interface UserResource {
     state: UserState
     isLoading: boolean
+    isError: boolean
 }
 
-// Default values for exporting into Contexts
+// Default values for exporting into States
 export const defaultUserState: UserState = {}
 
+// Default values for exporting into UserContext
 export const defaultUserResource: UserResource = {
+    isError: false,
     isLoading: false,
     state: {},
 }
+
+const db_API_name = 'UserAPI'
+const db_API_path = '/items'
 
 const getAuth = async (): Promise<User | null> => {
     try {
@@ -63,10 +69,10 @@ const setUpUserInstance = async (user: User): Promise<DBInstance> => {
         hasPotato: false,
         id: user.username,
         name: user.attributes.name,
-        version: '1a', // version 1, user instance
+        version: '1.0.0a', // version 1, user instance
     }
 
-    await API.post('UserAPI', '/items', { body: initialUser })
+    await API.post(db_API_name, db_API_path, { body: initialUser })
 
     return initialUser
 }
@@ -101,9 +107,13 @@ export const UserStateResource = () => {
 
     useEffect(() => {
         const userState = async () => {
-            setData({ state: defaultUserResource.state, isLoading: true })
+            setData({
+                state: defaultUserResource.state,
+                isError: false,
+                isLoading: true,
+            })
             const result = await getUserState()
-            setData({ state: result, isLoading: false })
+            setData({ state: result, isError: false, isLoading: false })
         }
 
         userState()

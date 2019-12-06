@@ -93,6 +93,10 @@ const Loading = () => {
     return <div>Loading...</div>
 }
 
+const ErrorPage = () => {
+    return <div>Error - user_state failed</div>
+}
+
 const Dashboard = () => {
     const [currentPage, setCurrentPage] = useState(DashboardPages.POTATO)
     const { inputPage } = useParams()
@@ -114,24 +118,30 @@ const Dashboard = () => {
         <DashboardPage>
             <InterfaceContainer>
                 <UserContext.Provider value={user.state}>
-                    {user.isLoading && <Loading />}
-                    {!user.isLoading &&
+                    {user.isError && <ErrorPage />}
+                    {!user.isError && user.isLoading && <Loading />}
+                    {!user.isError &&
+                        !user.isLoading &&
                         currentPage === DashboardPages.POTATO && (
                             <PotatoInterface />
                         )}
-                    {!user.isLoading &&
+                    {!user.isError &&
+                        !user.isLoading &&
                         currentPage === DashboardPages.MILESTONES && (
                             <MilestonesInterface />
                         )}
-                    {!user.isLoading &&
+                    {!user.isError &&
+                        !user.isLoading &&
                         currentPage === DashboardPages.FRIENDS && (
                             <FriendsInterface />
                         )}
-                    {!user.isLoading &&
+                    {!user.isError &&
+                        !user.isLoading &&
                         currentPage === DashboardPages.LEADERBOARDS && (
                             <LeaderboardsInterface />
                         )}
-                    {!user.isLoading &&
+                    {!user.isError &&
+                        !user.isLoading &&
                         currentPage === DashboardPages.ACCOUNT && (
                             <AccountInterface />
                         )}
