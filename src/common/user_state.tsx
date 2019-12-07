@@ -20,7 +20,7 @@ interface DBInstance {
 }
 
 // UserState: combination of User and DBInstance
-interface UserState {
+export interface UserState {
     username?: string
     user?: User
     instance?: DBInstance

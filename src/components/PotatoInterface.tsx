@@ -4,10 +4,9 @@ import styled from '@emotion/styled'
 import { Potato, PotatoTypes } from 'assets/potatoes/potato'
 import { Colors } from 'theme/Colors'
 import {
-    PotatoResource,
     PotatoStateResource,
-    defaultPotatoState,
-    defaultPotatoResource,
+    calculatePotatoType,
+    potatoInfo,
 } from 'common/potato_state'
 import { Button } from 'common/button/Button'
 import { ButtonTypes, ButtonSizes } from 'common/button/ButtonUtils'
@@ -67,52 +66,8 @@ interface ModeProps {
     changeMode: React.Dispatch<React.SetStateAction<string>>
 }
 
-// default potato info if no potato
-const potatoInfo = {
-    id: '',
-    potatoType: PotatoTypes.Fresh,
-    potatoTitleText: "You don't have a potato",
-    potatoSubTitleText: 'Bake one up for your friends!',
-}
-
 // for passing down potato info into modes
 const PotatoContext = createContext(potatoInfo)
-
-// Calculates the color and text of a potato based on time
-const calculatePotatoType = (
-    timeCreated: string,
-    timeOfDeath: string
-): { potato: PotatoTypes; subText: string } => {
-    const currentTime = 10 // TODO: get unix time
-    const percentDone = (currentTime / (+timeOfDeath - +timeCreated)) * 100
-
-    if (percentDone < 20) {
-        return {
-            potato: PotatoTypes.SortaColdish,
-            subText: "It's sorta coldish",
-        }
-    } else if (percentDone < 40) {
-        return {
-            potato: PotatoTypes.KindaMedium,
-            subText: "It's kinda medium",
-        }
-    } else if (percentDone < 60) {
-        return {
-            potato: PotatoTypes.Medium,
-            subText: "It's medium",
-        }
-    } else if (percentDone < 80) {
-        return {
-            potato: PotatoTypes.Hot,
-            subText: "It's getting hot!",
-        }
-    } else {
-        return {
-            potato: PotatoTypes.SuperHot,
-            subText: "It's Super Hot!",
-        }
-    }
-}
 
 // for viewing a potato (or lack thereof)
 const PotatoMode = ({ changeMode }: ModeProps) => {
@@ -198,7 +153,7 @@ const SendingMode = ({ changeMode }: ModeProps) => {
     const url = window.location.host + '/rec/' + potatoContext.id
 
     const handleCopy = (event: React.MouseEvent) => {
-        console.log('Boom')
+        changeMode('PotatoMode') //temp
     }
 
     return (
@@ -222,28 +177,27 @@ const SendingMode = ({ changeMode }: ModeProps) => {
 // gets potato state and displays the mode
 // TODO: make this more elegant
 export const PotatoInterface = () => {
-    const [mode, setMode] = useState('SendingMode')
+    const [mode, setMode] = useState('PotatoMode')
     const userState = useContext(UserContext)
-    let potato = defaultPotatoResource
+    const potatoResource = PotatoStateResource(userState) // get potato resource based on userstate
+    const potatoState = potatoResource.state
 
+    // parse potatoState into potatoInfo
     if (userState.instance) {
         if (userState.instance.hasPotato) {
-            potato = PotatoStateResource(userState.instance.currentPotato)
-
             potatoInfo.potatoTitleText = 'You have a potato!'
 
-            if (potato.state.id) {
-                potatoInfo.id = potato.state.id
+            if (potatoState.id) {
+                potatoInfo.id = potatoState.id
             }
 
-            if (potato.state.timeCreated && potato.state.timeOfDeath) {
-                const potatoState = calculatePotatoType(
-                    potato.state.timeCreated,
-                    potato.state.timeOfDeath
+            if (potatoState.timeCreated && potatoState.timeOfDeath) {
+                const potatoTypeInfo = calculatePotatoType(
+                    potatoState.timeCreated,
+                    potatoState.timeOfDeath
                 )
-
-                potatoInfo.potatoType = potatoState.potato
-                potatoInfo.potatoSubTitleText = potatoState.subText
+                potatoInfo.potatoType = potatoTypeInfo.potato
+                potatoInfo.potatoSubTitleText = potatoTypeInfo.subText
             }
         }
     }
@@ -251,11 +205,11 @@ export const PotatoInterface = () => {
     return (
         <InterfaceContainer>
             <PotatoContext.Provider value={potatoInfo}>
-                {potato.isLoading && <div>Loading...</div>}
-                {!potato.isLoading && mode === 'PotatoMode' && (
+                {potatoResource.isLoading && <div>Loading...</div>}
+                {!potatoResource.isLoading && mode === 'PotatoMode' && (
                     <PotatoMode changeMode={setMode} />
                 )}
-                {!potato.isLoading && mode === 'SendingMode' && (
+                {!potatoResource.isLoading && mode === 'SendingMode' && (
                     <SendingMode changeMode={setMode} />
                 )}
             </PotatoContext.Provider>
