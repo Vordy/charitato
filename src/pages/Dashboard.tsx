@@ -18,6 +18,7 @@ import {
 import AmplifyTheme from 'theme/auth_theme'
 import React, { createContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
+import { potatoIdentifier, incomingPotato } from 'common/potato_lifecycle'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -103,12 +104,21 @@ const Dashboard = () => {
     useEffect(() => {
         // console.log(`useEffect: ${currentPage} to ${inputPage}`)
         if (inputPage !== undefined) {
-            if (inputPage.toUpperCase() in DashboardPages) {
+            //check to see if this is an incoming potato load
+            if (
+                inputPage.substr(0, potatoIdentifier.length) ===
+                potatoIdentifier
+            ) {
+                incomingPotato(
+                    user.state,
+                    inputPage.substr(potatoIdentifier.length)
+                )
+            } else if (inputPage.toUpperCase() in DashboardPages) {
                 // console.log(`Setting to ${inputToDashboard(inputPage)}`)
                 setCurrentPage(inputToDashboard(inputPage))
             }
         }
-    }, [inputPage])
+    }, [inputPage, user.state])
 
     return (
         <DashboardPage>

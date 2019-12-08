@@ -1,5 +1,6 @@
 import { Auth } from 'aws-amplify'
 import { UserState } from './user_state'
+import { PotatoState, PotatoStateResource } from './potato_state'
 
 // RELATED GLOBALS
 // ---------------------------------------------------------
@@ -34,6 +35,10 @@ interface User {
 //          include three DB modifications
 // ---------------------------------------------------------
 
+const addToAccount = (userState: UserState, potatoState: PotatoState) => {}
+
+const removeFromPrevAccount = (potatoState: PotatoState) => {}
+
 // ---------------------------------------------------------
 // RECEIVE: the functions that handle the receiving of a
 //          charitato, which includes deleting from old
@@ -51,6 +56,41 @@ interface User {
 
 // CASE 3: Yes account (full)
 //  - should display an error page ("Potato Bank Full")
+
+export const incomingPotato = (
+    userState: UserState,
+    potatoID: string
+): UserState | null => {
+    console.log(`Potato dude: ${potatoID}`)
+
+    // Step 0: make sure this isn't a repeat, don't waste API calls
+    if (userState.instance) {
+        if (userState.instance.currentPotato === potatoID) {
+            //same potato as already dealt with, disregard
+            console.log('repeat call!')
+            return null
+        }
+    } else {
+        console.log('no user!')
+        return null
+    }
+
+    // Step 1: get potato resource
+    const potatoResource = PotatoStateResource(userState)
+
+    // Step 2: add to new account
+    addToAccount(userState, potatoResource.state)
+
+    // Step 3: remove from old account
+    removeFromPrevAccount(potatoResource.state)
+
+    // Step 4: modify userState
+    userState.instance.currentPotato = potatoID
+    userState.instance.hasPotato = true
+    // userState.instance.history.push(potatoID)
+
+    return userState
+}
 
 // checkStatus determines which of the CASES we are in
 export const checkStatus = (userState: UserState): UserPotatoStatus => {

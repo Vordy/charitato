@@ -149,7 +149,7 @@ const SendingMode = ({ changeMode }: ModeProps) => {
 // gets potato state and displays the mode
 // TODO: make this more elegant
 export const PotatoInterface = () => {
-    const [mode, setMode] = useState('SendingMode')
+    const [mode, setMode] = useState('PotatoMode')
     const userState = useContext(UserContext)
     const potatoResource = PotatoStateResource(userState) // get potato resource based on userstate
     const potatoState = potatoResource.state
