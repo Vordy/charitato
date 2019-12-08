@@ -42,7 +42,8 @@ const defaultUserResource: UserResource = {
 }
 
 const APIName = 'UserAPI'
-const APIPath = '/items'
+const APIPostPath = '/items'
+const APIGetPath = '/items/object/'
 
 const objectIsEmpty = (obj: {}): boolean => {
     if (Object.entries(obj).length === 0 && obj.constructor === Object) {
@@ -63,8 +64,8 @@ const getAuth = async (): Promise<User | null> => {
 
 const getInstance = async (username: string): Promise<DBInstance> => {
     const response: DBInstance = await API.get(
-        'UserAPI',
-        `/items/object/${username}`,
+        APIName,
+        `${APIGetPath}${username}`,
         null
     )
     // console.log(response) // TODO: remove this later
@@ -79,7 +80,7 @@ const setUpUserInstance = async (user: User): Promise<DBInstance> => {
         version: '1.0.0a', // version 1, user instance
     }
 
-    await API.post(APIName, APIPath, { body: initialUser })
+    await API.post(APIName, APIPostPath, { body: initialUser })
 
     return initialUser
 }
