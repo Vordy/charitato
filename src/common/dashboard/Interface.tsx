@@ -19,9 +19,9 @@ export const InterfaceContainer = styled.div`
 `
 
 export const InterfaceHeader = styled.div`
-    display: table;
+    display: flex;
     background-color: ${Colors.Rose};
-    height: 6%;
+    padding-left: 8px;
 `
 
 export const HeaderText = styled.p`
@@ -36,11 +36,10 @@ export const SectionTitle = styled.p`
     margin-left: 5%;
 `
 
-export const PotatoContainer = styled.div``
-
-export const PotatoIcon = styled.img`
-    width: 50%;
-    height: auto;
+export const PotatoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `
 
 export const PotatoDescriptor = styled.p`
