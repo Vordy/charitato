@@ -1,4 +1,5 @@
 import { Home } from 'pages/Home'
+import { IncPotato } from 'pages/IncomingPotato'
 import { Login } from 'common/login'
 import { PageNotFound } from 'pages/PageNotFound'
 import { Route, Switch } from 'react-router-dom'
@@ -16,6 +17,7 @@ export const Routes = () => {
                 path="/dashboard/:inputPage"
                 component={Dashboard}
             />
+            <Route exact={true} path="/rec/:potatoID" component={IncPotato} />
             <Route component={PageNotFound} />
         </Switch>
     )
