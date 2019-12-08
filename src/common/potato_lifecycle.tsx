@@ -1,10 +1,6 @@
-import { Auth, API, Hub } from 'aws-amplify'
+import { Auth, API } from 'aws-amplify'
 import { UserState, DBInstance, getUserInstance } from './user_state'
-import {
-    PotatoState,
-    PotatoStateResource,
-    getPotatoInstance,
-} from './potato_state'
+import { PotatoState, getPotatoInstance } from './potato_state'
 
 // RELATED GLOBALS
 // ---------------------------------------------------------
@@ -42,10 +38,10 @@ interface User {
 //          include three DB modifications
 // ---------------------------------------------------------
 
-const createPotato = async () => {
-    // if the current newest history item on the user is 'none' it should
-    // be replaced not concatenated
-}
+// const createPotato = async () => {
+//     // if the current newest history item on the user is 'none' it should
+//     // be replaced not concatenated
+// }
 
 const addToAccount = async (userState: UserState, potatoState: PotatoState) => {
     if (userState.instance) {

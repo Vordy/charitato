@@ -112,7 +112,7 @@ const Dashboard = () => {
             userState: UserState,
             potatoID: string
         ) => {
-            const result = await incomingPotato(userState, potatoID)
+            await incomingPotato(userState, potatoID)
         }
 
         // console.log(`useEffect: ${currentPage} to ${inputPage}`)
