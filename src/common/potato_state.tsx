@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { API } from 'aws-amplify'
 import { UserState } from './user_state'
 import { PotatoTypes } from 'assets/potatoes/potato'
+import { objectIsEmpty } from './potato_lifecycle'
 
 export interface PotatoState {
     id?: string
@@ -28,7 +29,6 @@ const getInstance = async (potatoID: string): Promise<PotatoState> => {
         `/items/object/${potatoID}`,
         null
     )
-    // console.log(response) // TODO: remove this later
     return response
 }
 
@@ -60,7 +60,9 @@ export const PotatoStateResource = (userState: UserState) => {
             setData({ state: result, isLoading: false })
         }
 
-        potatoState()
+        if (!objectIsEmpty(userState)) {
+            potatoState()
+        }
     }, [userState])
 
     return data

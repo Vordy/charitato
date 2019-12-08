@@ -56,7 +56,6 @@ const getInstance = async (username: string): Promise<DBInstance> => {
         `/items/object/${username}`,
         null
     )
-    // console.log(response) // TODO: remove this later
     return response
 }
 
