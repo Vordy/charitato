@@ -1,6 +1,11 @@
 import { Auth } from 'aws-amplify'
 import { UserState } from './user_state'
 
+// RELATED GLOBALS
+// ---------------------------------------------------------
+
+export const potatoIdentifier = 'CID='
+
 // INTERFACES/ENUMS
 // ---------------------------------------------------------
 
@@ -35,6 +40,18 @@ interface User {
 //          account as well as creating a new one
 // ---------------------------------------------------------
 
+// needs to handle no account, yes account (empty, or full)
+// CASE 1: No account
+//  - display a nice PotatoInterface-like page w/ link to DB
+//  - clicking on it will take you to user login/signup
+//  - should drop you in the dashboard with your potato
+
+// CASE 2: Yes account (empty)
+//  - should route you directly to dashboard w/ new potato
+
+// CASE 3: Yes account (full)
+//  - should display an error page ("Potato Bank Full")
+
 // checkStatus determines which of the CASES we are in
 export const checkStatus = (userState: UserState): UserPotatoStatus => {
     if (userState.instance) {
@@ -47,18 +64,6 @@ export const checkStatus = (userState: UserState): UserPotatoStatus => {
         return UserPotatoStatus.NOAC
     }
 }
-
-// needs to handle no account, yes account (empty, or full)
-// CASE 1: No account
-//  - display a nice PotatoInterface-like page w/ link to DB
-//  - clicking on it will take you to user login/signup
-//  - should drop you in the dashboard with your potato
-
-// CASE 2: Yes account (empty)
-//  - should route you directly to dashboard w/ new potato
-
-// CASE 3: Yes account (full)
-//  - should display an error page ("Potato Bank Full")
 
 // ---------------------------------------------------------
 // EXPLODE (?)

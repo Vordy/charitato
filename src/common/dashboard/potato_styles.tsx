@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { Colors } from 'theme/Colors'
 
-// Used for Potato Interface (PotatoMode), Incoming Potato Interface
+// Used for Potato Interface (PotatoMode)
 // ------------------------------------------------------------------------
 export const InterfaceContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
