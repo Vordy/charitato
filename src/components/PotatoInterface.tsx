@@ -18,21 +18,21 @@ const InterfaceContainer = styled.div`
     text-align: center;
 `
 
-const MainContainer = styled.div`
+const PotatoModeContainer = styled.div`
     display: grid;
     height: 100%;
     width: 100%;
 
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
     grid-template-rows: 20% 30% 10% 10% 10% 20%;
 
     grid-template-areas:
-        '. . .'
-        '. potato .'
-        '. text .'
-        '. subtext .'
-        '. buttons .'
-        '. . .';
+        '. . . .'
+        '. splash splash .'
+        '. text text .'
+        '. subtext subtext .'
+        '. button1 button2 .'
+        '. . . .';
 
     place-items: center center;
 `
@@ -40,21 +40,22 @@ const MainContainer = styled.div`
 const PotatoTitleText = styled.p`
     font-weight: bold;
     grid-area: text;
+    font-size: 3vw;
+    font-weight: bold;
 `
 
 const PotatoSubTitleText = styled.p`
     margin: 0px;
     grid-area: subtext;
-`
-
-const PotatoButtonContainer = styled.div`
-    margin-top: 40px;
-    grid-area: buttons;
-    background-color: pink;
+    font-size: 2.5vw;
 `
 
 const PotatoButton = styled.div`
+    width: 40px;
+    height: 40px;
     font-size: xx-large;
+    margin-right: 10px;
+    margin-left: 10px;
     border-radius: 999px;
     color: ${Colors.White};
     background-color: #c4c4c4;
@@ -87,12 +88,12 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
     }
 
     return (
-        <MainContainer>
+        <PotatoModeContainer>
             <Potato
                 style={{
                     alignSelf: 'center',
                     cursor: 'pointer',
-                    gridArea: 'potato',
+                    gridArea: 'splash',
                 }}
                 type={potatoContext.potatoType}
             />
@@ -100,51 +101,89 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
             <PotatoSubTitleText>
                 {potatoContext.potatoSubTitleText}
             </PotatoSubTitleText>
-            <PotatoButtonContainer>
-                {potatoButtonGrayedOut && (
-                    <PotatoButton style={{ opacity: '30%' }}>+</PotatoButton>
-                )}
-                {!potatoButtonGrayedOut && (
-                    <PotatoButton
-                        style={{ cursor: 'pointer' }}
-                        onClick={handleNewPotatoClick}
-                    >
-                        +
-                    </PotatoButton>
-                )}
-                {potatoButtonGrayedOut && (
-                    <PotatoButton style={{ opacity: '30%' }}>i</PotatoButton>
-                )}
-                {!potatoButtonGrayedOut && (
-                    <PotatoButton
-                        style={{ cursor: 'pointer' }}
-                        onClick={handlePotatoInfoClick}
-                    >
-                        i
-                    </PotatoButton>
-                )}
-            </PotatoButtonContainer>
-        </MainContainer>
+            {potatoButtonGrayedOut && (
+                <PotatoButton
+                    style={{
+                        opacity: '30%',
+                        gridArea: 'button1',
+                        justifySelf: 'end',
+                    }}
+                >
+                    +
+                </PotatoButton>
+            )}
+            {!potatoButtonGrayedOut && (
+                <PotatoButton
+                    style={{
+                        cursor: 'pointer',
+                        gridArea: 'button1',
+                        justifySelf: 'end',
+                    }}
+                    onClick={handleNewPotatoClick}
+                >
+                    +
+                </PotatoButton>
+            )}
+            {potatoButtonGrayedOut && (
+                <PotatoButton
+                    style={{
+                        opacity: '30%',
+                        gridArea: 'button2',
+                        justifySelf: 'start',
+                    }}
+                >
+                    i
+                </PotatoButton>
+            )}
+            {!potatoButtonGrayedOut && (
+                <PotatoButton
+                    style={{
+                        cursor: 'pointer',
+                        gridArea: 'button2',
+                        justifySelf: 'start',
+                    }}
+                    onClick={handlePotatoInfoClick}
+                >
+                    i
+                </PotatoButton>
+            )}
+        </PotatoModeContainer>
     )
 }
+
+const SendingModeContainer = styled.div`
+    display: grid;
+    height: 100%;
+    width: 100%;
+
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    grid-template-rows: 20% 30% 10% 10% 10% 20%;
+
+    grid-template-areas:
+        '. . . .'
+        'splash splash splash splash'
+        '. text text .'
+        '. subtext subtext .'
+        '. button1 button2 .'
+        '. . . .';
+
+    place-items: center center;
+`
 
 const BigText = styled.p`
     font-size: 4vw;
     text-align: center;
-`
-
-const SendContainer = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    grid-area: splash;
 `
 
 const CopyContainer = styled.div`
-    width: 50%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    grid-area: text;
+    display: grid;
+
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+
+    place-items: center center;
 `
 
 const CopyBox = styled.div`
@@ -161,27 +200,27 @@ const SendingMode = ({ changeMode }: ModeProps) => {
     }
 
     return (
-        <MainContainer>
+        <SendingModeContainer>
             <BigText>Send the charitato before it explodes!</BigText>
-            <SendContainer>
-                <CopyContainer>
-                    <CopyBox>{url}</CopyBox>
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Copy'}
-                        onClickHandler={handleCopy}
-                    />
-                </CopyContainer>
-            </SendContainer>
-        </MainContainer>
+            {/* <SendContainer> */}
+            <CopyContainer>
+                <CopyBox>{url}</CopyBox>
+                <Button
+                    buttonType={ButtonTypes.Primary}
+                    buttonSize={ButtonSizes.Small}
+                    text={'Copy'}
+                    onClickHandler={handleCopy}
+                />
+            </CopyContainer>
+            {/* </SendContainer> */}
+        </SendingModeContainer>
     )
 }
 
 // gets potato state and displays the mode
 // TODO: make this more elegant
 export const PotatoInterface = () => {
-    const [mode, setMode] = useState('PotatoMode')
+    const [mode, setMode] = useState('SendingMode')
     const userState = useContext(UserContext)
     const potatoResource = PotatoStateResource(userState) // get potato resource based on userstate
     const potatoState = potatoResource.state
