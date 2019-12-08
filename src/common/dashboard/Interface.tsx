@@ -3,25 +3,22 @@ import { getTheme } from 'theme/themes'
 import styled from '@emotion/styled'
 
 export const InterfaceContainer = styled.div`
-    border: solid 1px;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    text-align: center;
+    flex-wrap: wrap;
     color: ${getTheme().foreground};
-
-    width: 350px;
-    height: 700px;
-    margin: 2vw;
-    margin-top: 100px;
+    background-color: ${getTheme().background};
+    font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
 `
 
 export const InterfaceHeader = styled.div`
-    display: table;
+    display: flex;
     background-color: ${Colors.Rose};
-    height: 6%;
+    padding-left: 8px;
 `
 
 export const HeaderText = styled.p`
@@ -36,11 +33,10 @@ export const SectionTitle = styled.p`
     margin-left: 5%;
 `
 
-export const PotatoContainer = styled.div``
-
-export const PotatoIcon = styled.img`
-    width: 50%;
-    height: auto;
+export const PotatoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `
 
 export const PotatoDescriptor = styled.p`
@@ -123,3 +119,84 @@ export const InfoText = styled.p`
     margin-right: 2%;
     font-weight: 1;
 `
+
+export const NewsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+`;
+
+export const NewsItem = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
+export const MenuContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: ${Colors.LavendarCream};
+    position: fixed;
+    bottom: 0;
+    height: 8%;
+    border-radius: 999px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+`;
+
+export const MenuItem = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: ${Colors.White};
+    border-radius: 999px;
+    margin-left: 8px;
+    margin-right: 8px;
+`;
+
+export const MenuItemSelected = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: ${Colors.Rose};
+    border-radius: 999px;
+    margin-left: 8px;
+    margin-right: 8px;
+`;
+
+export const MilestoneContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, ${Colors.White}, ${Colors.White} 48%, ${Colors.LightGreen} 48%, ${Colors.White} 64%);
+    width: 33vw;
+    height: 33vw;
+`;
+
+export const MilestoneSmallContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, ${Colors.White}, ${Colors.White} 48%, ${Colors.LightGreen} 48%, ${Colors.White} 64%);
+    width: 25vw;
+    height: 25vw;
+`;
+
+export const MilestoneHeader = styled.div`
+    font-size: 24pt;
+    font-weight: bold;
+    text-align: center;
+    width: 75%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+`;
+
+export const MilestoneText = styled.div`
+    font-size: 20pt;
+    font-weight: bold;
+    text-align: center;
+    width: 75%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+`;
