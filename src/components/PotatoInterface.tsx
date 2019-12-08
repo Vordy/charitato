@@ -164,6 +164,8 @@ export const PotatoInterface = () => {
     const potatoResource = PotatoStateResource(userState) // get potato resource based on userstate
     const potatoState = potatoResource.state
 
+    const newPotatoTime = () => {}
+
     // parse potatoState into potatoInfo
     if (userState.instance) {
         if (userState.instance.hasPotato) {

@@ -33,7 +33,7 @@ export const PotatoModeContainer = styled.div`
 export const PotatoTitleText = styled.div`
     font-weight: bold;
     grid-area: text;
-    font-size: 3vw;
+    font-size: 2.5vw;
     font-weight: bold;
 `
 
