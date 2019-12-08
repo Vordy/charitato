@@ -66,7 +66,7 @@ export const Homeblob = (props: Props) => {
                     y2="919.712"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#FF0099" />
+                    <stop stopColor="#FF0099" />
                     <stop offset="1" stopColor="#FFE600" stopOpacity="0.7" />
                 </linearGradient>
             </defs>
