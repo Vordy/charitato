@@ -13,47 +13,47 @@ import { ButtonTypes, ButtonSizes } from 'common/button/ButtonUtils'
 
 const InterfaceContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
+    height: 100%;
+    width: 100%;
     text-align: center;
 `
 
 const MainContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
+    display: grid;
+    height: 100%;
+    width: 100%;
+
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 20% 30% 10% 10% 10% 20%;
+
+    grid-template-areas:
+        '. . .'
+        '. potato .'
+        '. text .'
+        '. subtext .'
+        '. buttons .'
+        '. . .';
+
+    place-items: center center;
 `
 
 const PotatoTitleText = styled.p`
-    margin: 0px;
-    margin-top: 20px;
-    font-size: 3vw;
     font-weight: bold;
+    grid-area: text;
 `
 
 const PotatoSubTitleText = styled.p`
     margin: 0px;
-    font-size: 2.5vw;
+    grid-area: subtext;
 `
 
 const PotatoButtonContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
     margin-top: 40px;
+    grid-area: buttons;
+    background-color: pink;
 `
 
 const PotatoButton = styled.div`
-    margin-left: 10px;
-    margin-right: 10px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    height: 50px;
-    width: 50px;
     font-size: xx-large;
     border-radius: 999px;
     color: ${Colors.White};
@@ -89,7 +89,11 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
     return (
         <MainContainer>
             <Potato
-                style={{ alignSelf: 'center', cursor: 'pointer' }}
+                style={{
+                    alignSelf: 'center',
+                    cursor: 'pointer',
+                    gridArea: 'potato',
+                }}
                 type={potatoContext.potatoType}
             />
             <PotatoTitleText>{potatoContext.potatoTitleText}</PotatoTitleText>
