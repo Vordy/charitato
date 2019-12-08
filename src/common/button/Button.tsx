@@ -30,6 +30,7 @@ const ButtonContainer = styled.div<ButtonContainerProps>`
     min-width: ${props => props.minWidth}px;
     max-width: ${props => props.maxWidth}px;
     height: ${props => props.height}px;
+    max-height: ${props => props.height}px;
     opacity: ${props => (props.disabled ? '.4' : '1')};
     border-radius: 999px;
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
