@@ -1,15 +1,16 @@
-import React, { createContext, useContext, useState } from 'react'
-import { UserContext } from 'pages/Dashboard'
-import styled from '@emotion/styled'
-import { Potato, PotatoTypes } from 'assets/potatoes/potato'
-import { Colors } from 'theme/Colors'
-import {
-    PotatoStateResource,
-    calculatePotatoType,
-    potatoInfo,
-} from 'common/potato_state'
 import { Button } from 'common/button/Button'
 import { ButtonTypes, ButtonSizes } from 'common/button/ButtonUtils'
+import { Colors } from 'theme/Colors'
+import { Potato, PotatoTypes } from 'assets/potatoes/potato'
+import { UserContext } from 'pages/Dashboard'
+import {
+    calculatePotatoType,
+    potatoInfo,
+    PotatoStateResource,
+} from 'common/potato_state'
+import copy from 'clipboard-copy'
+import React, { createContext, useContext, useState } from 'react'
+import styled from '@emotion/styled'
 
 const InterfaceContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
@@ -37,14 +38,14 @@ const PotatoModeContainer = styled.div`
     place-items: center center;
 `
 
-const PotatoTitleText = styled.p`
+const PotatoTitleText = styled.div`
     font-weight: bold;
     grid-area: text;
     font-size: 3vw;
     font-weight: bold;
 `
 
-const PotatoSubTitleText = styled.p`
+const PotatoSubTitleText = styled.div`
     margin: 0px;
     grid-area: subtext;
     font-size: 2.5vw;
@@ -170,7 +171,7 @@ const SendingModeContainer = styled.div`
     place-items: center center;
 `
 
-const BigText = styled.p`
+const BigText = styled.div`
     font-size: 4vw;
     text-align: center;
     grid-area: splash;
@@ -179,30 +180,50 @@ const BigText = styled.p`
 const CopyContainer = styled.div`
     grid-area: text;
     display: grid;
+    height: 100%;
 
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto;
+    grid-template-columns: 4fr 1fr;
+    grid-template-rows: auto 1fr;
+
+    grid-column-gap: 20px;
+
+    grid-template-areas:
+        'url button'
+        'copied copied';
 
     place-items: center center;
 `
 
 const CopyBox = styled.div`
+    display: grid;
+    height: 100%;
+    width: 100%;
+    padding-right: 5px;
+    padding-left: 5px;
+    place-items: center center;
     background-color: ${Colors.LightGray};
     border-radius: 999px;
 `
 
+const CopyMessage = styled.div`
+    grid-area: copied;
+    color: green;
+    font-weight: bold;
+`
+
 const SendingMode = ({ changeMode }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
+    const [copied, setCopied] = useState(false)
     const url = window.location.host + '/rec/' + potatoContext.id
 
     const handleCopy = (event: React.MouseEvent) => {
-        changeMode('PotatoMode') //temp
+        copy(url)
+        setCopied(true)
     }
 
     return (
         <SendingModeContainer>
             <BigText>Send the charitato before it explodes!</BigText>
-            {/* <SendContainer> */}
             <CopyContainer>
                 <CopyBox>{url}</CopyBox>
                 <Button
@@ -211,8 +232,8 @@ const SendingMode = ({ changeMode }: ModeProps) => {
                     text={'Copy'}
                     onClickHandler={handleCopy}
                 />
+                {copied && <CopyMessage>Copied!</CopyMessage>}
             </CopyContainer>
-            {/* </SendContainer> */}
         </SendingModeContainer>
     )
 }
