@@ -67,10 +67,10 @@ const setUpUserInstance = async (user: User): Promise<DBInstance> => {
         id: user.username,
         name: user.attributes.name,
         version: '1a', // version 1, user instance
-        currentPotato: '',
-        history: [],
+        currentPotato: 'none',
+        history: ['none'],
     }
-
+    console.log(initialUser)
     await API.post('UserAPI', '/items', { body: initialUser })
 
     return initialUser
@@ -88,6 +88,7 @@ const getUserState = async (): Promise<UserState> => {
     }
 
     let instance = await getUserInstance(user.username)
+    console.log(instance)
     if (
         Object.entries(instance).length === 0 &&
         instance.constructor === Object
@@ -97,7 +98,6 @@ const getUserState = async (): Promise<UserState> => {
 
     result.instance = instance
 
-    // console.log(result) //TODO: remove this later
     return result
 }
 

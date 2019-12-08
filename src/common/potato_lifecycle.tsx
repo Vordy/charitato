@@ -42,6 +42,11 @@ interface User {
 //          include three DB modifications
 // ---------------------------------------------------------
 
+const createPotato = async () => {
+    // if the current newest history item on the user is 'none' it should
+    // be replaced not concatenated
+}
+
 const addToAccount = async (userState: UserState, potatoState: PotatoState) => {
     if (userState.instance) {
         const newData: DBInstance = userState.instance
@@ -65,7 +70,7 @@ const removeFromPrevAccount = async (potatoState: PotatoState) => {
 
         const newData = previous_user_state
         newData.hasPotato = false
-        newData.currentPotato = ''
+        newData.currentPotato = 'none'
 
         await API.post('UserAPI', '/items', { body: newData })
     }
@@ -98,11 +103,11 @@ export const incomingPotato = async (
     // Step 0: make sure this isn't a repeat, don't waste API calls
     if (userState.instance) {
         // TODO: uncomment once done
-        // if (userState.instance.currentPotato === potatoID) {
-        //     //same potato as already dealt with, disregard
-        //     console.log('repeat call!')
-        //     return null
-        // }
+        if (userState.instance.currentPotato === potatoID) {
+            //same potato as already dealt with, disregard
+            console.log('repeat call!')
+            return null
+        }
     } else {
         console.log('no user!')
         return null
