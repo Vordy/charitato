@@ -1,7 +1,14 @@
 import { Auth } from 'aws-amplify'
+import { UserState } from './user_state'
 
-// INTERFACES
+// INTERFACES/ENUMS
 // ---------------------------------------------------------
+
+export enum UserPotatoStatus {
+    NOAC,
+    FULL,
+    GOOD,
+}
 
 // User returned by Cognito, used for accessing DB instances
 interface User {
@@ -27,6 +34,19 @@ interface User {
 //          charitato, which includes deleting from old
 //          account as well as creating a new one
 // ---------------------------------------------------------
+
+// checkStatus determines which of the CASES we are in
+export const checkStatus = (userState: UserState): UserPotatoStatus => {
+    if (userState.instance) {
+        if (userState.instance.hasPotato) {
+            return UserPotatoStatus.FULL
+        } else {
+            return UserPotatoStatus.GOOD
+        }
+    } else {
+        return UserPotatoStatus.NOAC
+    }
+}
 
 // needs to handle no account, yes account (empty, or full)
 // CASE 1: No account
