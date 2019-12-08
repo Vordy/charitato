@@ -1,68 +1,29 @@
 import { Button } from 'common/button/Button'
 import { ButtonTypes, ButtonSizes } from 'common/button/ButtonUtils'
-import { Colors } from 'theme/Colors'
 import { Potato, PotatoTypes } from 'assets/potatoes/potato'
 import { UserContext } from 'pages/Dashboard'
+import {
+    BigText,
+    CopyBox,
+    CopyContainer,
+    CopyMessage,
+    Or,
+    SendingModeContainer,
+} from 'common/dashboard/sending_styles'
 import {
     calculatePotatoType,
     potatoInfo,
     PotatoStateResource,
 } from 'common/potato_state'
+import {
+    InterfaceContainer,
+    PotatoButton,
+    PotatoModeContainer,
+    PotatoSubTitleText,
+    PotatoTitleText,
+} from 'common/dashboard/potato_styles'
 import copy from 'clipboard-copy'
 import React, { createContext, useContext, useState } from 'react'
-import styled from '@emotion/styled'
-
-const InterfaceContainer = styled.div`
-    font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
-    font-size: 0.9vw;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-`
-
-const PotatoModeContainer = styled.div`
-    display: grid;
-    height: 100%;
-    width: 100%;
-
-    grid-template-columns: 2fr 1fr 1fr 2fr;
-    grid-template-rows: 20% 30% 10% 10% 10% 20%;
-
-    grid-template-areas:
-        '. . . .'
-        '. splash splash .'
-        '. text text .'
-        '. subtext subtext .'
-        '. button1 button2 .'
-        '. . . .';
-
-    place-items: center center;
-`
-
-const PotatoTitleText = styled.div`
-    font-weight: bold;
-    grid-area: text;
-    font-size: 3vw;
-    font-weight: bold;
-`
-
-const PotatoSubTitleText = styled.div`
-    margin: 0px;
-    grid-area: subtext;
-    font-size: 2.5vw;
-`
-
-const PotatoButton = styled.div`
-    width: 40px;
-    height: 40px;
-    font-size: xx-large;
-    margin-right: 10px;
-    margin-left: 10px;
-    border-radius: 999px;
-    color: ${Colors.White};
-    background-color: #c4c4c4;
-    box-shadow: 4px 4px 18px rgba(0, 0, 0, 0.08);
-`
 
 // For passing in the page changer to the modes
 interface ModeProps {
@@ -152,77 +113,6 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
         </PotatoModeContainer>
     )
 }
-
-const SendingModeContainer = styled.div`
-    display: grid;
-    height: 100%;
-    width: 100%;
-
-    grid-template-columns: 2fr 1fr 1fr 2fr;
-    grid-template-rows: 20% 30% 10% 10% 10% 20%;
-
-    grid-template-areas:
-        '. . . .'
-        'splash splash splash splash'
-        '. text text .'
-        '. or or .'
-        '. button1 button2 .'
-        '. . . .';
-
-    place-items: center center;
-`
-
-const BigText = styled.div`
-    font-size: 4vw;
-    text-align: center;
-    grid-area: splash;
-`
-
-const CopyContainer = styled.div`
-    grid-area: text;
-    display: grid;
-    height: 100%;
-
-    grid-template-columns: 4fr 1fr;
-    grid-template-rows: auto 1fr;
-
-    grid-column-gap: 20px;
-
-    grid-template-areas:
-        'url button'
-        'copied copied';
-
-    place-items: center center;
-`
-
-const CopyBox = styled.div`
-    display: grid;
-    height: 100%;
-    width: 100%;
-    padding-right: 5px;
-    padding-left: 5px;
-    place-items: center center;
-    background-color: ${Colors.LightGray};
-    border-radius: 999px;
-`
-
-const CopyMessage = styled.div`
-    grid-area: copied;
-    color: green;
-    font-weight: bold;
-`
-
-const Or = styled.div`
-    width: 50%;
-
-    display: grid;
-    grid-area: or;
-
-    grid-template-columns: 3fr 2fr 3fr;
-    grid-template-rows: auto;
-
-    font-weight: bold;
-`
 
 const SendingMode = ({ changeMode }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
