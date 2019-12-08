@@ -8,7 +8,7 @@ export interface PotatoState {
     id?: string
     timeCreated?: string
     timeOfDeath?: string
-    history?: []
+    history?: string[]
 }
 
 export interface PotatoResource {
@@ -23,7 +23,9 @@ export const defaultPotatoResource: PotatoResource = {
     isLoading: false,
 }
 
-const getInstance = async (potatoID: string): Promise<PotatoState> => {
+export const getPotatoInstance = async (
+    potatoID: string
+): Promise<PotatoState> => {
     const response: PotatoState = await API.get(
         'UserAPI',
         `/items/object/${potatoID}`,
@@ -33,7 +35,7 @@ const getInstance = async (potatoID: string): Promise<PotatoState> => {
 }
 
 const getPotatoState = async (potatoID: string): Promise<PotatoState> => {
-    const result: PotatoState = await getInstance(potatoID)
+    const result: PotatoState = await getPotatoInstance(potatoID)
     if (Object.entries(result).length === 0 && result.constructor === Object) {
         return { id: 'nopotato' }
     } else {

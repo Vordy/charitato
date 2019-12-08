@@ -10,13 +10,13 @@ interface User {
 }
 
 // DBInstance: from DynamoDB table
-interface DBInstance {
+export interface DBInstance {
     id: string
     version: string
     hasPotato: boolean
     name: string
     currentPotato: string
-    history: []
+    history: string[]
 }
 
 // UserState: combination of User and DBInstance
@@ -50,7 +50,9 @@ const getAuth = async (): Promise<User | null> => {
     }
 }
 
-const getInstance = async (username: string): Promise<DBInstance> => {
+export const getUserInstance = async (
+    username: string
+): Promise<DBInstance> => {
     const response: DBInstance = await API.get(
         'UserAPI',
         `/items/object/${username}`,
@@ -85,7 +87,7 @@ const getUserState = async (): Promise<UserState> => {
         result.user = user
     }
 
-    let instance = await getInstance(user.username)
+    let instance = await getUserInstance(user.username)
     if (
         Object.entries(instance).length === 0 &&
         instance.constructor === Object

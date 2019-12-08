@@ -1,11 +1,18 @@
-import { Auth } from 'aws-amplify'
-import { UserState } from './user_state'
-import { PotatoState, PotatoStateResource } from './potato_state'
+import { Auth, API, Hub } from 'aws-amplify'
+import { UserState, DBInstance, getUserInstance } from './user_state'
+import {
+    PotatoState,
+    PotatoStateResource,
+    getPotatoInstance,
+} from './potato_state'
 
 // RELATED GLOBALS
 // ---------------------------------------------------------
 
 export const potatoIdentifier = 'CID='
+
+// API VARIABLES
+// ---------------------------------------------------------
 
 // INTERFACES/ENUMS
 // ---------------------------------------------------------
@@ -35,9 +42,34 @@ interface User {
 //          include three DB modifications
 // ---------------------------------------------------------
 
-const addToAccount = (userState: UserState, potatoState: PotatoState) => {}
+const addToAccount = async (userState: UserState, potatoState: PotatoState) => {
+    if (userState.instance) {
+        const newData: DBInstance = userState.instance
 
-const removeFromPrevAccount = (potatoState: PotatoState) => {}
+        if (potatoState.id && potatoState.history) {
+            newData.currentPotato = potatoState.id
+            newData.history.push(potatoState.id)
+            newData.hasPotato = true
+        }
+
+        await API.post('UserAPI', '/items', { body: newData })
+    }
+}
+
+const removeFromPrevAccount = async (potatoState: PotatoState) => {
+    if (potatoState.history) {
+        const history_length = potatoState.history.length
+        const previous_user = potatoState.history[history_length - 1]
+
+        const previous_user_state = await getUserInstance(previous_user)
+
+        const newData = previous_user_state
+        newData.hasPotato = false
+        newData.currentPotato = ''
+
+        await API.post('UserAPI', '/items', { body: newData })
+    }
+}
 
 // ---------------------------------------------------------
 // RECEIVE: the functions that handle the receiving of a
@@ -57,36 +89,37 @@ const removeFromPrevAccount = (potatoState: PotatoState) => {}
 // CASE 3: Yes account (full)
 //  - should display an error page ("Potato Bank Full")
 
-export const incomingPotato = (
+export const incomingPotato = async (
     userState: UserState,
     potatoID: string
-): UserState | null => {
+): Promise<UserState | null> => {
     console.log(`Potato dude: ${potatoID}`)
 
     // Step 0: make sure this isn't a repeat, don't waste API calls
     if (userState.instance) {
-        if (userState.instance.currentPotato === potatoID) {
-            //same potato as already dealt with, disregard
-            console.log('repeat call!')
-            return null
-        }
+        // TODO: uncomment once done
+        // if (userState.instance.currentPotato === potatoID) {
+        //     //same potato as already dealt with, disregard
+        //     console.log('repeat call!')
+        //     return null
+        // }
     } else {
         console.log('no user!')
         return null
     }
 
     // Step 1: get potato resource
-    const potatoResource = PotatoStateResource(userState)
+    const potatoState = await getPotatoInstance(potatoID)
 
     // Step 2: add to new account
-    addToAccount(userState, potatoResource.state)
+    await addToAccount(userState, potatoState)
 
     // Step 3: remove from old account
-    removeFromPrevAccount(potatoResource.state)
+    await removeFromPrevAccount(potatoState)
 
     // Step 4: modify userState
     userState.instance.currentPotato = potatoID
-    userState.instance.hasPotato = true
+    userState.instance.hasPotato = false
     // userState.instance.history.push(potatoID)
 
     return userState

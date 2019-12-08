@@ -14,6 +14,7 @@ import {
     defaultUserState,
     UserResource,
     UserStateResource,
+    UserState,
 } from 'common/user_state'
 import AmplifyTheme from 'theme/auth_theme'
 import React, { createContext, useEffect, useState } from 'react'
@@ -102,6 +103,13 @@ const Dashboard = () => {
     const user: UserResource = UserStateResource()
 
     useEffect(() => {
+        const handleIncomingPage = async (
+            userState: UserState,
+            potatoID: string
+        ) => {
+            const result = await incomingPotato(userState, potatoID)
+        }
+
         // console.log(`useEffect: ${currentPage} to ${inputPage}`)
         if (inputPage !== undefined) {
             //check to see if this is an incoming potato load
@@ -109,7 +117,7 @@ const Dashboard = () => {
                 inputPage.substr(0, potatoIdentifier.length) ===
                 potatoIdentifier
             ) {
-                incomingPotato(
+                handleIncomingPage(
                     user.state,
                     inputPage.substr(potatoIdentifier.length)
                 )
