@@ -14,6 +14,7 @@ import styled from '@emotion/styled'
 
 const InterfaceContainer = styled.div`
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
+    font-size: 0.9vw;
     height: 100%;
     width: 100%;
     text-align: center;
@@ -164,7 +165,7 @@ const SendingModeContainer = styled.div`
         '. . . .'
         'splash splash splash splash'
         '. text text .'
-        '. subtext subtext .'
+        '. or or .'
         '. button1 button2 .'
         '. . . .';
 
@@ -211,6 +212,18 @@ const CopyMessage = styled.div`
     font-weight: bold;
 `
 
+const Or = styled.div`
+    width: 50%;
+
+    display: grid;
+    grid-area: or;
+
+    grid-template-columns: 3fr 2fr 3fr;
+    grid-template-rows: auto;
+
+    font-weight: bold;
+`
+
 const SendingMode = ({ changeMode }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
     const [copied, setCopied] = useState(false)
@@ -234,6 +247,11 @@ const SendingMode = ({ changeMode }: ModeProps) => {
                 />
                 {copied && <CopyMessage>Copied!</CopyMessage>}
             </CopyContainer>
+            <Or>
+                <hr style={{ width: '100%' }} />
+                Or
+                <hr style={{ width: '100%' }} />
+            </Or>
         </SendingModeContainer>
     )
 }
