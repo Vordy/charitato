@@ -30,14 +30,28 @@ export interface UserState {
 export interface UserResource {
     state: UserState
     isLoading: boolean
+    isError: boolean
 }
 
-// Default values for exporting into Contexts
+// Default values for exporting into States
 export const defaultUserState: UserState = {}
 
-export const defaultUserResource: UserResource = {
+// Default values for exporting into UserContext
+const defaultUserResource: UserResource = {
+    isError: false,
     isLoading: false,
     state: {},
+}
+
+const APIName = 'UserAPI'
+const APIPostPath = '/items'
+const APIGetPath = '/items/object/'
+
+const objectIsEmpty = (obj: {}): boolean => {
+    if (Object.entries(obj).length === 0 && obj.constructor === Object) {
+        return true
+    }
+    return false
 }
 
 const getAuth = async (): Promise<User | null> => {
@@ -54,8 +68,8 @@ export const getUserInstance = async (
     username: string
 ): Promise<DBInstance> => {
     const response: DBInstance = await API.get(
-        'UserAPI',
-        `/items/object/${username}`,
+        APIName,
+        `${APIGetPath}${username}`,
         null
     )
     return response
@@ -66,12 +80,12 @@ const setUpUserInstance = async (user: User): Promise<DBInstance> => {
         hasPotato: false,
         id: user.username,
         name: user.attributes.name,
-        version: '1a', // version 1, user instance
+        version: '1.0.0a', // version 1, user instance
         currentPotato: 'none',
         history: ['none'],
     }
 
-    await API.post('UserAPI', '/items', { body: initialUser })
+    await API.post(APIName, APIPostPath, { body: initialUser })
 
     return initialUser
 }
@@ -89,10 +103,7 @@ const getUserState = async (): Promise<UserState> => {
 
     let instance = await getUserInstance(user.username)
 
-    if (
-        Object.entries(instance).length === 0 &&
-        instance.constructor === Object
-    ) {
+    if (objectIsEmpty(instance)) {
         instance = await setUpUserInstance(user)
     }
 
@@ -106,9 +117,20 @@ export const UserStateResource = () => {
 
     useEffect(() => {
         const userState = async () => {
-            setData({ state: defaultUserResource.state, isLoading: true })
+            let errorFlag = false
+
+            setData({
+                isError: errorFlag,
+                isLoading: true,
+                state: defaultUserResource.state,
+            })
             const result = await getUserState()
-            setData({ state: result, isLoading: false })
+
+            if (objectIsEmpty(result)) {
+                errorFlag = true
+            }
+
+            setData({ state: result, isError: errorFlag, isLoading: false })
         }
 
         userState()

@@ -20,6 +20,7 @@ import AmplifyTheme from 'theme/auth_theme'
 import React, { createContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { potatoIdentifier, incomingPotato } from 'common/potato_lifecycle'
+import { localize } from 'assets/strings/localize'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -92,7 +93,11 @@ const inputToDashboard = (inputPage: string) => {
 
 // TODO: this can be off-loaded into another file when we make it look nicer
 const Loading = () => {
-    return <div>Loading...</div>
+    return <div>{localize('char.dashboard.loading.text')}</div>
+}
+
+const ErrorPage = () => {
+    return <div>{localize('char.dashboard.error.text')}</div>
 }
 
 const Dashboard = () => {
@@ -132,27 +137,33 @@ const Dashboard = () => {
         <DashboardPage>
             <InterfaceContainer>
                 <UserContext.Provider value={user.state}>
-                    {user.isLoading && <Loading />}
-                    {!user.isLoading &&
+                    {!user.isError && user.isLoading && <Loading />}
+                    {!user.isError &&
+                        !user.isLoading &&
                         currentPage === DashboardPages.POTATO && (
                             <PotatoInterface />
                         )}
-                    {!user.isLoading &&
+                    {!user.isError &&
+                        !user.isLoading &&
                         currentPage === DashboardPages.MILESTONES && (
                             <MilestonesInterface />
                         )}
-                    {!user.isLoading &&
+                    {!user.isError &&
+                        !user.isLoading &&
                         currentPage === DashboardPages.FRIENDS && (
                             <FriendsInterface />
                         )}
-                    {!user.isLoading &&
+                    {!user.isError &&
+                        !user.isLoading &&
                         currentPage === DashboardPages.LEADERBOARDS && (
                             <LeaderboardsInterface />
                         )}
-                    {!user.isLoading &&
+                    {!user.isError &&
+                        !user.isLoading &&
                         currentPage === DashboardPages.ACCOUNT && (
                             <AccountInterface />
                         )}
+                    {user.isError && <ErrorPage />}
                 </UserContext.Provider>
             </InterfaceContainer>
             <MenuBarContainer>
