@@ -36,10 +36,10 @@ const PotatoContext = createContext(potatoInfo)
 // for viewing a potato (or lack thereof)
 const PotatoMode = ({ changeMode }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
-    let potatoButtonGrayedOut = false
+    let toggleButtonGrayedOut = false
 
     if (potatoContext.potatoType === PotatoTypes.Fresh) {
-        potatoButtonGrayedOut = true
+        toggleButtonGrayedOut = true
     }
 
     const handleNewPotatoClick = () => {
@@ -64,7 +64,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
             <PotatoSubTitleText>
                 {potatoContext.potatoSubTitleText}
             </PotatoSubTitleText>
-            {potatoButtonGrayedOut && (
+            {!toggleButtonGrayedOut && (
                 <PotatoButton
                     style={{
                         opacity: '30%',
@@ -75,7 +75,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
                     +
                 </PotatoButton>
             )}
-            {!potatoButtonGrayedOut && (
+            {toggleButtonGrayedOut && (
                 <PotatoButton
                     style={{
                         cursor: 'pointer',
@@ -87,7 +87,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
                     +
                 </PotatoButton>
             )}
-            {potatoButtonGrayedOut && (
+            {toggleButtonGrayedOut && (
                 <PotatoButton
                     style={{
                         opacity: '30%',
@@ -98,7 +98,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
                     i
                 </PotatoButton>
             )}
-            {!potatoButtonGrayedOut && (
+            {!toggleButtonGrayedOut && (
                 <PotatoButton
                     style={{
                         cursor: 'pointer',
@@ -124,6 +124,10 @@ const SendingMode = ({ changeMode }: ModeProps) => {
         setCopied(true)
     }
 
+    const handleBack = (event: React.MouseEvent) => {
+        changeMode('PotatoMode')
+    }
+
     return (
         <SendingModeContainer>
             <BigText>Send the charitato before it explodes!</BigText>
@@ -142,6 +146,12 @@ const SendingMode = ({ changeMode }: ModeProps) => {
                 Or
                 <hr style={{ width: '100%' }} />
             </Or>
+            <Button
+                buttonType={ButtonTypes.Primary}
+                buttonSize={ButtonSizes.Small}
+                text={'DEBGU: Back'}
+                onClickHandler={handleBack}
+            />
         </SendingModeContainer>
     )
 }
