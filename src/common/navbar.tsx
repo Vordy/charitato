@@ -1,7 +1,7 @@
 import { getTheme } from 'theme/themes'
 import { Link } from 'react-router-dom'
-import { switchTheme } from 'theme/themes'
-import Logo from 'assets/logo.svg'
+import { Logo } from 'assets/logo/logo'
+import { localize } from 'assets/strings/localize'
 import React from 'react'
 import styled from '@emotion/styled'
 
@@ -14,10 +14,6 @@ const Bar = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-`
-
-const LogoItem = styled.img`
-    cursor: pointer;
 `
 
 const NavItem = styled(Link)`
@@ -34,18 +30,19 @@ const NavItem = styled(Link)`
 `
 
 export const NavBar = () => {
-
     return (
         <Bar>
-            <LogoItem src={Logo} onClick={switchTheme}></LogoItem>
+            <Logo style={{ cursor: 'pointer' }} />
 
-            <NavItem to="/">Home</NavItem>
+            <NavItem to="/">{localize('char.navbar.main.home')}</NavItem>
 
-            <NavItem to="/dashboard">Dashboard</NavItem>
+            <NavItem to="/dashboard">
+                {localize('char.navbar.main.dashboard')}
+            </NavItem>
 
-            <NavItem to="/">Partners</NavItem>
+            <NavItem to="/">{localize('char.navbar.main.partners')}</NavItem>
 
-            <NavItem to="/">Milestones</NavItem>
+            <NavItem to="/">{localize('char.navbar.main.milestones')}</NavItem>
         </Bar>
     )
 }

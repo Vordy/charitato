@@ -1,13 +1,13 @@
-import { Colors } from './Colors'
+import { Colors } from 'theme/Colors'
 
 const themes = {
-    light: {
-        foreground: Colors.RichDark,
-        background: Colors.White,
-    },
     dark: {
-        foreground: Colors.White,
         background: Colors.DarkGray,
+        foreground: Colors.White,
+    },
+    light: {
+        background: Colors.White,
+        foreground: Colors.RichDark,
     },
 }
 
