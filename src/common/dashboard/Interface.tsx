@@ -123,3 +123,37 @@ export const InfoText = styled.p`
     margin-right: 2%;
     font-weight: 1;
 `
+
+export const FriendsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+`;
+
+export const FriendsListContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 33%;
+    height: 80%;
+`;
+
+export const FriendsList = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`;
+
+export const FriendsHeader = styled.div`
+
+`;
+
+export const FriendsIcon = styled.div`
+
+`;
+
+export const FriendsItem = styled.div`
+
+`;
