@@ -12,7 +12,6 @@ import { useHistory, useParams } from 'react-router'
 import { withAuthenticator } from 'aws-amplify-react'
 import {
     defaultUserState,
-    UserResource,
     UserStateResource,
     UserState,
 } from 'common/user_state'
@@ -104,8 +103,7 @@ const Dashboard = () => {
     const [currentPage, setCurrentPage] = useState(DashboardPages.POTATO)
     const { inputPage } = useParams()
     const history = useHistory()
-
-    const user: UserResource = UserStateResource()
+    const user = UserStateResource()
 
     useEffect(() => {
         const handleIncomingPage = async (

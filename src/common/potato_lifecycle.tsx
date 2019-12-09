@@ -82,6 +82,7 @@ export const createPotato = async (userState: UserState) => {
 
     const newPotato = await createNewPotatoInstance(userState, newUUID)
     await addToAccount(userState, newPotato)
+    window.location.reload(false) // TODO: replace with better refresh
 }
 
 const addToAccount = async (userState: UserState, potatoState: PotatoState) => {
@@ -151,7 +152,7 @@ const updatePotatoHistory = async (
 export const incomingPotato = async (
     userState: UserState,
     potatoID: string
-): Promise<UserState | null> => {
+) => {
     // Step 0: make sure this isn't a repeat, don't waste API calls
     if (userState.instance) {
         if (userState.instance.currentPotato === potatoID) {
@@ -164,7 +165,6 @@ export const incomingPotato = async (
 
     // Step 1: get potato resource
     const potatoState = await getPotatoInstance(potatoID)
-    console.log(potatoState)
 
     // Step 2: add to new account
     await addToAccount(userState, potatoState)
@@ -180,7 +180,7 @@ export const incomingPotato = async (
     userState.instance.hasPotato = false
     // userState.instance.history.push(potatoID)
 
-    return userState
+    window.location.reload(false) // TODO: replace with better refresh
 }
 
 // checkStatus determines which of the CASES we are in

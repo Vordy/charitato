@@ -1,9 +1,14 @@
 import styled from '@emotion/styled'
 import { Colors } from 'theme/Colors'
+import { getTheme } from 'theme/themes'
 
 // Used for Potato Interface (PotatoMode)
 // ------------------------------------------------------------------------
 export const InterfaceContainer = styled.div`
+    /* Colors */
+    background-color: ${getTheme().background};
+    color: ${getTheme().foreground};
+
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
     font-size: 0.9vw;
     height: 100%;

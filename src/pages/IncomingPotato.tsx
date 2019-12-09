@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { UserResource, UserStateResource } from 'common/user_state'
+import { UserStateResource } from 'common/user_state'
 import { useParams, useHistory } from 'react-router'
 import {
     checkStatus,
@@ -45,7 +45,7 @@ const def_msg = {
 
 export const IncPotato = () => {
     const { potatoID } = useParams()
-    const user: UserResource = UserStateResource()
+    const user = UserStateResource()
     const [status, setStatus] = useState()
     const history = useHistory()
     let msg = def_msg
@@ -65,8 +65,6 @@ export const IncPotato = () => {
     } else if (status === UserPotatoStatus.NOAC) {
         msg = noac_msg
     }
-
-    console.log(status)
 
     return (
         <InterfaceContainer>

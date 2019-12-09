@@ -112,7 +112,7 @@ const getUserState = async (): Promise<UserState> => {
     return result
 }
 
-export const UserStateResource = () => {
+export const UserStateResource = (): UserResource => {
     const [data, setData] = useState(defaultUserResource)
 
     useEffect(() => {
@@ -132,7 +132,6 @@ export const UserStateResource = () => {
 
             setData({ state: result, isError: errorFlag, isLoading: false })
         }
-
         userState()
     }, [])
 
