@@ -14,9 +14,9 @@ export const SortaColdishPotato = ({ style }: Props) => {
                 d="M86.401 216.075L134.052 196.619L172.709 144.305L184.397 71.6069L157.786 32.5824L111.61 26.2789L59.4414 73.7674L31.7895 153.533L44.6878 196.145L86.401 216.075Z"
                 fill="url(#paint0_linear_SortaColdish)"
                 stroke="black"
-                stroke-width="3"
+                strokeWidth="3"
             />
-            <g clip-path="url(#clip0_SortaColdish)">
+            <g clipPath="url(#clip0_SortaColdish)">
                 <path
                     d="M94.9898 90.2974C97.3342 91.7548 100.425 91.0419 101.893 88.7051C103.362 86.3682 102.652 83.2923 100.307 81.8348C97.9628 80.3773 94.8719 81.0902 93.4036 83.4271C91.9352 85.764 92.6454 88.8399 94.9898 90.2974Z"
                     fill="black"
@@ -47,8 +47,8 @@ export const SortaColdishPotato = ({ style }: Props) => {
                     y2="32.5"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop offset="0.0153453" stop-color="#FFDE67" />
-                    <stop offset="1" stop-color="#FFF6D7" />
+                    <stop offset="0.0153453" stopColor="#FFDE67" />
+                    <stop offset="1" stopColor="#FFF6D7" />
                 </linearGradient>
                 <clipPath id="clip0_SortaColdish">
                     <rect

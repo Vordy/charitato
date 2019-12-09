@@ -14,9 +14,9 @@ export const HotPotato = ({ style }: Props) => {
                 d="M86.401 216.075L134.052 196.619L172.709 144.305L184.397 71.6069L157.786 32.5824L111.61 26.2789L59.4414 73.7674L31.7895 153.533L44.6878 196.145L86.401 216.075Z"
                 fill="url(#paint0_linear_Hot)"
                 stroke="black"
-                stroke-width="3"
+                strokeWidth="3"
             />
-            <g clip-path="url(#clip0_Hot)">
+            <g clipPath="url(#clip0_Hot)">
                 <path
                     d="M94.9898 90.2971C97.3342 91.7546 100.425 91.0417 101.893 88.7048C103.362 86.3679 102.652 83.292 100.307 81.8345C97.9628 80.3771 94.8719 81.09 93.4036 83.4268C91.9352 85.7637 92.6454 88.8397 94.9898 90.2971Z"
                     fill="black"
@@ -47,8 +47,8 @@ export const HotPotato = ({ style }: Props) => {
                     y2="32.5"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#FF0000" />
-                    <stop offset="1" stop-color="#FFA800" />
+                    <stop stopColor="#FF0000" />
+                    <stop offset="1" stopColor="#FFA800" />
                 </linearGradient>
                 <clipPath id="clip0_Hot">
                     <rect
