@@ -9,7 +9,7 @@ import { MilestonesInterface } from 'components/MilestonesInterface'
 import { PotatoInterface } from 'components/PotatoInterface'
 import { signUpConfig } from 'common/auth_config'
 import { useHistory, useParams } from 'react-router'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { withAuthenticator } from 'aws-amplify-react'
 import {
     defaultUserState,
@@ -26,7 +26,7 @@ const DashboardPage = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
 `
