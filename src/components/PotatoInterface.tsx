@@ -44,6 +44,7 @@ const PotatoContext = createContext(defaultPotatoInfo)
 const PotatoMode = ({ changeMode }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
     const userState = useContext(UserContext)
+
     const isPotatoFresh =
         potatoContext.potatoType === PotatoTypes.Fresh ? true : false
     const isPotato =

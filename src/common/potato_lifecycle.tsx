@@ -15,7 +15,8 @@ export const potatoIdentifier = 'CID='
 // VARIABLES
 // ---------------------------------------------------------
 
-const maxPotatoLifetime = 432000 // 5 days
+// const maxPotatoLifetime = 432000 // 5 days
+const maxPotatoLifetime = 86400 // 1 days
 const seconds = 1000 // to get time in seconds
 
 // INTERFACES/ENUMS
