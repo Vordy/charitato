@@ -159,12 +159,12 @@ const SendingMode = ({ changeMode }: ModeProps) => {
                 Or
                 <hr style={{ width: '100%' }} />
             </Or>
-            <Button
+            {/* <Button
                 buttonType={ButtonTypes.Primary}
                 buttonSize={ButtonSizes.Small}
                 text={'DEBUG: Back'}
                 onClickHandler={handleBack}
-            />
+            /> */}
         </SendingModeContainer>
     )
 }
