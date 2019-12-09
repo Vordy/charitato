@@ -17,6 +17,7 @@ import {
 } from 'common/dashboard/potato_styles'
 import React, { useEffect, useState } from 'react'
 import { Loading } from './Loading'
+import { DashboardBlob } from 'assets/blobs/DashboardBlob'
 
 // TODO: add all text to english strings
 const fullMsg = {
@@ -88,6 +89,9 @@ export const IncPotato = () => {
                     </ContinueButton>
                 </PotatoModeContainer>
             )}
+            <DashboardBlob
+                style={{ position: 'absolute', top: '0%', right: '0%' }}
+            />
         </InterfaceContainer>
     )
 }

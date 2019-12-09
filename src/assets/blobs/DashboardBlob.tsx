@@ -4,8 +4,8 @@ export const DashboardBlob = (props: Props) => {
     return (
         <svg
             width="697"
-            height="1076"
-            viewBox="0 0 697 1076"
+            height="800"
+            viewBox="0 0 697 800"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             style={props.style}

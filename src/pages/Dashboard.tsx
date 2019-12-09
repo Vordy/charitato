@@ -130,6 +130,9 @@ const Dashboard = () => {
 
     return (
         <DashboardPage>
+            <DashboardBlob
+                style={{ position: 'absolute', top: '0%', right: '0%' }}
+            />
             <InterfaceContainer>
                 <UserContext.Provider value={user.state}>
                     {!user.isError && user.isLoading && <Loading />}
@@ -210,9 +213,6 @@ const Dashboard = () => {
                     />
                 </MenuBar>
             </MenuBarContainer>
-            <DashboardBlob
-                style={{ position: 'absolute', top: '-5%', right: '0%' }}
-            />
         </DashboardPage>
     )
 }
