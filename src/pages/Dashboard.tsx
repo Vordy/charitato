@@ -135,38 +135,18 @@ const Dashboard = () => {
                 <InterfaceContainer>
                     <UserContext.Provider value={user.state}>
                         {!user.isError && user.isLoading && <Loading />}
-                        <Route exact path="/dashboard" render={() => <MilestonesInterface />} />
-                        <Route exact path="/dashboard/leaderboards" render={() => <LeaderboardsInterface />} />
-                        <Route exact path="/dashboard/potato" render={() => <PotatoInterface />} />
-                        <Route exact path="/dashboard/friends" render={() => <FriendsInterface />} />
-                        <Route exact path="/dashboard/account" render={() => <AccountInterface />} />
-                        {/* {!user.isError && user.isLoading && <Loading />}
-                        {!user.isError &&
-                            !user.isLoading &&
-                            currentPage === DashboardPages.POTATO && (
-                                <PotatoInterface />
-                            )}
-                        {!user.isError &&
-                            !user.isLoading &&
-                            currentPage === DashboardPages.MILESTONES && (
-                                <MilestonesInterface />
-                            )}
-                        {!user.isError &&
-                            !user.isLoading &&
-                            currentPage === DashboardPages.FRIENDS && (
-                                <FriendsInterface />
-                            )}
-                        {!user.isError &&
-                            !user.isLoading &&
-                            currentPage === DashboardPages.LEADERBOARDS && (
-                                <LeaderboardsInterface />
-                            )}
-                        {!user.isError &&
-                            !user.isLoading &&
-                            currentPage === DashboardPages.ACCOUNT && (
-                                <AccountInterface />
-                            )}
-                        {user.isError && <ErrorPage />} */}
+                        {!user.isError && !user.isLoading && 
+                            <Route exact path="/dashboard" render={() => <PotatoInterface />} />
+                        }
+                        {!user.isError && !user.isLoading && 
+                            <Route exact path="/dashboard/leaderboards" render={() => <LeaderboardsInterface />} />
+                        }
+                        {!user.isError && !user.isLoading && 
+                            <Route exact path="/dashboard/friends" render={() => <FriendsInterface />} />
+                        }
+                        {!user.isError && !user.isLoading && 
+                            <Route exact path="/dashboard/account" render={() => <AccountInterface />} />
+                        }
                     </UserContext.Provider>
                 </InterfaceContainer>
                 <MenuInterface></MenuInterface>

@@ -17,7 +17,7 @@ export const MenuInterface = () => {
         <MenuContainer>
             <Link to={'/dashboard'}><MenuItem><img src={Dashboard} /></MenuItem></Link>
             <Link to={'/dashboard/leaderboards'}><MenuItem><img src={Leaderboards} /></MenuItem></Link>
-            <Link to={'/dashboard/potato'}><MenuItem><img src={Potato} /></MenuItem></Link>
+            <Link to={'/dashboard'}><MenuItem><img src={Potato} /></MenuItem></Link>
             <Link to={'/dashboard/friends'}><MenuItem><img src={Friends} /></MenuItem></Link>
             <Link to={'/dashboard/account'}><MenuItem><img src={Account} /></MenuItem></Link>
         </MenuContainer>
