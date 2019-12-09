@@ -405,7 +405,7 @@ const FooterBlobContainer = styled.div`
     box-shadow: inset 0px 0px 80px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 `
 const FooterNavGrid = styled.div`
@@ -468,7 +468,7 @@ export const Footer = () => {
                 })}
             </FooterNavGrid>
             <Copywrite>
-                ©2019<span id="medium">Charito</span>
+                ©2019<span id="medium"> Charito</span>
             </Copywrite>
         </FooterBlobContainer>
     )
@@ -525,8 +525,8 @@ export const Home = () => {
             <Homeblob
                 style={{
                     position: 'absolute',
-                    top: '-5%',
-                    right: '-10%',
+                    top: '0px',
+                    right: '0px',
                 }}
             />
         </>
