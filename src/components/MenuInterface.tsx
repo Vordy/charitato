@@ -1,4 +1,4 @@
-import { MenuContainer, MenuItem } from "common/dashboard/Interface";
+import { MenuContainer, MenuItem } from "common/dashboard/menu_styles";
 import Dashboard from 'assets/menu/dashboard.png'
 import Leaderboards from 'assets/menu/leaderboards.png'
 import Potato from 'assets/menu/potato.png'

@@ -5,7 +5,9 @@ import { Colors } from 'theme/Colors'
 import { FriendsInterface } from 'components/FriendsInterface'
 import { getTheme } from 'theme/themes'
 import { LeaderboardsInterface } from 'components/LeaderboardsInterface'
+import { localize } from 'assets/strings/localize'
 import { MilestonesInterface } from 'components/MilestonesInterface'
+import { incomingPotato, potatoIdentifier } from 'common/potato_lifecycle'
 import { PotatoInterface } from 'components/PotatoInterface'
 import { signUpConfig } from 'common/auth_config'
 import { useHistory, useParams } from 'react-router'
@@ -13,14 +15,14 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { withAuthenticator } from 'aws-amplify-react'
 import {
     defaultUserState,
-    UserResource,
+    UserState,
     UserStateResource,
 } from 'common/user_state'
 import AmplifyTheme from 'theme/auth_theme'
 import React, { createContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
-import { localize } from 'assets/strings/localize'
 import { MenuInterface } from 'components/MenuInterface'
+import { Loading } from './Loading'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -91,11 +93,6 @@ const inputToDashboard = (inputPage: string) => {
     }
 }
 
-// TODO: this can be off-loaded into another file when we make it look nicer
-const Loading = () => {
-    return <div>{localize('char.dashboard.loading.text')}</div>
-}
-
 const ErrorPage = () => {
     return <div>{localize('char.dashboard.error.text')}</div>
 }
@@ -104,25 +101,46 @@ const Dashboard = () => {
     const [currentPage, setCurrentPage] = useState(DashboardPages.POTATO)
     const { inputPage } = useParams()
     const history = useHistory()
-
-    const user: UserResource = UserStateResource()
+    const user = UserStateResource()
 
     useEffect(() => {
+        const handleIncomingPage = async (
+            userState: UserState,
+            potatoID: string
+        ) => {
+            await incomingPotato(userState, potatoID)
+        }
+
         // console.log(`useEffect: ${currentPage} to ${inputPage}`)
         if (inputPage !== undefined) {
-            if (inputPage.toUpperCase() in DashboardPages) {
+            // check to see if this is an incoming potato load
+            if (
+                inputPage.substr(0, potatoIdentifier.length) ===
+                potatoIdentifier
+            ) {
+                handleIncomingPage(
+                    user.state,
+                    inputPage.substr(potatoIdentifier.length)
+                )
+            } else if (inputPage.toUpperCase() in DashboardPages) {
                 // console.log(`Setting to ${inputToDashboard(inputPage)}`)
                 setCurrentPage(inputToDashboard(inputPage))
             }
         }
-    }, [inputPage])
+    }, [inputPage, user.state])
 
     return (
         <Router>
             <DashboardPage>
-                {/* <InterfaceContainer>
+                <InterfaceContainer>
                     <UserContext.Provider value={user.state}>
                         {!user.isError && user.isLoading && <Loading />}
+                        <Route exact path="/dashboard" render={() => <MilestonesInterface />} />
+                        <Route exact path="/dashboard/leaderboards" render={() => <LeaderboardsInterface />} />
+                        <Route exact path="/dashboard/potato" render={() => <PotatoInterface />} />
+                        <Route exact path="/dashboard/friends" render={() => <FriendsInterface />} />
+                        <Route exact path="/dashboard/account" render={() => <AccountInterface />} />
+                        {/* {!user.isError && user.isLoading && <Loading />}
                         {!user.isError &&
                             !user.isLoading &&
                             currentPage === DashboardPages.POTATO && (
@@ -148,15 +166,10 @@ const Dashboard = () => {
                             currentPage === DashboardPages.ACCOUNT && (
                                 <AccountInterface />
                             )}
-                        {user.isError && <ErrorPage />}
+                        {user.isError && <ErrorPage />} */}
                     </UserContext.Provider>
-                </InterfaceContainer> */}
+                </InterfaceContainer>
                 <MenuInterface></MenuInterface>
-                <Route exact path="/dashboard" component={MilestonesInterface} />
-                <Route exact path="/dashboard/leaderboards" component={LeaderboardsInterface} />
-                <Route exact path="/dashboard/potato" component={PotatoInterface} />
-                <Route exact path="/dashboard/friends" component={FriendsInterface} />
-                <Route exact path="/dashboard/account" component={AccountInterface} />
             </DashboardPage>
         </Router>
     )

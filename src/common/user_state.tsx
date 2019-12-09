@@ -10,15 +10,17 @@ interface User {
 }
 
 // DBInstance: from DynamoDB table
-interface DBInstance {
+export interface DBInstance {
     id: string
     version: string
     hasPotato: boolean
     name: string
+    currentPotato: string
+    history: string[]
 }
 
 // UserState: combination of User and DBInstance
-interface UserState {
+export interface UserState {
     username?: string
     user?: User
     instance?: DBInstance
@@ -62,19 +64,22 @@ const getAuth = async (): Promise<User | null> => {
     }
 }
 
-const getInstance = async (username: string): Promise<DBInstance> => {
+export const getUserInstance = async (
+    username: string
+): Promise<DBInstance> => {
     const response: DBInstance = await API.get(
         APIName,
         `${APIGetPath}${username}`,
         null
     )
-    // console.log(response) // TODO: remove this later
     return response
 }
 
 const setUpUserInstance = async (user: User): Promise<DBInstance> => {
     const initialUser: DBInstance = {
+        currentPotato: 'none',
         hasPotato: false,
+        history: ['none'],
         id: user.username,
         name: user.attributes.name,
         version: '1.0.0a', // version 1, user instance
@@ -96,7 +101,7 @@ const getUserState = async (): Promise<UserState> => {
         result.user = user
     }
 
-    let instance = await getInstance(user.username)
+    let instance = await getUserInstance(user.username)
 
     if (objectIsEmpty(instance)) {
         instance = await setUpUserInstance(user)
@@ -104,31 +109,26 @@ const getUserState = async (): Promise<UserState> => {
 
     result.instance = instance
 
-    // console.log(result) //TODO: remove this later
     return result
 }
 
-export const UserStateResource = () => {
+export const UserStateResource = (): UserResource => {
     const [data, setData] = useState(defaultUserResource)
 
     useEffect(() => {
         const userState = async () => {
-            let errorFlag = false
-
             setData({
-                isError: errorFlag,
+                isError: false,
                 isLoading: true,
                 state: defaultUserResource.state,
             })
+
             const result = await getUserState()
 
-            if (objectIsEmpty(result)) {
-                errorFlag = true
-            }
+            const errorFlag = objectIsEmpty(result) ? true : false
 
             setData({ state: result, isError: errorFlag, isLoading: false })
         }
-
         userState()
     }, [])
 
