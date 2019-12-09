@@ -51,6 +51,7 @@ const MenuBarContainer = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
+    z-index: 1000;
 `
 
 const MenuBar = styled.div`
@@ -98,9 +99,14 @@ const ErrorPage = () => {
 
 const Dashboard = () => {
     const [currentPage, setCurrentPage] = useState(DashboardPages.POTATO)
+    const [loadingNewPotato, setLoadingNewPotato] = useState(false)
     const { inputPage } = useParams()
     const history = useHistory()
     const user = UserStateResource()
+
+    const isLoading = () => {
+        return user.isLoading || loadingNewPotato
+    }
 
     useEffect(() => {
         const handleIncomingPage = async (
@@ -108,6 +114,7 @@ const Dashboard = () => {
             potatoID: string
         ) => {
             await incomingPotato(userState, potatoID)
+            setLoadingNewPotato(false)
         }
 
         // console.log(`useEffect: ${currentPage} to ${inputPage}`)
@@ -117,6 +124,7 @@ const Dashboard = () => {
                 inputPage.substr(0, potatoIdentifier.length) ===
                 potatoIdentifier
             ) {
+                setLoadingNewPotato(true)
                 handleIncomingPage(
                     user.state,
                     inputPage.substr(potatoIdentifier.length)
@@ -130,34 +138,31 @@ const Dashboard = () => {
 
     return (
         <DashboardPage>
-            <DashboardBlob
-                style={{ position: 'absolute', top: '0%', right: '0%' }}
-            />
             <InterfaceContainer>
                 <UserContext.Provider value={user.state}>
-                    {!user.isError && user.isLoading && <Loading />}
+                    {!user.isError && isLoading() && <Loading />}
                     {!user.isError &&
-                        !user.isLoading &&
+                        !isLoading() &&
                         currentPage === DashboardPages.POTATO && (
                             <PotatoInterface />
                         )}
                     {!user.isError &&
-                        !user.isLoading &&
+                        !isLoading() &&
                         currentPage === DashboardPages.MILESTONES && (
                             <MilestonesInterface />
                         )}
                     {!user.isError &&
-                        !user.isLoading &&
+                        !isLoading() &&
                         currentPage === DashboardPages.FRIENDS && (
                             <FriendsInterface />
                         )}
                     {!user.isError &&
-                        !user.isLoading &&
+                        !isLoading() &&
                         currentPage === DashboardPages.LEADERBOARDS && (
                             <LeaderboardsInterface />
                         )}
                     {!user.isError &&
-                        !user.isLoading &&
+                        !isLoading() &&
                         currentPage === DashboardPages.ACCOUNT && (
                             <AccountInterface />
                         )}
@@ -213,6 +218,14 @@ const Dashboard = () => {
                     />
                 </MenuBar>
             </MenuBarContainer>
+            {/* <DashboardBlob
+                style={{
+                    position: 'absolute',
+                    top: '0%',
+                    right: '0%',
+                    userSelect: 'none',
+                }}
+            /> */}
         </DashboardPage>
     )
 }
