@@ -9,6 +9,7 @@ import { MilestonesInterface } from 'components/MilestonesInterface'
 import { PotatoInterface } from 'components/PotatoInterface'
 import { signUpConfig } from 'common/auth_config'
 import { useHistory, useParams } from 'react-router'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { withAuthenticator } from 'aws-amplify-react'
 import {
     defaultUserState,
@@ -19,6 +20,7 @@ import AmplifyTheme from 'theme/auth_theme'
 import React, { createContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { localize } from 'assets/strings/localize'
+import { MenuInterface } from 'components/MenuInterface'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -116,88 +118,47 @@ const Dashboard = () => {
     }, [inputPage])
 
     return (
-        <DashboardPage>
-            <InterfaceContainer>
-                <UserContext.Provider value={user.state}>
-                    {!user.isError && user.isLoading && <Loading />}
-                    {!user.isError &&
-                        !user.isLoading &&
-                        currentPage === DashboardPages.POTATO && (
-                            <PotatoInterface />
-                        )}
-                    {!user.isError &&
-                        !user.isLoading &&
-                        currentPage === DashboardPages.MILESTONES && (
-                            <MilestonesInterface />
-                        )}
-                    {!user.isError &&
-                        !user.isLoading &&
-                        currentPage === DashboardPages.FRIENDS && (
-                            <FriendsInterface />
-                        )}
-                    {!user.isError &&
-                        !user.isLoading &&
-                        currentPage === DashboardPages.LEADERBOARDS && (
-                            <LeaderboardsInterface />
-                        )}
-                    {!user.isError &&
-                        !user.isLoading &&
-                        currentPage === DashboardPages.ACCOUNT && (
-                            <AccountInterface />
-                        )}
-                    {user.isError && <ErrorPage />}
-                </UserContext.Provider>
-            </InterfaceContainer>
-            <MenuBarContainer>
-                <MenuBar>
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Milestones'}
-                        onClickHandler={(event: React.MouseEvent) => {
-                            // handlePageChange(DashboardPages.MILESTONES)
-                            history.push(`/dashboard/milestones`)
-                        }}
-                    />
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Leaderboards'}
-                        onClickHandler={(event: React.MouseEvent) => {
-                            // handlePageChange(DashboardPages.LEADERBOARDS)
-                            history.push(`/dashboard/leaderboards`)
-                        }}
-                    />
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Potato'}
-                        onClickHandler={(event: React.MouseEvent) => {
-                            // handlePageChange(DashboardPages.POTATO)
-                            history.push(`/dashboard/potato`)
-                        }}
-                    />
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Friends'}
-                        onClickHandler={(event: React.MouseEvent) => {
-                            // handlePageChange(DashboardPages.FRIENDS)
-                            history.push(`/dashboard/friends`)
-                        }}
-                    />
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Account'}
-                        onClickHandler={(event: React.MouseEvent) => {
-                            // handlePageChange(DashboardPages.ACCOUNT)
-                            history.push(`/dashboard/account`)
-                        }}
-                    />
-                </MenuBar>
-            </MenuBarContainer>
-        </DashboardPage>
+        <Router>
+            <DashboardPage>
+                {/* <InterfaceContainer>
+                    <UserContext.Provider value={user.state}>
+                        {!user.isError && user.isLoading && <Loading />}
+                        {!user.isError &&
+                            !user.isLoading &&
+                            currentPage === DashboardPages.POTATO && (
+                                <PotatoInterface />
+                            )}
+                        {!user.isError &&
+                            !user.isLoading &&
+                            currentPage === DashboardPages.MILESTONES && (
+                                <MilestonesInterface />
+                            )}
+                        {!user.isError &&
+                            !user.isLoading &&
+                            currentPage === DashboardPages.FRIENDS && (
+                                <FriendsInterface />
+                            )}
+                        {!user.isError &&
+                            !user.isLoading &&
+                            currentPage === DashboardPages.LEADERBOARDS && (
+                                <LeaderboardsInterface />
+                            )}
+                        {!user.isError &&
+                            !user.isLoading &&
+                            currentPage === DashboardPages.ACCOUNT && (
+                                <AccountInterface />
+                            )}
+                        {user.isError && <ErrorPage />}
+                    </UserContext.Provider>
+                </InterfaceContainer> */}
+                <MenuInterface></MenuInterface>
+                <Route exact path="/" component={MilestonesInterface} />
+                <Route exact path="/leaderboards" component={LeaderboardsInterface} />
+                <Route exact path="/potato" component={PotatoInterface} />
+                <Route exact path="/friends" component={FriendsInterface} />
+                <Route exact path="/account" component={AccountInterface} />
+            </DashboardPage>
+        </Router>
     )
 }
 

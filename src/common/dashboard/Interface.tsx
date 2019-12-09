@@ -139,8 +139,10 @@ export const MenuContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-color: ${Colors.LavendarCream};
-    height: 8%;
+    background-color: ${Colors.LightGray};
+    position: absolute;
+    bottom: 5%;
+    overflow: auto;
     border-radius: 999px;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -150,18 +152,7 @@ export const MenuItem = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-color: ${Colors.White};
-    border-radius: 999px;
     margin-left: 8px;
     margin-right: 8px;
-`;
-
-export const MenuItemSelected = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    background-color: ${Colors.Rose};
-    border-radius: 999px;
-    margin-left: 8px;
-    margin-right: 8px;
+    cursor: pointer;
 `;
