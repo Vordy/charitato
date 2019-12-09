@@ -1,14 +1,21 @@
 import { Auth, API } from 'aws-amplify'
 import { UserState, DBInstance, getUserInstance } from './user_state'
-import { PotatoState, getPotatoInstance } from './potato_state'
+import {
+    PotatoState,
+    getPotatoInstance,
+    defaultPotatoState,
+} from './potato_state'
+import { v4 } from 'uuid'
 
 // RELATED GLOBALS
 // ---------------------------------------------------------
 
 export const potatoIdentifier = 'CID='
 
-// API VARIABLES
+// VARIABLES
 // ---------------------------------------------------------
+
+const max_potato_lifetime = 432000 // 5 days
 
 // INTERFACES/ENUMS
 // ---------------------------------------------------------
@@ -38,10 +45,43 @@ interface User {
 //          include three DB modifications
 // ---------------------------------------------------------
 
-// const createPotato = async () => {
-//     // if the current newest history item on the user is 'none' it should
-//     // be replaced not concatenated
-// }
+const generateTimes = (): { timeCreated: string; timeOfDeath: string } => {
+    const currentTime = Math.floor(Date.now() / 1000)
+    const deathTime =
+        currentTime +
+        Math.floor(Math.random() * Math.floor(max_potato_lifetime))
+    return { timeCreated: `${currentTime}`, timeOfDeath: `${deathTime}` }
+}
+
+const createNewPotatoInstance = async (
+    userState: UserState,
+    potatoID: string
+) => {
+    if (userState.instance) {
+        const times = generateTimes()
+
+        const newPotato: PotatoState = {
+            id: potatoID,
+            history: [`${userState.instance.id}`],
+            timeCreated: times.timeCreated,
+            timeOfDeath: times.timeOfDeath,
+        }
+
+        await API.post('UserAPI', '/items', { body: newPotato })
+
+        return newPotato
+    }
+    return defaultPotatoState
+}
+
+export const createPotato = async (userState: UserState) => {
+    // if the current newest history item on the user is 'none' it should
+    // be replaced not concatenated
+    const newUUID = v4()
+
+    const newPotato = await createNewPotatoInstance(userState, newUUID)
+    await addToAccount(userState, newPotato)
+}
 
 const addToAccount = async (userState: UserState, potatoState: PotatoState) => {
     if (userState.instance) {
@@ -49,8 +89,12 @@ const addToAccount = async (userState: UserState, potatoState: PotatoState) => {
 
         if (potatoState.id && potatoState.history) {
             newData.currentPotato = potatoState.id
-            newData.history.push(potatoState.id)
             newData.hasPotato = true
+            if (newData.history[0] === 'none') {
+                newData.history = [`${potatoState.id}`]
+            } else {
+                newData.history.push(potatoState.id)
+            }
         }
 
         await API.post('UserAPI', '/items', { body: newData })
@@ -70,6 +114,19 @@ const removeFromPrevAccount = async (potatoState: PotatoState) => {
 
         await API.post('UserAPI', '/items', { body: newData })
     }
+}
+
+const updatePotatoHistory = async (
+    userState: UserState,
+    potatoState: PotatoState
+) => {
+    const newData: PotatoState = potatoState
+
+    if (newData.history && userState.instance) {
+        newData.history.push(userState.instance.id)
+    }
+
+    await API.post('UserAPI', '/items', { body: newData })
 }
 
 // ---------------------------------------------------------
@@ -101,16 +158,15 @@ export const incomingPotato = async (
         // TODO: uncomment once done
         if (userState.instance.currentPotato === potatoID) {
             //same potato as already dealt with, disregard
-            console.log('repeat call!')
             return null
         }
     } else {
-        console.log('no user!')
         return null
     }
 
     // Step 1: get potato resource
     const potatoState = await getPotatoInstance(potatoID)
+    console.log(potatoState)
 
     // Step 2: add to new account
     await addToAccount(userState, potatoState)
@@ -118,7 +174,10 @@ export const incomingPotato = async (
     // Step 3: remove from old account
     await removeFromPrevAccount(potatoState)
 
-    // Step 4: modify userState
+    // Step 4: updated potato history
+    await updatePotatoHistory(userState, potatoState)
+
+    // Step 5: modify userState
     userState.instance.currentPotato = potatoID
     userState.instance.hasPotato = false
     // userState.instance.history.push(potatoID)

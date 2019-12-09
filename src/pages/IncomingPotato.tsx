@@ -66,6 +66,8 @@ export const IncPotato = () => {
         msg = noac_msg
     }
 
+    console.log(status)
+
     return (
         <InterfaceContainer>
             {user.isLoading && <div>Loading...</div>}

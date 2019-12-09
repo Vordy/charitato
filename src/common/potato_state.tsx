@@ -86,8 +86,10 @@ export const calculatePotatoType = (
     timeCreated: string,
     timeOfDeath: string
 ): { potato: PotatoTypes; subText: string } => {
-    const currentTime = 10 // TODO: get unix time
-    const percentDone = (currentTime / (+timeOfDeath - +timeCreated)) * 100
+    const currentTime = Math.floor(Date.now() / 1000)
+    const timeSinceCreation = currentTime - +timeCreated
+    const percentDone =
+        (timeSinceCreation / (+timeOfDeath - +timeCreated)) * 100
 
     if (percentDone < 20) {
         return {

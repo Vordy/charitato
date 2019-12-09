@@ -25,6 +25,7 @@ import {
 } from 'common/dashboard/potato_styles'
 import copy from 'clipboard-copy'
 import React, { createContext, useContext, useState } from 'react'
+import { createPotato } from 'common/potato_lifecycle'
 
 // For passing in the page changer to the modes
 interface ModeProps {
@@ -37,14 +38,19 @@ const PotatoContext = createContext(potatoInfo)
 // for viewing a potato (or lack thereof)
 const PotatoMode = ({ changeMode }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
-    let toggleButtonGrayedOut = false
+    const userState = useContext(UserContext)
+    let isPotatoFresh = false
 
     if (potatoContext.potatoType === PotatoTypes.Fresh) {
-        toggleButtonGrayedOut = true
+        isPotatoFresh = true
     }
 
     const handleNewPotatoClick = () => {
-        console.log('Creating potato dawg')
+        if (userState.instance) {
+            if (!userState.instance.hasPotato) {
+                createPotato(userState)
+            }
+        }
     }
 
     const handlePotatoInfoClick = () => {
@@ -52,7 +58,9 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
     }
 
     const handlePotatoClick = () => {
-        changeMode('SendingMode')
+        if (!isPotatoFresh) {
+            changeMode('SendingMode')
+        }
     }
 
     return (
@@ -64,7 +72,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
             <PotatoSubTitleText>
                 {potatoContext.potatoSubTitleText}
             </PotatoSubTitleText>
-            {!toggleButtonGrayedOut && (
+            {!isPotatoFresh && (
                 <PotatoButton
                     style={{
                         opacity: '30%',
@@ -75,7 +83,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
                     +
                 </PotatoButton>
             )}
-            {toggleButtonGrayedOut && (
+            {isPotatoFresh && (
                 <PotatoButton
                     style={{
                         cursor: 'pointer',
@@ -87,7 +95,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
                     +
                 </PotatoButton>
             )}
-            {toggleButtonGrayedOut && (
+            {isPotatoFresh && (
                 <PotatoButton
                     style={{
                         opacity: '30%',
@@ -98,7 +106,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
                     i
                 </PotatoButton>
             )}
-            {!toggleButtonGrayedOut && (
+            {!isPotatoFresh && (
                 <PotatoButton
                     style={{
                         cursor: 'pointer',
