@@ -65,6 +65,7 @@ const createNewPotatoInstance = async (
             history: [`${userState.instance.id}`],
             timeCreated: times.timeCreated,
             timeOfDeath: times.timeOfDeath,
+            version: '1.0.0b',
         }
 
         await API.post('UserAPI', '/items', { body: newPotato })
@@ -151,11 +152,8 @@ export const incomingPotato = async (
     userState: UserState,
     potatoID: string
 ): Promise<UserState | null> => {
-    console.log(`Potato dude: ${potatoID}`)
-
     // Step 0: make sure this isn't a repeat, don't waste API calls
     if (userState.instance) {
-        // TODO: uncomment once done
         if (userState.instance.currentPotato === potatoID) {
             //same potato as already dealt with, disregard
             return null

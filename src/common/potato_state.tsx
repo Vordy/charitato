@@ -9,6 +9,7 @@ export interface PotatoState {
     timeCreated?: string
     timeOfDeath?: string
     history?: string[]
+    version?: string
 }
 
 export interface PotatoResource {
