@@ -21,6 +21,7 @@ import AmplifyTheme from 'theme/auth_theme'
 import React, { createContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { Loading } from './Loading'
+import { DashboardBlob } from 'assets/blobs/DashboardBlob'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -209,6 +210,9 @@ const Dashboard = () => {
                     />
                 </MenuBar>
             </MenuBarContainer>
+            <DashboardBlob
+                style={{ position: 'absolute', top: '-5%', right: '0%' }}
+            />
         </DashboardPage>
     )
 }
