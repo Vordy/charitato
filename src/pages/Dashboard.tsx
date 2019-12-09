@@ -215,7 +215,7 @@ const Dashboard = () => {
 
 export default withAuthenticator(
     Dashboard,
-    true,
+    false,
     undefined,
     undefined,
     AmplifyTheme,
