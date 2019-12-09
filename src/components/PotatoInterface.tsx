@@ -22,6 +22,7 @@ import {
 } from 'common/dashboard/potato_styles'
 import copy from 'clipboard-copy'
 import React, { createContext, useContext, useState, useEffect } from 'react'
+import { Loading } from 'pages/Loading'
 
 // For passing in the page changer to the modes
 interface ModeProps {
@@ -173,9 +174,14 @@ const SendingMode = ({ changeMode }: ModeProps) => {
 export const PotatoInterface = () => {
     const [mode, setMode] = useState('PotatoMode')
     const [potatoInfoState, setPotatoInfoState] = useState(potatoInfo)
+    const [loading, setLoading] = useState(true)
     const userState = useContext(UserContext)
     const potatoResource = PotatoStateResource() // get potato resource based on userstate
     const potatoState = potatoResource.state
+
+    const isLoading = () => {
+        return loading || potatoResource.isLoading
+    }
 
     // parse potatoState into potatoInfo
     useEffect(() => {
@@ -202,16 +208,17 @@ export const PotatoInterface = () => {
                 }
             }
         }
+        setLoading(false)
     }, [potatoState, userState])
 
     return (
         <InterfaceContainer>
             <PotatoContext.Provider value={potatoInfoState}>
-                {potatoResource.isLoading && <div>Loading...</div>}
-                {!potatoResource.isLoading && mode === 'PotatoMode' && (
+                {isLoading() && <Loading />}
+                {!isLoading() && mode === 'PotatoMode' && (
                     <PotatoMode changeMode={setMode} />
                 )}
-                {!potatoResource.isLoading && mode === 'SendingMode' && (
+                {!isLoading() && mode === 'SendingMode' && (
                     <SendingMode changeMode={setMode} />
                 )}
             </PotatoContext.Provider>

@@ -20,6 +20,7 @@ import {
 import AmplifyTheme from 'theme/auth_theme'
 import React, { createContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
+import { Loading } from './Loading'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -88,11 +89,6 @@ const inputToDashboard = (inputPage: string) => {
         default:
             return DashboardPages.POTATO
     }
-}
-
-// TODO: this can be off-loaded into another file when we make it look nicer
-const Loading = () => {
-    return <div>{localize('char.dashboard.loading.text')}</div>
 }
 
 const ErrorPage = () => {
