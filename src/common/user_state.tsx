@@ -117,18 +117,15 @@ export const UserStateResource = (): UserResource => {
 
     useEffect(() => {
         const userState = async () => {
-            let errorFlag = false
-
             setData({
-                isError: errorFlag,
+                isError: false,
                 isLoading: true,
                 state: defaultUserResource.state,
             })
+
             const result = await getUserState()
 
-            if (objectIsEmpty(result)) {
-                errorFlag = true
-            }
+            const errorFlag = objectIsEmpty(result) ? true : false
 
             setData({ state: result, isError: errorFlag, isLoading: false })
         }

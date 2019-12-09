@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from 'react'
 import { API } from 'aws-amplify'
-import { UserState } from './user_state'
 import { PotatoTypes } from 'assets/potatoes/potato'
 import { objectIsEmpty } from './potato_lifecycle'
 import { UserContext } from 'pages/Dashboard'

@@ -21,7 +21,7 @@ import {
     PotatoTitleText,
 } from 'common/dashboard/potato_styles'
 import copy from 'clipboard-copy'
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
 // For passing in the page changer to the modes
 interface ModeProps {
@@ -172,33 +172,41 @@ const SendingMode = ({ changeMode }: ModeProps) => {
 // TODO: make this more elegant
 export const PotatoInterface = () => {
     const [mode, setMode] = useState('PotatoMode')
+    const [potatoInfoState, setPotatoInfoState] = useState(potatoInfo)
     const userState = useContext(UserContext)
     const potatoResource = PotatoStateResource() // get potato resource based on userstate
     const potatoState = potatoResource.state
 
     // parse potatoState into potatoInfo
-    if (userState.instance) {
-        if (userState.instance.hasPotato) {
-            potatoInfo.potatoTitleText = 'You have a potato!'
-
-            if (potatoState.id) {
-                potatoInfo.id = potatoState.id
-            }
-
-            if (potatoState.timeCreated && potatoState.timeOfDeath) {
-                const potatoTypeInfo = calculatePotatoType(
-                    potatoState.timeCreated,
+    useEffect(() => {
+        if (userState.instance) {
+            if (userState.instance.hasPotato) {
+                if (
+                    potatoState.id &&
+                    potatoState.timeCreated &&
                     potatoState.timeOfDeath
-                )
-                potatoInfo.potatoType = potatoTypeInfo.potato
-                potatoInfo.potatoSubTitleText = potatoTypeInfo.subText
+                ) {
+                    const potatoTypeInfo = calculatePotatoType(
+                        potatoState.timeCreated,
+                        potatoState.timeOfDeath
+                    )
+
+                    const newValForPotato = {
+                        id: potatoState.id,
+                        potatoSubTitleText: potatoTypeInfo.subText,
+                        potatoTitleText: 'You have a potato!',
+                        potatoType: potatoTypeInfo.potato,
+                    }
+
+                    setPotatoInfoState(newValForPotato)
+                }
             }
         }
-    }
+    }, [potatoState, userState])
 
     return (
         <InterfaceContainer>
-            <PotatoContext.Provider value={potatoInfo}>
+            <PotatoContext.Provider value={potatoInfoState}>
                 {potatoResource.isLoading && <div>Loading...</div>}
                 {!potatoResource.isLoading && mode === 'PotatoMode' && (
                     <PotatoMode changeMode={setMode} />
