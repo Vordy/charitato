@@ -5,6 +5,7 @@ import { FreshPotato } from 'assets/potatoes/FRESH'
 import { HotPotato } from 'assets/potatoes/HOT'
 import { KindaMediumPotato } from 'assets/potatoes/KINDA_MEDIUM_IDK'
 import { MediumPotato } from 'assets/potatoes/MEDIUM'
+import { PureWhitePotato } from 'assets/potatoes/PURE_WHITE'
 import { SortaColdishPotato } from 'assets/potatoes/SORTA_COLDISH'
 import { SuperHotPotato } from 'assets/potatoes/SUPER_HOT'
 
@@ -16,6 +17,7 @@ export enum PotatoTypes {
     Medium = 'Medium',
     SortaColdish = 'SortaColdish',
     SuperHot = 'SuperHot',
+    PureWhite = 'PureWhite',
 }
 
 export const Potato = ({ type, style }: Props) => {
@@ -34,6 +36,8 @@ export const Potato = ({ type, style }: Props) => {
             return <SortaColdishPotato style={style} />
         case PotatoTypes.SuperHot:
             return <SuperHotPotato style={style} />
+        case PotatoTypes.PureWhite:
+            return <PureWhitePotato style={style} />
     }
 }
 
