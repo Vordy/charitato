@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { API } from 'aws-amplify'
 import { PotatoTypes } from 'assets/potatoes/potato'
 import { objectIsEmpty } from './potato_lifecycle'

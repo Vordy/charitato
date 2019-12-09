@@ -21,7 +21,7 @@ import {
     PotatoTitleText,
 } from 'common/dashboard/potato_styles'
 import copy from 'clipboard-copy'
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Loading } from 'pages/Loading'
 
 // For passing in the page changer to the modes
