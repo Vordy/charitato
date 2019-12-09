@@ -16,6 +16,7 @@ export enum PotatoTypes {
     Medium = 'Medium',
     SortaColdish = 'SortaColdish',
     SuperHot = 'SuperHot',
+    None = 'None',
 }
 
 export const Potato = ({ type, style }: Props) => {
@@ -34,6 +35,8 @@ export const Potato = ({ type, style }: Props) => {
             return <SortaColdishPotato style={style} />
         case PotatoTypes.SuperHot:
             return <SuperHotPotato style={style} />
+        case PotatoTypes.None:
+            return <div />
     }
 }
 

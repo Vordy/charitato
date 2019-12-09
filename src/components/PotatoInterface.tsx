@@ -30,15 +30,15 @@ interface ModeProps {
 }
 
 // local info for potato
-const potatoInfo = {
+const defaultPotatoInfo = {
     id: '',
-    potatoSubTitleText: 'Bake one up for your friends!',
-    potatoTitleText: "You don't have a potato",
-    potatoType: PotatoTypes.Fresh,
+    potatoSubTitleText: '',
+    potatoTitleText: '',
+    potatoType: PotatoTypes.None,
 }
 
 // for passing down potato info into modes
-const PotatoContext = createContext(potatoInfo)
+const PotatoContext = createContext(defaultPotatoInfo)
 
 // for viewing a potato (or lack thereof)
 const PotatoMode = ({ changeMode }: ModeProps) => {
@@ -173,14 +173,13 @@ const SendingMode = ({ changeMode }: ModeProps) => {
 // TODO: make this more elegant
 export const PotatoInterface = () => {
     const [mode, setMode] = useState('PotatoMode')
-    const [potatoInfoState, setPotatoInfoState] = useState(potatoInfo)
-    const [loading, setLoading] = useState(true)
+    const [potatoInfoState, setPotatoInfoState] = useState(defaultPotatoInfo)
     const userState = useContext(UserContext)
     const potatoResource = PotatoStateResource() // get potato resource based on userstate
     const potatoState = potatoResource.state
 
     const isLoading = () => {
-        return loading || potatoResource.isLoading
+        return potatoResource.isLoading
     }
 
     // parse potatoState into potatoInfo
@@ -206,9 +205,16 @@ export const PotatoInterface = () => {
 
                     setPotatoInfoState(newValForPotato)
                 }
+            } else {
+                const noPotatoInfo = {
+                    id: '',
+                    potatoSubTitleText: 'Bake one up for your friends!',
+                    potatoTitleText: "You don't have a potato",
+                    potatoType: PotatoTypes.Fresh,
+                }
+                setPotatoInfoState(noPotatoInfo)
             }
         }
-        setLoading(false)
     }, [potatoState, userState])
 
     return (
