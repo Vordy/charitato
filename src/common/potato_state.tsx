@@ -76,35 +76,48 @@ export const calculatePotatoType = (
     timeCreated: string,
     timeOfDeath: string
 ): { potato: PotatoTypes; subText: string } => {
+    enum PotatoStages {
+        SortaColdish = 0.2,
+        KindaMedium = 0.4,
+        Medium = 0.6,
+        Hot = 0.8,
+        SuperHot = 1.0,
+    }
+
     const secondes = 1000 // i know tslint is reading this but you suck
     const currentTime = Math.floor(Date.now() / secondes)
     const timeSinceCreation = currentTime - +timeCreated
     const percentDone = timeSinceCreation / (+timeOfDeath - +timeCreated)
 
-    if (percentDone < 0.2) {
+    if (percentDone < PotatoStages.SortaColdish) {
         return {
             potato: PotatoTypes.SortaColdish,
             subText: "It's sorta coldish",
         }
-    } else if (percentDone < 0.4) {
+    } else if (percentDone < PotatoStages.KindaMedium) {
         return {
             potato: PotatoTypes.KindaMedium,
             subText: "It's kinda medium",
         }
-    } else if (percentDone < 0.6) {
+    } else if (percentDone < PotatoStages.Medium) {
         return {
             potato: PotatoTypes.Medium,
             subText: "It's medium",
         }
-    } else if (percentDone < 0.8) {
+    } else if (percentDone < PotatoStages.Hot) {
         return {
             potato: PotatoTypes.Hot,
             subText: "It's getting hot!",
         }
-    } else {
+    } else if (percentDone < PotatoStages.SuperHot) {
         return {
             potato: PotatoTypes.SuperHot,
             subText: "It's Super Hot!",
+        }
+    } else {
+        return {
+            potato: PotatoTypes.Fresh,
+            subText: '',
         }
     }
 }
