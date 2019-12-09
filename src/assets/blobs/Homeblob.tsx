@@ -3,24 +3,24 @@ import React, { CSSProperties } from 'react'
 export const Homeblob = (props: Props) => {
     return (
         <svg
-            width="569"
-            height="1304"
-            viewBox="0 0 569 1304"
+            width="389"
+            height="1175"
+            viewBox="0 0 389 1175"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             style={props.style}
         >
-            <g filter="url(#filter0_i_Home)">
+            <g filter="url(#filter0_i)">
                 <path
-                    d="M149.61 237.324C302.334 348.238 215.922 485.872 119.968 594.266C69.403 651.386 32.8338 721.712 15.9761 770.216C10.7192 785.34 -17.1817 891.213 15.9759 969.357C49.1335 1047.5 406.118 1491.66 676.105 1213.37C946.092 935.074 853.109 562.793 834.456 469.525C805.82 326.345 751.563 114.096 644.555 23.3477C463.698 -130.029 234.766 -69.3129 175.733 -41.2591C104.495 -7.40565 -3.11498 126.41 149.61 237.324Z"
-                    fill="url(#paint0_linear_Home)"
+                    d="M149.61 108.324C302.334 219.238 215.922 356.872 119.968 465.266C69.403 522.386 32.8338 592.712 15.9761 641.216C10.7192 656.34 -17.1817 762.213 15.9759 840.357C49.1335 918.501 406.118 1362.66 676.105 1084.37C946.092 806.074 853.109 433.793 834.456 340.525C805.82 197.345 751.563 -14.9044 644.555 -105.652C463.698 -259.029 234.766 -198.313 175.733 -170.259C104.495 -136.406 -3.11498 -2.59024 149.61 108.324Z"
+                    fill="url(#paint0_linear)"
                 />
             </g>
             <defs>
                 <filter
-                    id="filter0_i_Home"
+                    id="filter0_i"
                     x="0"
-                    y="-77"
+                    y="-206"
                     width="865"
                     height="1381"
                     filterUnits="userSpaceOnUse"
@@ -58,11 +58,11 @@ export const Homeblob = (props: Props) => {
                     />
                 </filter>
                 <linearGradient
-                    id="paint0_linear_Home"
+                    id="paint0_linear"
                     x1="117.959"
-                    y1="162.923"
+                    y1="33.9232"
                     x2="778.234"
-                    y2="925.424"
+                    y2="796.424"
                     gradientUnits="userSpaceOnUse"
                 >
                     <stop stopColor="#FF0099" />
