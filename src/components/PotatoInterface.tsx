@@ -1,5 +1,6 @@
 import { Button } from 'common/button/Button'
-import { ButtonTypes, ButtonSizes } from 'common/button/ButtonUtils'
+import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
+import { createPotato } from 'common/potato_lifecycle'
 import { Potato, PotatoTypes } from 'assets/potatoes/potato'
 import { UserContext } from 'pages/Dashboard'
 import {
@@ -18,14 +19,13 @@ import {
 import {
     InterfaceContainer,
     PotatoButton,
+    PotatoContainer,
     PotatoModeContainer,
     PotatoSubTitleText,
     PotatoTitleText,
-    PotatoContainer,
 } from 'common/dashboard/potato_styles'
 import copy from 'clipboard-copy'
 import React, { createContext, useContext, useState } from 'react'
-import { createPotato } from 'common/potato_lifecycle'
 
 // For passing in the page changer to the modes
 interface ModeProps {
@@ -75,9 +75,9 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
             {!isPotatoFresh && (
                 <PotatoButton
                     style={{
-                        opacity: '30%',
                         gridArea: 'button1',
                         justifySelf: 'end',
+                        opacity: '30%',
                     }}
                 >
                     +
@@ -98,9 +98,9 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
             {isPotatoFresh && (
                 <PotatoButton
                     style={{
-                        opacity: '30%',
                         gridArea: 'button2',
                         justifySelf: 'start',
+                        opacity: '30%',
                     }}
                 >
                     i

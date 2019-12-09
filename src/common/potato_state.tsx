@@ -20,8 +20,8 @@ export interface PotatoResource {
 export const defaultPotatoState: PotatoState = {}
 
 export const defaultPotatoResource: PotatoResource = {
-    state: {},
     isLoading: false,
+    state: {},
 }
 
 export const getPotatoInstance = async (
@@ -50,15 +50,11 @@ export const PotatoStateResource = (userState: UserState) => {
 
     useEffect(() => {
         const potatoState = async () => {
-            let result
-
             setData({ state: defaultPotatoResource.state, isLoading: true })
 
-            if (userState.instance) {
-                result = await getPotatoState(userState.instance.currentPotato)
-            } else {
-                result = defaultPotatoState
-            }
+            const result = userState.instance
+                ? await getPotatoState(userState.instance.currentPotato)
+                : defaultPotatoState
 
             setData({ state: result, isLoading: false })
         }
@@ -77,9 +73,9 @@ export const PotatoStateResource = (userState: UserState) => {
 // local info for potato
 export const potatoInfo = {
     id: '',
-    potatoType: PotatoTypes.Fresh,
-    potatoTitleText: "You don't have a potato",
     potatoSubTitleText: 'Bake one up for your friends!',
+    potatoTitleText: "You don't have a potato",
+    potatoType: PotatoTypes.Fresh,
 }
 
 // Calculates the color and text of a potato based on time

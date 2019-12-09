@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { Colors } from 'theme/Colors'
 
-//Used for PotatoInterface (sending mode)
+// Used for PotatoInterface (sending mode)
 // ------------------------------------------------------------------------
 export const SendingModeContainer = styled.div`
     display: grid;

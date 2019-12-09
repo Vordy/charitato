@@ -1,46 +1,46 @@
-import React, { useEffect, useState } from 'react'
-import { UserStateResource } from 'common/user_state'
-import { useParams, useHistory } from 'react-router'
-import {
-    checkStatus,
-    UserPotatoStatus,
-    potatoIdentifier,
-} from 'common/potato_lifecycle'
-import { PotatoTypes, Potato } from 'assets/potatoes/potato'
-import {
-    PotatoModeContainer,
-    PotatoTitleText,
-    PotatoSubTitleText,
-    InterfaceContainer,
-} from 'common/dashboard/potato_styles'
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import { ContinueButton } from 'common/dashboard/incoming_styles'
+import { Potato, PotatoTypes } from 'assets/potatoes/potato'
+import { useHistory, useParams } from 'react-router'
+import { UserStateResource } from 'common/user_state'
+import {
+    checkStatus,
+    potatoIdentifier,
+    UserPotatoStatus,
+} from 'common/potato_lifecycle'
+import {
+    InterfaceContainer,
+    PotatoModeContainer,
+    PotatoSubTitleText,
+    PotatoTitleText,
+} from 'common/dashboard/potato_styles'
+import React, { useEffect, useState } from 'react'
 
 // TODO: add all text to english strings
-const full_msg = {
+const fullMsg = {
     potatoType: PotatoTypes.Fresh,
-    text: "You can't hold another charitato",
     subtext: 'Send the one you have first!',
+    text: "You can't hold another charitato",
 }
 
 // TODO: these two will need to populate based on charitato data
-const good_msg = {
+const goodMsg = {
     potatoType: PotatoTypes.Hot,
-    text: "You've received a potato!",
     subtext: 'The temp goes here!',
-}
-
-const noac_msg = {
-    potatoType: PotatoTypes.Hot,
     text: "You've received a potato!",
-    subtext: 'Create an account to send it before it explodes!',
 }
 
-const def_msg = {
+const noacMsg = {
+    potatoType: PotatoTypes.Hot,
+    subtext: 'Create an account to send it before it explodes!',
+    text: "You've received a potato!",
+}
+
+const defMsg = {
     potatoType: PotatoTypes.Fresh,
-    text: '',
     subtext: '',
+    text: '',
 }
 
 export const IncPotato = () => {
@@ -48,7 +48,7 @@ export const IncPotato = () => {
     const user = UserStateResource()
     const [status, setStatus] = useState()
     const history = useHistory()
-    let msg = def_msg
+    let msg = defMsg
 
     useEffect(() => {
         setStatus(checkStatus(user.state))
@@ -59,11 +59,11 @@ export const IncPotato = () => {
     }
 
     if (status === UserPotatoStatus.GOOD) {
-        msg = good_msg
+        msg = goodMsg
     } else if (status === UserPotatoStatus.FULL) {
-        msg = full_msg
+        msg = fullMsg
     } else if (status === UserPotatoStatus.NOAC) {
-        msg = noac_msg
+        msg = noacMsg
     }
 
     return (

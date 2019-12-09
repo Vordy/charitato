@@ -1,11 +1,11 @@
-import { Auth, API } from 'aws-amplify'
-import { UserState, DBInstance, getUserInstance } from './user_state'
-import {
-    PotatoState,
-    getPotatoInstance,
-    defaultPotatoState,
-} from './potato_state'
+import { API, Auth } from 'aws-amplify'
+import { DBInstance, getUserInstance, UserState } from './user_state'
 import { v4 } from 'uuid'
+import {
+    defaultPotatoState,
+    getPotatoInstance,
+    PotatoState,
+} from './potato_state'
 
 // RELATED GLOBALS
 // ---------------------------------------------------------
@@ -15,7 +15,8 @@ export const potatoIdentifier = 'CID='
 // VARIABLES
 // ---------------------------------------------------------
 
-const max_potato_lifetime = 432000 // 5 days
+const maxPotatoLifetime = 432000 // 5 days
+const seconds = 1000 // to get time in seconds
 
 // INTERFACES/ENUMS
 // ---------------------------------------------------------
@@ -46,10 +47,9 @@ interface User {
 // ---------------------------------------------------------
 
 const generateTimes = (): { timeCreated: string; timeOfDeath: string } => {
-    const currentTime = Math.floor(Date.now() / 1000)
+    const currentTime = Math.floor(Date.now() / seconds)
     const deathTime =
-        currentTime +
-        Math.floor(Math.random() * Math.floor(max_potato_lifetime))
+        currentTime + Math.floor(Math.random() * Math.floor(maxPotatoLifetime))
     return { timeCreated: `${currentTime}`, timeOfDeath: `${deathTime}` }
 }
 
@@ -61,8 +61,8 @@ const createNewPotatoInstance = async (
         const times = generateTimes()
 
         const newPotato: PotatoState = {
-            id: potatoID,
             history: [`${userState.instance.id}`],
+            id: potatoID,
             timeCreated: times.timeCreated,
             timeOfDeath: times.timeOfDeath,
             version: '1.0.0b',
@@ -105,12 +105,12 @@ const addToAccount = async (userState: UserState, potatoState: PotatoState) => {
 
 const removeFromPrevAccount = async (potatoState: PotatoState) => {
     if (potatoState.history) {
-        const history_length = potatoState.history.length
-        const previous_user = potatoState.history[history_length - 1]
+        const historyLength = potatoState.history.length
+        const previousUser = potatoState.history[historyLength - 1]
 
-        const previous_user_state = await getUserInstance(previous_user)
+        const previousUserState = await getUserInstance(previousUser)
 
-        const newData = previous_user_state
+        const newData = previousUserState
         newData.hasPotato = false
         newData.currentPotato = 'none'
 
@@ -156,7 +156,7 @@ export const incomingPotato = async (
     // Step 0: make sure this isn't a repeat, don't waste API calls
     if (userState.instance) {
         if (userState.instance.currentPotato === potatoID) {
-            //same potato as already dealt with, disregard
+            // same potato as already dealt with, disregard
             return null
         }
     } else {

@@ -5,21 +5,21 @@ import { Colors } from 'theme/Colors'
 import { FriendsInterface } from 'components/FriendsInterface'
 import { getTheme } from 'theme/themes'
 import { LeaderboardsInterface } from 'components/LeaderboardsInterface'
+import { localize } from 'assets/strings/localize'
 import { MilestonesInterface } from 'components/MilestonesInterface'
+import { incomingPotato, potatoIdentifier } from 'common/potato_lifecycle'
 import { PotatoInterface } from 'components/PotatoInterface'
 import { signUpConfig } from 'common/auth_config'
 import { useHistory, useParams } from 'react-router'
 import { withAuthenticator } from 'aws-amplify-react'
 import {
     defaultUserState,
-    UserStateResource,
     UserState,
+    UserStateResource,
 } from 'common/user_state'
 import AmplifyTheme from 'theme/auth_theme'
 import React, { createContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
-import { potatoIdentifier, incomingPotato } from 'common/potato_lifecycle'
-import { localize } from 'assets/strings/localize'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -115,7 +115,7 @@ const Dashboard = () => {
 
         // console.log(`useEffect: ${currentPage} to ${inputPage}`)
         if (inputPage !== undefined) {
-            //check to see if this is an incoming potato load
+            // check to see if this is an incoming potato load
             if (
                 inputPage.substr(0, potatoIdentifier.length) ===
                 potatoIdentifier

@@ -77,12 +77,12 @@ export const getUserInstance = async (
 
 const setUpUserInstance = async (user: User): Promise<DBInstance> => {
     const initialUser: DBInstance = {
+        currentPotato: 'none',
         hasPotato: false,
+        history: ['none'],
         id: user.username,
         name: user.attributes.name,
         version: '1.0.0a', // version 1, user instance
-        currentPotato: 'none',
-        history: ['none'],
     }
 
     await API.post(APIName, APIPostPath, { body: initialUser })
