@@ -16,6 +16,7 @@ import {
     PotatoTitleText,
 } from 'common/dashboard/potato_styles'
 import React, { useEffect, useState } from 'react'
+import { Loading } from './Loading'
 
 // TODO: add all text to english strings
 const fullMsg = {
@@ -68,7 +69,7 @@ export const IncPotato = () => {
 
     return (
         <InterfaceContainer>
-            {user.isLoading && <div>Loading...</div>}
+            {user.isLoading && <Loading />}
             {!user.isLoading && (
                 <PotatoModeContainer>
                     <Potato
