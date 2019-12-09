@@ -54,3 +54,10 @@ export const PotatoButton = styled.div`
     background-color: #c4c4c4;
     box-shadow: 4px 4px 18px rgba(0, 0, 0, 0.08);
 `
+
+// for clicking
+export const PotatoContainer = styled.div`
+    grid-area: splash;
+
+    cursor: pointer;
+`

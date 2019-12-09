@@ -21,6 +21,7 @@ import {
     PotatoModeContainer,
     PotatoSubTitleText,
     PotatoTitleText,
+    PotatoContainer,
 } from 'common/dashboard/potato_styles'
 import copy from 'clipboard-copy'
 import React, { createContext, useContext, useState } from 'react'
@@ -43,23 +44,22 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
     }
 
     const handleNewPotatoClick = () => {
-        changeMode('SendingMode')
+        console.log('Creating potato dawg')
     }
 
     const handlePotatoInfoClick = () => {
-        alert('TODO: Potato Info Mode')
+        alert('PotatoInfo still in development, check back later!')
+    }
+
+    const handlePotatoClick = () => {
+        changeMode('SendingMode')
     }
 
     return (
         <PotatoModeContainer>
-            <Potato
-                style={{
-                    alignSelf: 'center',
-                    cursor: 'pointer',
-                    gridArea: 'splash',
-                }}
-                type={potatoContext.potatoType}
-            />
+            <PotatoContainer onClick={handlePotatoClick}>
+                <Potato type={potatoContext.potatoType} />
+            </PotatoContainer>
             <PotatoTitleText>{potatoContext.potatoTitleText}</PotatoTitleText>
             <PotatoSubTitleText>
                 {potatoContext.potatoSubTitleText}
@@ -149,7 +149,7 @@ const SendingMode = ({ changeMode }: ModeProps) => {
             <Button
                 buttonType={ButtonTypes.Primary}
                 buttonSize={ButtonSizes.Small}
-                text={'DEBGU: Back'}
+                text={'DEBUG: Back'}
                 onClickHandler={handleBack}
             />
         </SendingModeContainer>
@@ -159,7 +159,7 @@ const SendingMode = ({ changeMode }: ModeProps) => {
 // gets potato state and displays the mode
 // TODO: make this more elegant
 export const PotatoInterface = () => {
-    const [mode, setMode] = useState('SendingMode')
+    const [mode, setMode] = useState('PotatoMode')
     const userState = useContext(UserContext)
     const potatoResource = PotatoStateResource(userState) // get potato resource based on userstate
     const potatoState = potatoResource.state
