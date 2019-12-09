@@ -1,28 +1,27 @@
 import React, { CSSProperties } from 'react'
 
-export const Homeblob = (props: Props) => {
+export const Footerblob = (props: Props) => {
     return (
         <svg
-            width="389"
-            height="1175"
-            viewBox="0 0 389 1175"
+            width="1926"
+            height="376"
+            viewBox="0 0 1926 376"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            style={props.style}
         >
-            <g filter="url(#filter0_i)">
+            <g filter="url(#filter0_footer)">
                 <path
-                    d="M149.61 108.324C302.334 219.238 215.922 356.872 119.968 465.266C69.403 522.386 32.8338 592.712 15.9761 641.216C10.7192 656.34 -17.1817 762.213 15.9759 840.357C49.1335 918.501 406.118 1362.66 676.105 1084.37C946.092 806.074 853.109 433.793 834.456 340.525C805.82 197.345 751.563 -14.9044 644.555 -105.652C463.698 -259.029 234.766 -198.313 175.733 -170.259C104.495 -136.406 -3.11498 -2.59024 149.61 108.324Z"
-                    fill="url(#paint0_linear)"
+                    d="M119.041 1158.68C315.249 911.323 558.726 1051.28 750.474 1206.69C851.52 1288.59 975.929 1347.82 1061.73 1375.12C1088.49 1383.64 1275.78 1428.83 1414.01 1375.12C1552.25 1321.42 2337.97 743.23 1845.67 305.945C1353.37 -131.34 694.799 19.259 529.806 49.4713C276.52 95.8513 -98.9504 183.729 -259.484 357.044C-530.809 649.97 -423.402 1020.76 -373.774 1116.37C-313.887 1231.75 -77.1665 1406.05 119.041 1158.68Z"
+                    fill="url(#paint0_linear_footer)"
                 />
             </g>
             <defs>
                 <filter
-                    id="filter0_i"
-                    x="0"
-                    y="-206"
-                    width="865"
-                    height="1381"
+                    id="filter0_footer"
+                    x="-437"
+                    y="0"
+                    width="2443"
+                    height="1401"
                     filterUnits="userSpaceOnUse"
                     colorInterpolationFilters="sRGB"
                 >
@@ -58,11 +57,11 @@ export const Homeblob = (props: Props) => {
                     />
                 </filter>
                 <linearGradient
-                    id="paint0_linear"
-                    x1="117.959"
-                    y1="33.9232"
-                    x2="778.234"
-                    y2="796.424"
+                    id="paint0_linear_footer"
+                    x1="-12.5739"
+                    y1="1209.95"
+                    x2="1233.29"
+                    y2="31.6241"
                     gradientUnits="userSpaceOnUse"
                 >
                     <stop stopColor="#FF0099" />
