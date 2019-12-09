@@ -15,11 +15,11 @@ import { Link } from 'react-router-dom'
 export const MenuInterface = () => {
     return (
         <MenuContainer>
-            <Link to={'/'}><MenuItem><img src={Dashboard} /></MenuItem></Link>
-            <Link to={'/leaderboards'}><MenuItem><img src={Leaderboards} /></MenuItem></Link>
-            <Link to={'/potato'}><MenuItem><img src={Potato} /></MenuItem></Link>
-            <Link to={'/friends'}><MenuItem><img src={Friends} /></MenuItem></Link>
-            <Link to={'/account'}><MenuItem><img src={Account} /></MenuItem></Link>
+            <Link to={'/dashboard'}><MenuItem><img src={Dashboard} /></MenuItem></Link>
+            <Link to={'/dashboard/leaderboards'}><MenuItem><img src={Leaderboards} /></MenuItem></Link>
+            <Link to={'/dashboard/potato'}><MenuItem><img src={Potato} /></MenuItem></Link>
+            <Link to={'/dashboard/friends'}><MenuItem><img src={Friends} /></MenuItem></Link>
+            <Link to={'/dashboard/account'}><MenuItem><img src={Account} /></MenuItem></Link>
         </MenuContainer>
     );
 }

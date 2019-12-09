@@ -152,11 +152,11 @@ const Dashboard = () => {
                     </UserContext.Provider>
                 </InterfaceContainer> */}
                 <MenuInterface></MenuInterface>
-                <Route exact path="/" component={MilestonesInterface} />
-                <Route exact path="/leaderboards" component={LeaderboardsInterface} />
-                <Route exact path="/potato" component={PotatoInterface} />
-                <Route exact path="/friends" component={FriendsInterface} />
-                <Route exact path="/account" component={AccountInterface} />
+                <Route exact path="/dashboard" component={MilestonesInterface} />
+                <Route exact path="/dashboard/leaderboards" component={LeaderboardsInterface} />
+                <Route exact path="/dashboard/potato" component={PotatoInterface} />
+                <Route exact path="/dashboard/friends" component={FriendsInterface} />
+                <Route exact path="/dashboard/account" component={AccountInterface} />
             </DashboardPage>
         </Router>
     )
