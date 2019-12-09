@@ -11,11 +11,7 @@ import {
     Or,
     SendingModeContainer,
 } from 'common/dashboard/sending_styles'
-import {
-    calculatePotatoType,
-    potatoInfo,
-    PotatoStateResource,
-} from 'common/potato_state'
+import { calculatePotatoType, PotatoStateResource } from 'common/potato_state'
 import {
     InterfaceContainer,
     PotatoButton,
@@ -30,6 +26,14 @@ import React, { createContext, useContext, useState } from 'react'
 // For passing in the page changer to the modes
 interface ModeProps {
     changeMode: React.Dispatch<React.SetStateAction<string>>
+}
+
+// local info for potato
+const potatoInfo = {
+    id: '',
+    potatoSubTitleText: 'Bake one up for your friends!',
+    potatoTitleText: "You don't have a potato",
+    potatoType: PotatoTypes.Fresh,
 }
 
 // for passing down potato info into modes
@@ -169,7 +173,7 @@ const SendingMode = ({ changeMode }: ModeProps) => {
 export const PotatoInterface = () => {
     const [mode, setMode] = useState('PotatoMode')
     const userState = useContext(UserContext)
-    const potatoResource = PotatoStateResource(userState) // get potato resource based on userstate
+    const potatoResource = PotatoStateResource() // get potato resource based on userstate
     const potatoState = potatoResource.state
 
     // parse potatoState into potatoInfo

@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { API } from 'aws-amplify'
 import { UserState } from './user_state'
 import { PotatoTypes } from 'assets/potatoes/potato'
 import { objectIsEmpty } from './potato_lifecycle'
+import { UserContext } from 'pages/Dashboard'
 
 export interface PotatoState {
     id?: string
@@ -45,38 +46,31 @@ const getPotatoState = async (potatoID: string): Promise<PotatoState> => {
 }
 
 // Main resource - takes a userstate and returns a potato state
-export const PotatoStateResource = (userState: UserState) => {
+export const PotatoStateResource = () => {
     const [data, setData] = useState(defaultPotatoResource)
+    const user = useContext(UserContext)
 
     useEffect(() => {
         const potatoState = async () => {
             setData({ state: defaultPotatoResource.state, isLoading: true })
 
-            const result = userState.instance
-                ? await getPotatoState(userState.instance.currentPotato)
+            const result = user.instance
+                ? await getPotatoState(user.instance.currentPotato)
                 : defaultPotatoState
 
             setData({ state: result, isLoading: false })
         }
 
-        if (!objectIsEmpty(userState)) {
+        if (!objectIsEmpty(user)) {
             potatoState()
         }
-    }, [userState])
+    }, [user])
 
     return data
 }
 
 // helper functions and variables
 // -----------------------------------------------
-
-// local info for potato
-export const potatoInfo = {
-    id: '',
-    potatoSubTitleText: 'Bake one up for your friends!',
-    potatoTitleText: "You don't have a potato",
-    potatoType: PotatoTypes.Fresh,
-}
 
 // Calculates the color and text of a potato based on time
 export const calculatePotatoType = (
