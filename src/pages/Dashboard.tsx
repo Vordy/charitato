@@ -19,6 +19,7 @@ import AmplifyTheme from 'theme/auth_theme'
 import React, { createContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { localize } from 'assets/strings/localize'
+import { LoadingAnimation } from 'common/loading/loading'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -90,9 +91,6 @@ const inputToDashboard = (inputPage: string) => {
 }
 
 // TODO: this can be off-loaded into another file when we make it look nicer
-const Loading = () => {
-    return <div>{localize('char.dashboard.loading.text')}</div>
-}
 
 const ErrorPage = () => {
     return <div>{localize('char.dashboard.error.text')}</div>
@@ -119,7 +117,9 @@ const Dashboard = () => {
         <DashboardPage>
             <InterfaceContainer>
                 <UserContext.Provider value={user.state}>
-                    {!user.isError && user.isLoading && <Loading />}
+                    {!user.isError && user.isLoading && (
+                        <LoadingAnimation loading={user.isLoading} />
+                    )}
                     {!user.isError &&
                         !user.isLoading &&
                         currentPage === DashboardPages.POTATO && (
