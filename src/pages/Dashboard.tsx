@@ -5,7 +5,6 @@ import { Colors } from 'theme/Colors'
 import { FriendsInterface } from 'components/FriendsInterface'
 import { getTheme } from 'theme/themes'
 import { LeaderboardsInterface } from 'components/LeaderboardsInterface'
-import { localize } from 'assets/strings/localize'
 import { MilestonesInterface } from 'components/MilestonesInterface'
 import { incomingPotato, potatoIdentifier } from 'common/potato_lifecycle'
 import { PotatoInterface } from 'components/PotatoInterface'
@@ -20,8 +19,8 @@ import {
 import AmplifyTheme from 'theme/auth_theme'
 import React, { createContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
-import { Loading } from './Loading'
-import { DashboardBlob } from 'assets/blobs/DashboardBlob'
+import { localize } from 'assets/strings/localize'
+import { LoadingAnimation } from 'common/loading/loading'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -140,7 +139,9 @@ const Dashboard = () => {
         <DashboardPage>
             <InterfaceContainer>
                 <UserContext.Provider value={user.state}>
-                    {!user.isError && isLoading() && <Loading />}
+                    {!user.isError && isLoading() && (
+                        <LoadingAnimation loading={user.isLoading} />
+                    )}
                     {!user.isError &&
                         !isLoading() &&
                         currentPage === DashboardPages.POTATO && (
