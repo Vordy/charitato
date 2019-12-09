@@ -1,39 +1,39 @@
 import { Colors } from 'theme/Colors'
 
 export enum ButtonTypes {
-	Primary = 'primary',
-	Secondary = 'secondary',
+    Primary = 'primary',
+    Secondary = 'secondary',
 }
 
 export enum ButtonSizes {
-	Large = 'large',
-	Medium = 'medium',
-	Small = 'small',
+    Large = 'large',
+    Medium = 'medium',
+    Small = 'small',
 }
 
 export const buttonSizeValues = {
-	[ButtonSizes.Large]: {
-		minWidth: 112,
-		maxWidth: 212,
-		height: 48,
-	},
-	[ButtonSizes.Medium]: {
-		minWidth: 96,
-		maxWidth: 196,
-		height: 40,
-	},
-	[ButtonSizes.Small]: {
-		minWidth: 80,
-		maxWidth: 180,
-		height: 32,
-	},
+    [ButtonSizes.Large]: {
+        height: 48,
+        maxWidth: 212,
+        minWidth: 112,
+    },
+    [ButtonSizes.Medium]: {
+        height: 40,
+        maxWidth: 196,
+        minWidth: 96,
+    },
+    [ButtonSizes.Small]: {
+        height: 32,
+        maxWidth: 180,
+        minWidth: 80,
+    },
 }
 
 export const buttonColorValues = {
-	[ButtonTypes.Primary]: {
-		color: Colors.Rose,
-	},
-	[ButtonTypes.Secondary]: {
-		color: Colors.SeaGlass,
-	},
+    [ButtonTypes.Primary]: {
+        color: Colors.Rose,
+    },
+    [ButtonTypes.Secondary]: {
+        color: Colors.SeaGlass,
+    },
 }

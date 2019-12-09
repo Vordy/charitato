@@ -1,59 +1,22 @@
-import {
-    HeaderText,
-    HistoryContainer,
-    HistoryItem,
-    HistoryScroller,
-    InterfaceContainer,
-    InterfaceHeader,
-    PotatoContainer,
-    PotatoDescriptor,
-    PotatoIcon,
-    SectionTitle,
-    SubmitButton,
-    SubmitContainer,
-    UserIcon,
-    UserName,
-} from './Interface'
-import Potato from '../assets/potatoes/MEDIUM.svg'
-import React from 'react'
-import UserPic from '../assets/user.png'
+import React, { useContext, useEffect, useState } from 'react'
+import { UserContext } from 'pages/Dashboard'
 
 export const PotatoInterface = () => {
+    const userState = useContext(UserContext)
+    const [hasPotato, setHasPotato] = useState(false)
+
+    useEffect(() => {
+        if (userState.instance) {
+            setHasPotato(userState.instance.hasPotato)
+        }
+    }, [userState.instance]) // only recalls useEffect if the user instance changes
+
     return (
-        <InterfaceContainer>
-            <InterfaceHeader>
-                <HeaderText>You have a potato!</HeaderText>
-            </InterfaceHeader>
-
-            <PotatoContainer>
-                <PotatoIcon src={Potato} />
-                <PotatoDescriptor>It's super hot!</PotatoDescriptor>
-            </PotatoContainer>
-
-            <HistoryContainer>
-                <SectionTitle>History</SectionTitle>
-                <HistoryScroller>
-                    <HistoryItem>
-                        <UserIcon src={UserPic} />
-                        <UserName>Bob Marley</UserName>
-                    </HistoryItem>
-                    <HistoryItem>
-                        <UserIcon src={UserPic} />
-                        <UserName>Bob Marley</UserName>
-                    </HistoryItem>
-                </HistoryScroller>
-            </HistoryContainer>
-
-            <SubmitContainer>
-                <SubmitButton>
-                    <HeaderText>TEST</HeaderText>
-                </SubmitButton>
-                <SubmitButton>
-                    <HeaderText>TEST</HeaderText>
-                </SubmitButton>
-            </SubmitContainer>
-
-            <InterfaceHeader />
-        </InterfaceContainer>
+        <div>
+            <div>Potato Interface</div>
+            <div>Username: {userState.username}</div>
+            {hasPotato && <div>This user has a potato!</div>}
+            {!hasPotato && <div>This user does not have a potato!</div>}
+        </div>
     )
 }

@@ -1,0 +1,35 @@
+{
+    "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier"],
+    "linterOptions": {
+        "exclude": [
+            "config/**/*.js",
+            "node_modules/**/*.ts",
+            "coverage/lcov-report/*.js",
+            "src/serviceWorker.ts"
+        ]
+    },
+    "rules": {
+        "ban-ts-ignore": true,
+        "no-empty-interface": true,
+        "no-magic-numbers": [true],
+        "only-arrow-functions": true,
+        "no-console": [true],
+        "no-debugger": true,
+        "no-duplicate-variable": true,
+        "no-shadowed-variable": true,
+        "radix": true,
+        "triple-equals": [true, "allow-null-check", "allow-undefined-check"],
+        "no-duplicate-imports": [true, { "allow-namespace-imports": true }],
+        "comment-type": [true, "doc", "singleline"],
+        "no-implicit-dependencies": false,
+        "no-submodule-imports": false,
+        "ordered-imports": [
+            true,
+            {
+                "import-sources-order": "any",
+                "named-imports-order": "case-insensitive"
+            }
+        ],
+        "interface-name": false
+    }
+}
