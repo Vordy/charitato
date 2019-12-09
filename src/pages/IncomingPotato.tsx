@@ -47,7 +47,7 @@ const defMsg = {
 
 export const IncPotato = () => {
     const { potatoID } = useParams()
-    const user = UserStateResource()
+    const { user, reload } = UserStateResource()
     const [status, setStatus] = useState()
     const history = useHistory()
     let msg = defMsg

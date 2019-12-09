@@ -102,7 +102,7 @@ const Dashboard = () => {
     const [loadingNewPotato, setLoadingNewPotato] = useState(false)
     const { inputPage } = useParams()
     const history = useHistory()
-    const user = UserStateResource()
+    const { user, reload } = UserStateResource()
 
     const isLoading = () => {
         return user.isLoading || loadingNewPotato

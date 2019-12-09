@@ -112,25 +112,33 @@ const getUserState = async (): Promise<UserState> => {
     return result
 }
 
-export const UserStateResource = (): UserResource => {
+export const UserStateResource = (): {
+    user: UserResource
+    reload: () => void
+} => {
     const [data, setData] = useState(defaultUserResource)
 
+    const userState = async () => {
+        setData({
+            isError: false,
+            isLoading: true,
+            state: defaultUserResource.state,
+        })
+
+        const result = await getUserState()
+
+        const errorFlag = objectIsEmpty(result) ? true : false
+
+        setData({ state: result, isError: errorFlag, isLoading: false })
+    }
+
+    const reloadUser = () => {
+        userState()
+    }
+
     useEffect(() => {
-        const userState = async () => {
-            setData({
-                isError: false,
-                isLoading: true,
-                state: defaultUserResource.state,
-            })
-
-            const result = await getUserState()
-
-            const errorFlag = objectIsEmpty(result) ? true : false
-
-            setData({ state: result, isError: errorFlag, isLoading: false })
-        }
         userState()
     }, [])
 
-    return data
+    return { user: data, reload: reloadUser }
 }
