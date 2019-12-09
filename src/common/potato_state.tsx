@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from 'react'
-import { API } from 'aws-amplify'
 import { PotatoTypes } from 'assets/potatoes/potato'
-import { objectIsEmpty } from './potato_lifecycle'
+import { API } from 'aws-amplify'
 import { UserContext } from 'pages/Dashboard'
+import { useContext, useEffect, useState } from 'react'
+import { objectIsEmpty } from './potato_lifecycle'
 
 export interface PotatoState {
     id?: string
@@ -76,27 +76,27 @@ export const calculatePotatoType = (
     timeCreated: string,
     timeOfDeath: string
 ): { potato: PotatoTypes; subText: string } => {
-    const currentTime = Math.floor(Date.now() / 1000)
+    const secondes = 1000 // i know tslint is reading this but you suck
+    const currentTime = Math.floor(Date.now() / secondes)
     const timeSinceCreation = currentTime - +timeCreated
-    const percentDone =
-        (timeSinceCreation / (+timeOfDeath - +timeCreated)) * 100
+    const percentDone = timeSinceCreation / (+timeOfDeath - +timeCreated)
 
-    if (percentDone < 20) {
+    if (percentDone < 0.2) {
         return {
             potato: PotatoTypes.SortaColdish,
             subText: "It's sorta coldish",
         }
-    } else if (percentDone < 40) {
+    } else if (percentDone < 0.4) {
         return {
             potato: PotatoTypes.KindaMedium,
             subText: "It's kinda medium",
         }
-    } else if (percentDone < 60) {
+    } else if (percentDone < 0.6) {
         return {
             potato: PotatoTypes.Medium,
             subText: "It's medium",
         }
-    } else if (percentDone < 80) {
+    } else if (percentDone < 0.8) {
         return {
             potato: PotatoTypes.Hot,
             subText: "It's getting hot!",

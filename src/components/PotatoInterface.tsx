@@ -44,11 +44,10 @@ const PotatoContext = createContext(defaultPotatoInfo)
 const PotatoMode = ({ changeMode }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
     const userState = useContext(UserContext)
-    let isPotatoFresh = false
-
-    if (potatoContext.potatoType === PotatoTypes.Fresh) {
-        isPotatoFresh = true
-    }
+    const isPotatoFresh =
+        potatoContext.potatoType === PotatoTypes.Fresh ? true : false
+    const isPotato =
+        potatoContext.potatoType === PotatoTypes.None ? false : true
 
     const handleNewPotatoClick = () => {
         if (userState.instance) {
@@ -77,7 +76,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
             <PotatoSubTitleText>
                 {potatoContext.potatoSubTitleText}
             </PotatoSubTitleText>
-            {!isPotatoFresh && (
+            {isPotato && !isPotatoFresh && (
                 <PotatoButton
                     style={{
                         gridArea: 'button1',
@@ -88,7 +87,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
                     +
                 </PotatoButton>
             )}
-            {isPotatoFresh && (
+            {isPotato && isPotatoFresh && (
                 <PotatoButton
                     style={{
                         cursor: 'pointer',
@@ -100,7 +99,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
                     +
                 </PotatoButton>
             )}
-            {isPotatoFresh && (
+            {isPotato && isPotatoFresh && (
                 <PotatoButton
                     style={{
                         gridArea: 'button2',
@@ -111,7 +110,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
                     i
                 </PotatoButton>
             )}
-            {!isPotatoFresh && (
+            {isPotato && !isPotatoFresh && (
                 <PotatoButton
                     style={{
                         cursor: 'pointer',
