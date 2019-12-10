@@ -23,6 +23,7 @@ import {
 import copy from 'clipboard-copy'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Loading } from 'pages/Loading'
+import { LoadingAnimation } from 'common/loading/loading'
 
 // For passing in the page changer to the modes
 interface ModeProps {
@@ -220,7 +221,7 @@ export const PotatoInterface = () => {
     return (
         <InterfaceContainer>
             <PotatoContext.Provider value={potatoInfoState}>
-                {isLoading() && <Loading />}
+                {/* {isLoading() && <LoadingAnimation loading={isLoading()} />} */}
                 {!isLoading() && mode === 'PotatoMode' && (
                     <PotatoMode changeMode={setMode} />
                 )}
