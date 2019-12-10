@@ -51,7 +51,9 @@ export enum DashboardPages {
 }
 
 export const UserContext = createContext({
-    setLoading: (state: boolean) => {},
+    setLoading: (state: boolean) => {
+        return
+    },
     userState: defaultUserState,
 })
 

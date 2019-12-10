@@ -10,7 +10,7 @@ import PotatoSelected from 'assets/menu/potato_selected.png'
 import FriendsSelected from 'assets/menu/friends_selected.png'
 import AccountSelected from 'assets/menu/account_selected.png'
 import React, { useContext } from 'react'
-import { PageContext, DashboardPages } from 'pages/Dashboard'
+import { DashboardPages, PageContext } from 'pages/Dashboard'
 
 export const MenuInterface = () => {
     const { page, setPage } = useContext(PageContext)

@@ -2,10 +2,13 @@ import * as React from 'react'
 import { switchTheme } from 'theme/themes'
 
 export const Logo = ({ style, width, height }: Props) => {
+    const defaultWidth = 64
+    const defaultHeight = 70
+
     return (
         <svg
-            width={width || 64}
-            height={height || 70}
+            width={width || defaultWidth}
+            height={height || defaultHeight}
             style={style}
             onClick={switchTheme}
             viewBox="0 0 64 70"
