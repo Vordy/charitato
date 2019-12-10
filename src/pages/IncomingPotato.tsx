@@ -1,6 +1,7 @@
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import { ContinueButton } from 'common/dashboard/incoming_styles'
+import { Logo } from 'assets/logo/logo'
 import { Potato, PotatoTypes } from 'assets/potatoes/potato'
 import { useHistory, useParams } from 'react-router'
 import { UserStateResource } from 'common/user_state'
@@ -28,19 +29,16 @@ const fullMsg = {
 
 // TODO: these two will need to populate based on charitato data
 const goodMsg = {
-    potatoType: PotatoTypes.Hot,
-    subtext: 'The temp goes here!',
+    subtext: 'Add it to your account!',
     text: "You've received a potato!",
 }
 
 const noacMsg = {
-    potatoType: PotatoTypes.Hot,
     subtext: 'Create an account to send it before it explodes!',
     text: "You've received a potato!",
 }
 
 const defMsg = {
-    potatoType: PotatoTypes.Fresh,
     subtext: '',
     text: '',
 }
@@ -73,9 +71,10 @@ export const IncPotato = () => {
             {user.isLoading && <Loading />}
             {!user.isLoading && (
                 <PotatoModeContainer>
-                    <Potato
-                        type={msg.potatoType}
+                    <Logo
                         style={{ gridArea: 'splash' }}
+                        width={200}
+                        height={200}
                     />
                     <PotatoTitleText>{msg.text}</PotatoTitleText>
                     <PotatoSubTitleText>{msg.subtext}</PotatoSubTitleText>
