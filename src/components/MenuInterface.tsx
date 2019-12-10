@@ -9,91 +9,72 @@ import LeaderboardsSelected from 'assets/menu/leaderboards_selected.png'
 import PotatoSelected from 'assets/menu/potato_selected.png'
 import FriendsSelected from 'assets/menu/friends_selected.png'
 import AccountSelected from 'assets/menu/account_selected.png'
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { PageContext, DashboardPages } from 'pages/Dashboard'
 
 export const MenuInterface = () => {
-    const DashboardPages = {
-        account: '/dashboard/account',
-        dashboard: '/dashboard',
-        friends: '/dashboard/friends',
-        leaderboards: '/dashboard/leaderboards',
-        milestones: '/dashboard/milestones',
-        potato: '/dashboard/potato',
-    }
-    const [currentPage, setCurrentPage] = useState(DashboardPages.potato)
+    const { page, setPage } = useContext(PageContext)
+
     return (
         <MenuContainer>
-            <Link
-                to={'/dashboard/milestones'}
-                onClick={() => setCurrentPage(DashboardPages.milestones)}
-            >
-                <MenuItem>
-                    <img
-                        src={
-                            currentPage === DashboardPages.milestones
-                                ? DashboardSelected
-                                : Dashboard
-                        }
-                    />
-                </MenuItem>
-            </Link>
-            <Link
-                to={'/dashboard/leaderboards'}
-                onClick={() => setCurrentPage(DashboardPages.leaderboards)}
-            >
-                <MenuItem>
-                    <img
-                        src={
-                            currentPage === DashboardPages.leaderboards
-                                ? LeaderboardsSelected
-                                : Leaderboards
-                        }
-                    />
-                </MenuItem>
-            </Link>
-            <Link
-                to={'/dashboard/potato'}
-                onClick={() => setCurrentPage(DashboardPages.potato)}
-            >
-                <MenuItem>
-                    <img
-                        src={
-                            currentPage === DashboardPages.potato
-                                ? PotatoSelected
-                                : Potato
-                        }
-                    />
-                </MenuItem>
-            </Link>
-            <Link
-                to={'/dashboard/friends'}
-                onClick={() => setCurrentPage(DashboardPages.friends)}
-            >
-                <MenuItem>
-                    <img
-                        src={
-                            currentPage === DashboardPages.friends
-                                ? FriendsSelected
-                                : Friends
-                        }
-                    />
-                </MenuItem>
-            </Link>
-            <Link
-                to={'/dashboard/account'}
-                onClick={() => setCurrentPage(DashboardPages.account)}
-            >
-                <MenuItem>
-                    <img
-                        src={
-                            currentPage === DashboardPages.account
-                                ? AccountSelected
-                                : Account
-                        }
-                    />
-                </MenuItem>
-            </Link>
+            <MenuItem>
+                <img
+                    src={
+                        page === DashboardPages.MILESTONES
+                            ? DashboardSelected
+                            : Dashboard
+                    }
+                    onClick={() => {
+                        setPage(DashboardPages.MILESTONES)
+                    }}
+                />
+            </MenuItem>
+            <MenuItem>
+                <img
+                    src={
+                        page === DashboardPages.LEADERBOARDS
+                            ? LeaderboardsSelected
+                            : Leaderboards
+                    }
+                    onClick={() => {
+                        setPage(DashboardPages.LEADERBOARDS)
+                    }}
+                />
+            </MenuItem>
+            <MenuItem>
+                <img
+                    src={
+                        page === DashboardPages.POTATO ? PotatoSelected : Potato
+                    }
+                    onClick={() => {
+                        setPage(DashboardPages.POTATO)
+                    }}
+                />
+            </MenuItem>
+            <MenuItem>
+                <img
+                    src={
+                        page === DashboardPages.FRIENDS
+                            ? FriendsSelected
+                            : Friends
+                    }
+                    onClick={() => {
+                        setPage(DashboardPages.FRIENDS)
+                    }}
+                />
+            </MenuItem>
+            <MenuItem>
+                <img
+                    src={
+                        page === DashboardPages.ACCOUNT
+                            ? AccountSelected
+                            : Account
+                    }
+                    onClick={() => {
+                        setPage(DashboardPages.ACCOUNT)
+                    }}
+                />
+            </MenuItem>
         </MenuContainer>
     )
 }

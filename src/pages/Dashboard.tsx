@@ -22,6 +22,7 @@ import { localize } from 'assets/strings/localize'
 import { LoadingAnimation } from 'common/loading/loading'
 import { MenuInterface } from 'components/MenuInterface'
 import { PageNotFound } from './PageNotFound'
+import { string } from 'prop-types'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -65,18 +66,25 @@ const MenuBar = styled.div`
     border-radius: 999px;
 `
 
-export const UserContext = createContext({
-    userState: defaultUserState,
-    setLoading: (state: boolean) => {},
-})
-
-enum DashboardPages {
+export enum DashboardPages {
     POTATO = 'potato',
     MILESTONES = 'milestones',
     FRIENDS = 'friends',
     LEADERBOARDS = 'leaderboards',
     ACCOUNT = 'account',
 }
+
+export const UserContext = createContext({
+    setLoading: (state: boolean) => {},
+    userState: defaultUserState,
+})
+
+export const PageContext = createContext({
+    page: DashboardPages.POTATO,
+    setPage: (page: DashboardPages) => {
+        return
+    },
+})
 
 // TODO: do this more elegantly
 const inputToDashboard = (inputPage: string) => {
@@ -106,14 +114,17 @@ const Dashboard = () => {
     const [loadingInterface, setLoadingInterface] = useState(false)
     const [loadingDashboard, setLoadingDashboard] = useState(false)
     const { inputPage } = useParams()
-    const history = useHistory()
     const { user, reload } = UserStateResource()
 
     const setInterfaceLoading = (state: boolean) => {
-        // console.log(`setting interface loading to ${state}`)
         setLoadingInterface(state)
     }
 
+    const changePage = (page: DashboardPages) => {
+        setCurrentPage(page)
+    }
+
+    // Loading dashboard
     useEffect(() => {
         console.log(
             `${loadingInterface} || ${loadingNewPotato} || ${user.isLoading}`
@@ -152,65 +163,51 @@ const Dashboard = () => {
     }, [inputPage, user.state])
 
     return (
-        <Router>
-            <DashboardPage>
-                <InterfaceContainer>
-                    <UserContext.Provider
-                        value={{
-                            setLoading: setInterfaceLoading,
-                            userState: user.state,
-                        }}
-                    >
-                        {!user.isError && loadingDashboard && (
-                            <LoadingAnimation loading={user.isLoading} />
+        <DashboardPage>
+            <InterfaceContainer>
+                <UserContext.Provider
+                    value={{
+                        setLoading: setInterfaceLoading,
+                        userState: user.state,
+                    }}
+                >
+                    {!user.isError && loadingDashboard && (
+                        <LoadingAnimation loading={true} />
+                    )}
+                    {!user.isError &&
+                        !loadingDashboard &&
+                        currentPage === DashboardPages.POTATO && (
+                            <PotatoInterface />
                         )}
-                        {!user.isError && !loadingDashboard && (
-                            <Route
-                                exact={true}
-                                path="/dashboard"
-                                component={PotatoInterface}
-                            />
+                    {!user.isError &&
+                        !loadingDashboard &&
+                        currentPage === DashboardPages.MILESTONES && (
+                            <MilestonesInterface />
                         )}
-                        {!user.isError && !loadingDashboard && (
-                            <Route
-                                exact={true}
-                                path="/dashboard/potato"
-                                component={PotatoInterface}
-                            />
+                    {!user.isError &&
+                        !loadingDashboard &&
+                        currentPage === DashboardPages.FRIENDS && (
+                            <FriendsInterface />
                         )}
-                        {!user.isError && !loadingDashboard && (
-                            <Route
-                                exact={true}
-                                path="/dashboard/leaderboards"
-                                component={LeaderboardsInterface}
-                            />
+                    {!user.isError &&
+                        !loadingDashboard &&
+                        currentPage === DashboardPages.LEADERBOARDS && (
+                            <LeaderboardsInterface />
                         )}
-                        {!user.isError && !loadingDashboard && (
-                            <Route
-                                exact={true}
-                                path="/dashboard/friends"
-                                component={FriendsInterface}
-                            />
+                    {!user.isError &&
+                        !loadingDashboard &&
+                        currentPage === DashboardPages.ACCOUNT && (
+                            <AccountInterface />
                         )}
-                        {!user.isError && !loadingDashboard && (
-                            <Route
-                                exact={true}
-                                path="/dashboard/account"
-                                component={AccountInterface}
-                            />
-                        )}
-                        {!user.isError && !loadingDashboard && (
-                            <Route
-                                exact={true}
-                                path="/dashboard/milestones"
-                                component={MilestonesInterface}
-                            />
-                        )}
-                    </UserContext.Provider>
-                </InterfaceContainer>
+                    {user.isError && <ErrorPage />}
+                </UserContext.Provider>
+            </InterfaceContainer>
+            <PageContext.Provider
+                value={{ page: currentPage, setPage: changePage }}
+            >
                 <MenuInterface />
-            </DashboardPage>
-        </Router>
+            </PageContext.Provider>
+        </DashboardPage>
     )
 }
 

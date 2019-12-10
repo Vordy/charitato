@@ -177,10 +177,6 @@ export const PotatoInterface = () => {
     const potatoResource = PotatoStateResource() // get potato resource based on userstate
     const potatoState = potatoResource.state
 
-    const isLoading = () => {
-        return potatoResource.isLoading
-    }
-
     // parse potatoState into potatoInfo
     useEffect(() => {
         setLoading(potatoResource.isLoading)
