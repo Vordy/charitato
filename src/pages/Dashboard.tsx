@@ -10,6 +10,7 @@ import { incomingPotato, potatoIdentifier } from 'common/potato_lifecycle'
 import { PotatoInterface } from 'components/PotatoInterface'
 import { signUpConfig } from 'common/auth_config'
 import { useHistory, useParams } from 'react-router'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { withAuthenticator } from 'aws-amplify-react'
 import {
     defaultUserState,
@@ -21,12 +22,14 @@ import React, { createContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { localize } from 'assets/strings/localize'
 import { LoadingAnimation } from 'common/loading/loading'
+import { MenuInterface } from 'components/MenuInterface'
+import { Loading } from './Loading'
 
 const DashboardPage = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
 `
@@ -144,103 +147,58 @@ const Dashboard = () => {
     }, [inputPage, user.state])
 
     return (
-        <DashboardPage>
-            <InterfaceContainer>
-                <UserContext.Provider
-                    value={{
-                        userState: user.state,
-                        setLoading: setInterfaceLoading,
-                    }}
-                >
-                    {!user.isError && isLoading() && (
-                        <LoadingAnimation loading={user.isLoading} />
-                    )}
-                    {!user.isError &&
-                        !isLoading() &&
-                        currentPage === DashboardPages.POTATO && (
-                            <PotatoInterface />
-                        )}
-                    {!user.isError &&
-                        !isLoading() &&
-                        currentPage === DashboardPages.MILESTONES && (
-                            <MilestonesInterface />
-                        )}
-                    {!user.isError &&
-                        !isLoading() &&
-                        currentPage === DashboardPages.FRIENDS && (
-                            <FriendsInterface />
-                        )}
-                    {!user.isError &&
-                        !isLoading() &&
-                        currentPage === DashboardPages.LEADERBOARDS && (
-                            <LeaderboardsInterface />
-                        )}
-                    {!user.isError &&
-                        !isLoading() &&
-                        currentPage === DashboardPages.ACCOUNT && (
-                            <AccountInterface />
-                        )}
-                    {user.isError && <ErrorPage />}
-                </UserContext.Provider>
-            </InterfaceContainer>
-            <MenuBarContainer>
-                <MenuBar>
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Milestones'}
-                        onClickHandler={(event: React.MouseEvent) => {
-                            // handlePageChange(DashboardPages.MILESTONES)
-                            history.push(`/dashboard/milestones`)
+        <Router>
+            <DashboardPage>
+                <InterfaceContainer>
+                    <UserContext.Provider
+                        value={{
+                            userState: user.state,
+                            setLoading: setInterfaceLoading,
                         }}
-                    />
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Leaderboards'}
-                        onClickHandler={(event: React.MouseEvent) => {
-                            // handlePageChange(DashboardPages.LEADERBOARDS)
-                            history.push(`/dashboard/leaderboards`)
-                        }}
-                    />
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Potato'}
-                        onClickHandler={(event: React.MouseEvent) => {
-                            // handlePageChange(DashboardPages.POTATO)
-                            history.push(`/dashboard/potato`)
-                        }}
-                    />
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Friends'}
-                        onClickHandler={(event: React.MouseEvent) => {
-                            // handlePageChange(DashboardPages.FRIENDS)
-                            history.push(`/dashboard/friends`)
-                        }}
-                    />
-                    <Button
-                        buttonType={ButtonTypes.Primary}
-                        buttonSize={ButtonSizes.Small}
-                        text={'Account'}
-                        onClickHandler={(event: React.MouseEvent) => {
-                            // handlePageChange(DashboardPages.ACCOUNT)
-                            history.push(`/dashboard/account`)
-                        }}
-                    />
-                </MenuBar>
-            </MenuBarContainer>
-            {/* <DashboardBlob
-                style={{
-                    position: 'absolute',
-                    top: '0%',
-                    right: '0%',
-                    userSelect: 'none',
-                }}
-            /> */}
-        </DashboardPage>
+                    >
+                        {!user.isError && isLoading() && (
+                            <LoadingAnimation loading={user.isLoading} />
+                        )}
+                        {!user.isError && !user.isLoading && (
+                            <Route
+                                exact
+                                path="/dashboard"
+                                render={() => <PotatoInterface />}
+                            />
+                        )}
+                        {!user.isError && !user.isLoading && (
+                            <Route
+                                exact
+                                path="/dashboard/potato"
+                                render={() => <PotatoInterface />}
+                            />
+                        )}
+                        {!user.isError && !user.isLoading && (
+                            <Route
+                                exact
+                                path="/dashboard/leaderboards"
+                                render={() => <LeaderboardsInterface />}
+                            />
+                        )}
+                        {!user.isError && !user.isLoading && (
+                            <Route
+                                exact
+                                path="/dashboard/friends"
+                                render={() => <FriendsInterface />}
+                            />
+                        )}
+                        {!user.isError && !user.isLoading && (
+                            <Route
+                                exact
+                                path="/dashboard/account"
+                                render={() => <AccountInterface />}
+                            />
+                        )}
+                    </UserContext.Provider>
+                </InterfaceContainer>
+                <MenuInterface />
+            </DashboardPage>
+        </Router>
     )
 }
 
