@@ -10,6 +10,9 @@ import {
     CopyMessage,
     Or,
     SendingModeContainer,
+    DropdownContainer,
+    DropdownBox,
+    DropdownSelection
 } from 'common/dashboard/sending_styles'
 import { calculatePotatoType, PotatoStateResource } from 'common/potato_state'
 import {
@@ -137,6 +140,10 @@ const SendingMode = ({ changeMode }: ModeProps) => {
         setCopied(true)
     }
 
+    const handleSend = (event: React.MouseEvent) => {
+        return null;
+    }
+
     const handleBack = (event: React.MouseEvent) => {
         changeMode('PotatoMode')
     }
@@ -159,12 +166,21 @@ const SendingMode = ({ changeMode }: ModeProps) => {
                 Or
                 <hr style={{ width: '100%' }} />
             </Or>
-            <Button
+            <DropdownContainer>
+                <DropdownBox><i>Select a friend...</i></DropdownBox>
+                <Button
+                    buttonType={ButtonTypes.Primary}
+                    buttonSize={ButtonSizes.Small}
+                    text={'Send'}
+                    onClickHandler={handleSend}
+                />
+            </DropdownContainer>
+            {/* <Button
                 buttonType={ButtonTypes.Primary}
                 buttonSize={ButtonSizes.Small}
                 text={'DEBUG: Back'}
                 onClickHandler={handleBack}
-            />
+            /> */}
         </SendingModeContainer>
     )
 }

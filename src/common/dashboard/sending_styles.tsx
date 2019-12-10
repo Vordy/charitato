@@ -9,14 +9,15 @@ export const SendingModeContainer = styled.div`
     width: 100%;
 
     grid-template-columns: 2fr 1fr 1fr 2fr;
-    grid-template-rows: 20% 30% 10% 10% 10% 20%;
+    grid-template-rows: 20% 20% 10% 5% 5% 10% 30%;
 
     grid-template-areas:
         '. . . .'
         'splash splash splash splash'
         '. text text .'
         '. or or .'
-        '. button1 button2 .'
+        '. . . .'
+        '. dropdown dropdown .'
         '. . . .';
 
     place-items: center center;
@@ -73,3 +74,38 @@ export const Or = styled.div`
 
     font-weight: bold;
 `
+
+export const DropdownContainer = styled.div`
+    grid-area: dropdown;
+    display: grid;
+    height: 100%;
+
+    grid-template-columns: 4fr 1fr;
+    grid-template-rows: auto 1fr;
+
+    grid-column-gap: 20px;
+
+    grid-template-areas:
+        'dropdownbox button'
+        '. .';
+
+    place-items: center center;
+`;
+
+export const DropdownBox = styled.div`
+    display: grid;
+    height: 100%;
+    width: 100%;
+    padding-right: 5px;
+    padding-left: 5px;
+    place-items: center center;
+    background-color: ${Colors.LightGray};
+    border-color: ${Colors.DarkGray};
+    border-style: solid;
+    border-radius: 999px;
+`;
+
+export const DropdownSelection = styled.div`
+    width: 100%;
+    background-color: ${Colors.LightGray};
+`;
