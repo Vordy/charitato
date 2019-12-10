@@ -16,7 +16,7 @@ export const Logo = ({ style, width, height }: Props) => {
                 d="M25.6153 64.1569L39.7582 58.377L51.2317 42.8359L54.7009 21.2395L46.8025 9.64643L33.0975 7.77386L17.6136 21.8813L9.40636 45.5773L13.2346 58.2362L25.6153 64.1569Z"
                 fill="url(#paint0_linear_logo)"
                 stroke="black"
-                stroke-width="3"
+                strokeWidth="3"
             />
             <path
                 d="M28.1643 26.7917C28.8602 27.2248 29.7776 27.0132 30.2134 26.3191C30.6491 25.625 30.4381 24.7113 29.7422 24.2782C29.0462 23.8452 28.1288 24.0568 27.6931 24.7509C27.2574 25.445 27.4683 26.3587 28.1643 26.7917Z"
@@ -67,8 +67,8 @@ export const Logo = ({ style, width, height }: Props) => {
                     y2="33.9827"
                     gradientUnits="userSpaceOnUse"
                 >
-                    <stop stop-color="#FF0099" />
-                    <stop offset="1" stop-color="#FFE600" stop-opacity="0.7" />
+                    <stop stopColor="#FF0099" />
+                    <stop offset="1" stopColor="#FFE600" stopOpacity="0.7" />
                 </linearGradient>
             </defs>
         </svg>
