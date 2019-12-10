@@ -109,6 +109,7 @@ const Dashboard = () => {
     const { user, reload } = UserStateResource()
 
     const setInterfaceLoading = (state: boolean) => {
+        console.log(`setting interface loading to ${state}`)
         setLoadingInterface(state)
     }
 
@@ -123,7 +124,6 @@ const Dashboard = () => {
         ) => {
             await incomingPotato(userState, potatoID)
             setLoadingNewPotato(false)
-            history.push('/dashboard/potato')
         }
 
         // console.log(`useEffect: ${currentPage} to ${inputPage}`)
