@@ -64,7 +64,10 @@ const MenuBar = styled.div`
     border-radius: 999px;
 `
 
-export const UserContext = createContext(defaultUserState)
+export const UserContext = createContext({
+    userState: defaultUserState,
+    setLoading: (state: boolean) => {},
+})
 
 enum DashboardPages {
     POTATO = 'potato',
@@ -99,12 +102,17 @@ const ErrorPage = () => {
 const Dashboard = () => {
     const [currentPage, setCurrentPage] = useState(DashboardPages.POTATO)
     const [loadingNewPotato, setLoadingNewPotato] = useState(false)
+    const [loadingInterface, setLoadingInterface] = useState(false)
     const { inputPage } = useParams()
     const history = useHistory()
     const { user, reload } = UserStateResource()
 
+    const setInterfaceLoading = (state: boolean) => {
+        setLoadingInterface(state)
+    }
+
     const isLoading = () => {
-        return user.isLoading || loadingNewPotato
+        return user.isLoading || loadingNewPotato || loadingInterface
     }
 
     useEffect(() => {
@@ -138,7 +146,12 @@ const Dashboard = () => {
     return (
         <DashboardPage>
             <InterfaceContainer>
-                <UserContext.Provider value={user.state}>
+                <UserContext.Provider
+                    value={{
+                        userState: user.state,
+                        setLoading: setInterfaceLoading,
+                    }}
+                >
                     {!user.isError && isLoading() && (
                         <LoadingAnimation loading={user.isLoading} />
                     )}

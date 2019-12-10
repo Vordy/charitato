@@ -44,7 +44,7 @@ const PotatoContext = createContext(defaultPotatoInfo)
 // for viewing a potato (or lack thereof)
 const PotatoMode = ({ changeMode }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
-    const userState = useContext(UserContext)
+    const { userState } = useContext(UserContext)
 
     const isPotatoFresh =
         potatoContext.potatoType === PotatoTypes.Fresh ? true : false
@@ -175,7 +175,7 @@ const SendingMode = ({ changeMode }: ModeProps) => {
 export const PotatoInterface = () => {
     const [mode, setMode] = useState('PotatoMode')
     const [potatoInfoState, setPotatoInfoState] = useState(defaultPotatoInfo)
-    const userState = useContext(UserContext)
+    const { userState, setLoading } = useContext(UserContext)
     const potatoResource = PotatoStateResource() // get potato resource based on userstate
     const potatoState = potatoResource.state
 
@@ -185,6 +185,7 @@ export const PotatoInterface = () => {
 
     // parse potatoState into potatoInfo
     useEffect(() => {
+        setLoading(potatoResource.isLoading)
         if (userState.instance) {
             if (userState.instance.hasPotato) {
                 if (
@@ -221,13 +222,8 @@ export const PotatoInterface = () => {
     return (
         <InterfaceContainer>
             <PotatoContext.Provider value={potatoInfoState}>
-                {/* {isLoading() && <LoadingAnimation loading={isLoading()} />} */}
-                {!isLoading() && mode === 'PotatoMode' && (
-                    <PotatoMode changeMode={setMode} />
-                )}
-                {!isLoading() && mode === 'SendingMode' && (
-                    <SendingMode changeMode={setMode} />
-                )}
+                {mode === 'PotatoMode' && <PotatoMode changeMode={setMode} />}
+                {mode === 'SendingMode' && <SendingMode changeMode={setMode} />}
             </PotatoContext.Provider>
         </InterfaceContainer>
     )

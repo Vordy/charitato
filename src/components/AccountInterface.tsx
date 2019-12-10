@@ -5,7 +5,7 @@ import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import { Auth } from 'aws-amplify'
 
 export const AccountInterface = () => {
-    const user = useContext(UserContext)
+    const { userState } = useContext(UserContext)
 
     const handleSignOut = (e: React.MouseEvent) => {
         Auth.signOut()
@@ -14,7 +14,7 @@ export const AccountInterface = () => {
     return (
         <div>
             <div>Account Interface</div>
-            <div>Username: {user.username}</div>
+            <div>Username: {userState.username}</div>
             <Button
                 buttonSize={ButtonSizes.Large}
                 buttonType={ButtonTypes.Primary}

@@ -47,23 +47,25 @@ const getPotatoState = async (potatoID: string): Promise<PotatoState> => {
 // Main resource - takes a userstate and returns a potato state
 export const PotatoStateResource = () => {
     const [data, setData] = useState(defaultPotatoResource)
-    const user = useContext(UserContext)
+    const { userState, setLoading } = useContext(UserContext)
 
     useEffect(() => {
         const potatoState = async () => {
             setData({ state: defaultPotatoResource.state, isLoading: true })
+            setLoading(true)
 
-            const result = user.instance
-                ? await getPotatoState(user.instance.currentPotato)
+            const result = userState.instance
+                ? await getPotatoState(userState.instance.currentPotato)
                 : defaultPotatoState
 
             setData({ state: result, isLoading: false })
+            setLoading(false)
         }
 
-        if (!objectIsEmpty(user)) {
+        if (!objectIsEmpty(userState)) {
             potatoState()
         }
-    }, [user])
+    }, [userState])
 
     return data
 }
