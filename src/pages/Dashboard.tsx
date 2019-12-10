@@ -150,6 +150,7 @@ const Dashboard = () => {
                         {!user.isError && !user.isLoading && 
                             <Route exact path="/dashboard/account" render={() => <AccountInterface />} />
                         }
+                        {user.isError && <ErrorPage />}
                     </UserContext.Provider>
                 </InterfaceContainer>
                 <MenuInterface></MenuInterface>
