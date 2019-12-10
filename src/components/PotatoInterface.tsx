@@ -22,8 +22,6 @@ import {
 } from 'common/dashboard/potato_styles'
 import copy from 'clipboard-copy'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Loading } from 'pages/Loading'
-import { LoadingAnimation } from 'common/loading/loading'
 
 // For passing in the page changer to the modes
 interface ModeProps {
@@ -175,13 +173,13 @@ const SendingMode = ({ changeMode }: ModeProps) => {
 export const PotatoInterface = () => {
     const [mode, setMode] = useState('PotatoMode')
     const [potatoInfoState, setPotatoInfoState] = useState(defaultPotatoInfo)
-    const { userState, setLoading, reloadUser } = useContext(UserContext)
+    const { userState, reloadUser } = useContext(UserContext)
     const potatoResource = PotatoStateResource() // get potato resource based on userstate
     const potatoState = potatoResource.state
 
     // parse potatoState into potatoInfo
     useEffect(() => {
-        setLoading(potatoResource.isLoading)
+        // setLoading(potatoResource.isLoading)
         if (userState.instance) {
             if (userState.instance.hasPotato) {
                 if (

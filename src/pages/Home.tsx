@@ -23,6 +23,10 @@ import { Footerblob } from 'assets/blobs/Footerblob'
 // `
 
 const SplashHeader = styled.div`
+    /* For DarkMode screenie */
+    color: ${getTheme().foreground};
+    background-color: ${getTheme().background};
+
     font-size: 5em;
     font-weight: 700;
     flex-direction: column;

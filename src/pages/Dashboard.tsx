@@ -8,11 +8,7 @@ import { PotatoInterface } from 'components/PotatoInterface'
 import { signUpConfig } from 'common/auth_config'
 import { useParams } from 'react-router'
 import { withAuthenticator } from 'aws-amplify-react'
-import {
-    defaultUserState,
-    UserState,
-    UserStateResource,
-} from 'common/user_state'
+import { defaultUserState, UserStateResource } from 'common/user_state'
 import AmplifyTheme from 'theme/auth_theme'
 import React, { createContext, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
@@ -111,9 +107,9 @@ const Dashboard = () => {
 
     // Loading dashboard
     useEffect(() => {
-        console.log(
-            `${loadingInterface} || ${loadingNewPotato} || ${user.isLoading}`
-        )
+        // console.log(
+        //     `${loadingInterface} || ${loadingNewPotato} || ${user.isLoading}`
+        // )
         setLoadingDashboard(
             loadingInterface || loadingNewPotato || user.isLoading
         )
@@ -141,7 +137,7 @@ const Dashboard = () => {
                 setCurrentPage(inputToDashboard(inputPage))
             }
         }
-    }, [inputPage, user.state])
+    }, [inputPage, user.state, reload])
 
     return (
         <DashboardPage>

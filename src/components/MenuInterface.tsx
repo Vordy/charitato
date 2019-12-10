@@ -16,13 +16,14 @@ export const MenuInterface = () => {
     const { page, setPage } = useContext(PageContext)
 
     const changeURL = (newURL: string) => {
-        window.history.pushState({}, '', newURL)
+        window.history.pushState({}, '', `${newURL}`)
     }
 
     return (
         <MenuContainer>
             <MenuItem>
                 <img
+                    alt={'Menu Item'}
                     src={
                         page === DashboardPages.MILESTONES
                             ? DashboardSelected
@@ -36,6 +37,7 @@ export const MenuInterface = () => {
             </MenuItem>
             <MenuItem>
                 <img
+                    alt={'Menu Item'}
                     src={
                         page === DashboardPages.LEADERBOARDS
                             ? LeaderboardsSelected
@@ -49,6 +51,7 @@ export const MenuInterface = () => {
             </MenuItem>
             <MenuItem>
                 <img
+                    alt={'Menu Item'}
                     src={
                         page === DashboardPages.POTATO ? PotatoSelected : Potato
                     }
@@ -60,6 +63,7 @@ export const MenuInterface = () => {
             </MenuItem>
             <MenuItem>
                 <img
+                    alt={'Menu Item'}
                     src={
                         page === DashboardPages.FRIENDS
                             ? FriendsSelected
@@ -73,6 +77,7 @@ export const MenuInterface = () => {
             </MenuItem>
             <MenuItem>
                 <img
+                    alt={'Menu Item'}
                     src={
                         page === DashboardPages.ACCOUNT
                             ? AccountSelected
