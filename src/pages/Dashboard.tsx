@@ -107,9 +107,9 @@ const Dashboard = () => {
 
     // Loading dashboard
     useEffect(() => {
-        // console.log(
-        //     `${loadingInterface} || ${loadingNewPotato} || ${user.isLoading}`
-        // )
+        console.log(
+            `${loadingInterface} || ${loadingNewPotato} || ${user.isLoading}`
+        )
         setLoadingDashboard(
             loadingInterface || loadingNewPotato || user.isLoading
         )
@@ -118,9 +118,9 @@ const Dashboard = () => {
     // Handle input page
     useEffect(() => {
         const handleIncomingPage = async (potatoID: string) => {
+            changeURL(DashboardPages.POTATO)
             await incomingPotato(user.state, potatoID, reload)
             setLoadingNewPotato(false)
-            changeURL(DashboardPages.POTATO)
         }
 
         // console.log(`useEffect: ${currentPage} to ${inputPage}`)
@@ -130,7 +130,7 @@ const Dashboard = () => {
                 inputPage.substr(0, potatoIdentifier.length) ===
                 potatoIdentifier
             ) {
-                setLoadingNewPotato(true)
+                // setLoadingNewPotato(true)
                 handleIncomingPage(inputPage.substr(potatoIdentifier.length))
             } else if (inputPage.toUpperCase() in DashboardPages) {
                 // console.log(`Setting to ${inputToDashboard(inputPage)}`)
