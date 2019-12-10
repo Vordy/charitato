@@ -14,7 +14,7 @@ export const Logo = ({ style, width, height }: Props) => {
         >
             <path
                 d="M25.6153 64.1569L39.7582 58.377L51.2317 42.8359L54.7009 21.2395L46.8025 9.64643L33.0975 7.77386L17.6136 21.8813L9.40636 45.5773L13.2346 58.2362L25.6153 64.1569Z"
-                fill="url(#paint0_linear)"
+                fill="url(#paint0_linear_logo)"
                 stroke="black"
                 stroke-width="3"
             />
@@ -60,7 +60,7 @@ export const Logo = ({ style, width, height }: Props) => {
             />
             <defs>
                 <linearGradient
-                    id="paint0_linear"
+                    id="paint0_linear_logo"
                     x1="32.471"
                     y1="8.0514"
                     x2="5.26239"
