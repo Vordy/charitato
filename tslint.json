@@ -30,6 +30,7 @@
                 "named-imports-order": "case-insensitive"
             }
         ],
-        "interface-name": false
+        "interface-name": false,
+        "jsx-no-lambda": false
     }
 }

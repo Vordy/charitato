@@ -1,5 +1,4 @@
 import { AccountInterface } from 'components/AccountInterface'
-import { Colors } from 'theme/Colors'
 import { FriendsInterface } from 'components/FriendsInterface'
 import { getTheme } from 'theme/themes'
 import { LeaderboardsInterface } from 'components/LeaderboardsInterface'
@@ -7,8 +6,7 @@ import { MilestonesInterface } from 'components/MilestonesInterface'
 import { incomingPotato, potatoIdentifier } from 'common/potato_lifecycle'
 import { PotatoInterface } from 'components/PotatoInterface'
 import { signUpConfig } from 'common/auth_config'
-import { useHistory, useParams } from 'react-router'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { useParams } from 'react-router'
 import { withAuthenticator } from 'aws-amplify-react'
 import {
     defaultUserState,
@@ -21,8 +19,6 @@ import styled from '@emotion/styled'
 import { localize } from 'assets/strings/localize'
 import { LoadingAnimation } from 'common/loading/loading'
 import { MenuInterface } from 'components/MenuInterface'
-import { PageNotFound } from './PageNotFound'
-import { string } from 'prop-types'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -44,26 +40,6 @@ const InterfaceContainer = styled.div`
     color: ${getTheme().foreground};
     background-color: ${getTheme().background};
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
-`
-
-const MenuBarContainer = styled.div`
-    background-color: ${getTheme().background};
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    z-index: 1000;
-`
-
-const MenuBar = styled.div`
-    width: 50%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    background-color: ${Colors.LightGray};
-    padding: 10px;
-    border-radius: 999px;
 `
 
 export enum DashboardPages {
