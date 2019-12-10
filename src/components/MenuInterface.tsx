@@ -15,6 +15,10 @@ import { DashboardPages, PageContext } from 'pages/Dashboard'
 export const MenuInterface = () => {
     const { page, setPage } = useContext(PageContext)
 
+    const changeURL = (newURL: string) => {
+        window.history.pushState({}, '', newURL)
+    }
+
     return (
         <MenuContainer>
             <MenuItem>
@@ -26,6 +30,7 @@ export const MenuInterface = () => {
                     }
                     onClick={() => {
                         setPage(DashboardPages.MILESTONES)
+                        changeURL(DashboardPages.MILESTONES)
                     }}
                 />
             </MenuItem>
@@ -38,6 +43,7 @@ export const MenuInterface = () => {
                     }
                     onClick={() => {
                         setPage(DashboardPages.LEADERBOARDS)
+                        changeURL(DashboardPages.LEADERBOARDS)
                     }}
                 />
             </MenuItem>
@@ -48,6 +54,7 @@ export const MenuInterface = () => {
                     }
                     onClick={() => {
                         setPage(DashboardPages.POTATO)
+                        changeURL(DashboardPages.POTATO)
                     }}
                 />
             </MenuItem>
@@ -60,6 +67,7 @@ export const MenuInterface = () => {
                     }
                     onClick={() => {
                         setPage(DashboardPages.FRIENDS)
+                        changeURL(DashboardPages.FRIENDS)
                     }}
                 />
             </MenuItem>
@@ -72,6 +80,7 @@ export const MenuInterface = () => {
                     }
                     onClick={() => {
                         setPage(DashboardPages.ACCOUNT)
+                        changeURL(DashboardPages.ACCOUNT)
                     }}
                 />
             </MenuItem>
