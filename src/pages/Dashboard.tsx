@@ -51,6 +51,9 @@ export enum DashboardPages {
 }
 
 export const UserContext = createContext({
+    reloadUser: () => {
+        return
+    },
     setLoading: (state: boolean) => {
         return
     },
@@ -102,6 +105,10 @@ const Dashboard = () => {
         setCurrentPage(page)
     }
 
+    const changeURL = (newURL: string) => {
+        window.history.pushState({}, '', newURL)
+    }
+
     // Loading dashboard
     useEffect(() => {
         console.log(
@@ -112,13 +119,12 @@ const Dashboard = () => {
         )
     }, [loadingInterface, loadingNewPotato, user.isLoading])
 
+    // Handle input page
     useEffect(() => {
-        const handleIncomingPage = async (
-            userState: UserState,
-            potatoID: string
-        ) => {
-            await incomingPotato(userState, potatoID)
+        const handleIncomingPage = async (potatoID: string) => {
+            await incomingPotato(user.state, potatoID, reload)
             setLoadingNewPotato(false)
+            changeURL(DashboardPages.POTATO)
         }
 
         // console.log(`useEffect: ${currentPage} to ${inputPage}`)
@@ -129,10 +135,7 @@ const Dashboard = () => {
                 potatoIdentifier
             ) {
                 setLoadingNewPotato(true)
-                handleIncomingPage(
-                    user.state,
-                    inputPage.substr(potatoIdentifier.length)
-                )
+                handleIncomingPage(inputPage.substr(potatoIdentifier.length))
             } else if (inputPage.toUpperCase() in DashboardPages) {
                 // console.log(`Setting to ${inputToDashboard(inputPage)}`)
                 setCurrentPage(inputToDashboard(inputPage))
@@ -145,6 +148,7 @@ const Dashboard = () => {
             <InterfaceContainer>
                 <UserContext.Provider
                     value={{
+                        reloadUser: reload,
                         setLoading: setInterfaceLoading,
                         userState: user.state,
                     }}

@@ -28,6 +28,7 @@ import { LoadingAnimation } from 'common/loading/loading'
 // For passing in the page changer to the modes
 interface ModeProps {
     changeMode: React.Dispatch<React.SetStateAction<string>>
+    reloadUser: () => void
 }
 
 // local info for potato
@@ -42,7 +43,7 @@ const defaultPotatoInfo = {
 const PotatoContext = createContext(defaultPotatoInfo)
 
 // for viewing a potato (or lack thereof)
-const PotatoMode = ({ changeMode }: ModeProps) => {
+const PotatoMode = ({ changeMode, reloadUser }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
     const { userState, setLoading } = useContext(UserContext)
 
@@ -51,11 +52,12 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
     const isPotato =
         potatoContext.potatoType === PotatoTypes.None ? false : true
 
-    const handleNewPotatoClick = () => {
+    const handleNewPotatoClick = async () => {
         if (userState.instance) {
             if (!userState.instance.hasPotato) {
                 setLoading(true)
-                createPotato(userState)
+                await createPotato(userState, reloadUser)
+                setLoading(false)
             }
         }
     }
@@ -173,7 +175,7 @@ const SendingMode = ({ changeMode }: ModeProps) => {
 export const PotatoInterface = () => {
     const [mode, setMode] = useState('PotatoMode')
     const [potatoInfoState, setPotatoInfoState] = useState(defaultPotatoInfo)
-    const { userState, setLoading } = useContext(UserContext)
+    const { userState, setLoading, reloadUser } = useContext(UserContext)
     const potatoResource = PotatoStateResource() // get potato resource based on userstate
     const potatoState = potatoResource.state
 
@@ -216,8 +218,12 @@ export const PotatoInterface = () => {
     return (
         <InterfaceContainer>
             <PotatoContext.Provider value={potatoInfoState}>
-                {mode === 'PotatoMode' && <PotatoMode changeMode={setMode} />}
-                {mode === 'SendingMode' && <SendingMode changeMode={setMode} />}
+                {mode === 'PotatoMode' && (
+                    <PotatoMode reloadUser={reloadUser} changeMode={setMode} />
+                )}
+                {mode === 'SendingMode' && (
+                    <SendingMode reloadUser={reloadUser} changeMode={setMode} />
+                )}
             </PotatoContext.Provider>
         </InterfaceContainer>
     )

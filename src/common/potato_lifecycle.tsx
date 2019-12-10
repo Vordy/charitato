@@ -76,14 +76,17 @@ const createNewPotatoInstance = async (
     return defaultPotatoState
 }
 
-export const createPotato = async (userState: UserState) => {
+export const createPotato = async (
+    userState: UserState,
+    reload: () => void
+) => {
     // if the current newest history item on the user is 'none' it should
     // be replaced not concatenated
     const newUUID = v4()
 
     const newPotato = await createNewPotatoInstance(userState, newUUID)
     await addToAccount(userState, newPotato)
-    window.location.reload(false) // TODO: replace with better refresh
+    reload()
 }
 
 const addToAccount = async (userState: UserState, potatoState: PotatoState) => {
@@ -152,7 +155,8 @@ const updatePotatoHistory = async (
 
 export const incomingPotato = async (
     userState: UserState,
-    potatoID: string
+    potatoID: string,
+    reload: () => void
 ) => {
     // Step 0: make sure this isn't a repeat, don't waste API calls
     if (userState.instance) {
@@ -176,12 +180,7 @@ export const incomingPotato = async (
     // Step 4: updated potato history
     await updatePotatoHistory(userState, potatoState)
 
-    // Step 5: modify userState
-    userState.instance.currentPotato = potatoID
-    userState.instance.hasPotato = false
-    // userState.instance.history.push(potatoID)
-
-    window.location.reload(false) // TODO: replace with better refresh
+    reload()
 }
 
 // checkStatus determines which of the CASES we are in

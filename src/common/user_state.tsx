@@ -37,7 +37,7 @@ export interface UserResource {
 export const defaultUserState: UserState = {}
 
 // Default values for exporting into UserContext
-const defaultUserResource: UserResource = {
+export const defaultUserResource: UserResource = {
     isError: false,
     isLoading: false,
     state: {},
@@ -133,6 +133,7 @@ export const UserStateResource = (): {
     }
 
     const reloadUser = () => {
+        console.log('reloading user!')
         userState()
     }
 
