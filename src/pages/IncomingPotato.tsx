@@ -1,8 +1,10 @@
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
-import { ContinueButton } from 'common/dashboard/incoming_styles'
+import {
+    ContinueButton,
+    LoadingContainer,
+} from 'common/dashboard/incoming_styles'
 import { Logo } from 'assets/logo/logo'
-import { Potato, PotatoTypes } from 'assets/potatoes/potato'
 import { useHistory, useParams } from 'react-router'
 import { UserStateResource } from 'common/user_state'
 import {
@@ -17,12 +19,11 @@ import {
     PotatoTitleText,
 } from 'common/dashboard/potato_styles'
 import React, { useEffect, useState } from 'react'
-import { Loading } from './Loading'
 import { DashboardBlob } from 'assets/blobs/DashboardBlob'
+import { LoadingAnimation } from 'common/loading/loading'
 
 // TODO: add all text to english strings
 const fullMsg = {
-    potatoType: PotatoTypes.Fresh,
     subtext: 'Send the one you have first!',
     text: "You can't hold another charitato",
 }
@@ -68,7 +69,11 @@ export const IncPotato = () => {
 
     return (
         <InterfaceContainer>
-            {user.isLoading && <Loading />}
+            {user.isLoading && (
+                <LoadingContainer>
+                    <LoadingAnimation loading={true} />
+                </LoadingContainer>
+            )}
             {!user.isLoading && (
                 <PotatoModeContainer>
                     <Logo

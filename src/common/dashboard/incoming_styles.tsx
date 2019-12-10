@@ -16,3 +16,13 @@ export const ContinueButton = styled.div`
     display: grid;
     place-items: center center;
 `
+
+export const LoadingContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+`
