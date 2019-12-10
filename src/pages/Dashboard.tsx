@@ -139,6 +139,9 @@ const Dashboard = () => {
                             <Route exact path="/dashboard" render={() => <PotatoInterface />} />
                         }
                         {!user.isError && !user.isLoading && 
+                            <Route exact path="/dashboard/potato" render={() => <PotatoInterface />} />
+                        }
+                        {!user.isError && !user.isLoading && 
                             <Route exact path="/dashboard/leaderboards" render={() => <LeaderboardsInterface />} />
                         }
                         {!user.isError && !user.isLoading && 

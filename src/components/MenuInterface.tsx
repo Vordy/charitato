@@ -9,17 +9,56 @@ import LeaderboardsSelected from 'assets/menu/leaderboards_selected.png'
 import PotatoSelected from 'assets/menu/potato_selected.png'
 import FriendsSelected from 'assets/menu/friends_selected.png'
 import AccountSelected from 'assets/menu/account_selected.png'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export const MenuInterface = () => {
+    const DashboardPages = {
+        dashboard: '/dashboard',
+        potato: '/dashboard/potato',
+        milestones: '/dashboard/milestones',
+        friends: '/dashboard/friends',
+        leaderboards: '/dashboard/leaderboards',
+        account: '/dashboard/account'
+    };
+    const [currentPage, setCurrentPage] = useState(DashboardPages.potato);
     return (
         <MenuContainer>
-            <Link to={'/dashboard'}><MenuItem><img src={Dashboard} /></MenuItem></Link>
-            <Link to={'/dashboard/leaderboards'}><MenuItem><img src={Leaderboards} /></MenuItem></Link>
-            <Link to={'/dashboard'}><MenuItem><img src={Potato} /></MenuItem></Link>
-            <Link to={'/dashboard/friends'}><MenuItem><img src={Friends} /></MenuItem></Link>
-            <Link to={'/dashboard/account'}><MenuItem><img src={Account} /></MenuItem></Link>
+            <Link to={'/dashboard'} onClick={() => setCurrentPage(DashboardPages.dashboard)}>
+                <MenuItem>
+                    <img src={
+                        (currentPage === DashboardPages.dashboard) ? DashboardSelected : Dashboard
+                    } />
+                </MenuItem>
+            </Link>
+            <Link to={'/dashboard/leaderboards'} onClick={() => setCurrentPage(DashboardPages.leaderboards)}>
+                <MenuItem>
+                    <img src={
+                        (currentPage === DashboardPages.leaderboards) ? LeaderboardsSelected : Leaderboards
+                    } />
+                </MenuItem>
+            </Link>
+            <Link to={'/dashboard/potato'} onClick={() => setCurrentPage(DashboardPages.potato)}>
+                <MenuItem>
+                    <img src={
+                        (currentPage === DashboardPages.potato) ? PotatoSelected : Potato
+                    } />
+                </MenuItem>
+            </Link>
+            <Link to={'/dashboard/friends'} onClick={() => setCurrentPage(DashboardPages.friends)}>
+                <MenuItem>
+                    <img src={
+                        (currentPage === DashboardPages.friends) ? FriendsSelected : Friends
+                    } />
+                </MenuItem>
+            </Link>
+            <Link to={'/dashboard/account'} onClick={() => setCurrentPage(DashboardPages.account)}>
+                <MenuItem>
+                    <img src={
+                        (currentPage === DashboardPages.account) ? AccountSelected : Account
+                    } />
+                </MenuItem>
+            </Link>
         </MenuContainer>
     );
 }
