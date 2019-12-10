@@ -1,6 +1,4 @@
 import { AccountInterface } from 'components/AccountInterface'
-import { Button } from 'common/button/Button'
-import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import { Colors } from 'theme/Colors'
 import { FriendsInterface } from 'components/FriendsInterface'
 import { getTheme } from 'theme/themes'
@@ -23,7 +21,7 @@ import styled from '@emotion/styled'
 import { localize } from 'assets/strings/localize'
 import { LoadingAnimation } from 'common/loading/loading'
 import { MenuInterface } from 'components/MenuInterface'
-import { Loading } from './Loading'
+import { PageNotFound } from './PageNotFound'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -125,6 +123,7 @@ const Dashboard = () => {
         ) => {
             await incomingPotato(userState, potatoID)
             setLoadingNewPotato(false)
+            history.push('/dashboard/potato')
         }
 
         // console.log(`useEffect: ${currentPage} to ${inputPage}`)
@@ -152,8 +151,8 @@ const Dashboard = () => {
                 <InterfaceContainer>
                     <UserContext.Provider
                         value={{
-                            userState: user.state,
                             setLoading: setInterfaceLoading,
+                            userState: user.state,
                         }}
                     >
                         {!user.isError && isLoading() && (
@@ -161,37 +160,44 @@ const Dashboard = () => {
                         )}
                         {!user.isError && !user.isLoading && (
                             <Route
-                                exact
+                                exact={true}
                                 path="/dashboard"
-                                render={() => <PotatoInterface />}
+                                component={PotatoInterface}
                             />
                         )}
                         {!user.isError && !user.isLoading && (
                             <Route
-                                exact
+                                exact={true}
                                 path="/dashboard/potato"
-                                render={() => <PotatoInterface />}
+                                component={PotatoInterface}
                             />
                         )}
                         {!user.isError && !user.isLoading && (
                             <Route
-                                exact
+                                exact={true}
                                 path="/dashboard/leaderboards"
-                                render={() => <LeaderboardsInterface />}
+                                component={LeaderboardsInterface}
                             />
                         )}
                         {!user.isError && !user.isLoading && (
                             <Route
-                                exact
+                                exact={true}
                                 path="/dashboard/friends"
-                                render={() => <FriendsInterface />}
+                                component={FriendsInterface}
                             />
                         )}
                         {!user.isError && !user.isLoading && (
                             <Route
-                                exact
+                                exact={true}
                                 path="/dashboard/account"
-                                render={() => <AccountInterface />}
+                                component={AccountInterface}
+                            />
+                        )}
+                        {!user.isError && !user.isLoading && (
+                            <Route
+                                exact={true}
+                                path="/dashboard/milestones"
+                                component={MilestonesInterface}
                             />
                         )}
                     </UserContext.Provider>

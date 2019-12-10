@@ -44,7 +44,7 @@ const PotatoContext = createContext(defaultPotatoInfo)
 // for viewing a potato (or lack thereof)
 const PotatoMode = ({ changeMode }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
-    const { userState } = useContext(UserContext)
+    const { userState, setLoading } = useContext(UserContext)
 
     const isPotatoFresh =
         potatoContext.potatoType === PotatoTypes.Fresh ? true : false
@@ -54,12 +54,14 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
     const handleNewPotatoClick = () => {
         if (userState.instance) {
             if (!userState.instance.hasPotato) {
+                setLoading(true)
                 createPotato(userState)
             }
         }
     }
 
     const handlePotatoInfoClick = () => {
+        setLoading(true)
         alert('PotatoInfo still in development, check back later!')
     }
 
@@ -138,7 +140,7 @@ const SendingMode = ({ changeMode }: ModeProps) => {
         setCopied(true)
     }
 
-    const handleBack = (event: React.MouseEvent) => {
+    const handleBack = () => {
         changeMode('PotatoMode')
     }
 
@@ -153,19 +155,15 @@ const SendingMode = ({ changeMode }: ModeProps) => {
                     text={'Copy'}
                     onClickHandler={handleCopy}
                 />
-                {copied && <CopyMessage>Copied!</CopyMessage>}
+                {copied && (
+                    <CopyMessage onClick={handleBack}>Copied!</CopyMessage>
+                )}
             </CopyContainer>
             <Or>
                 <hr style={{ width: '100%' }} />
                 Or
                 <hr style={{ width: '100%' }} />
             </Or>
-            {/* <Button
-                buttonType={ButtonTypes.Primary}
-                buttonSize={ButtonSizes.Small}
-                text={'DEBUG: Back'}
-                onClickHandler={handleBack}
-            /> */}
         </SendingModeContainer>
     )
 }
