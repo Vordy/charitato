@@ -104,18 +104,24 @@ const Dashboard = () => {
     const [currentPage, setCurrentPage] = useState(DashboardPages.POTATO)
     const [loadingNewPotato, setLoadingNewPotato] = useState(false)
     const [loadingInterface, setLoadingInterface] = useState(false)
+    const [loadingDashboard, setLoadingDashboard] = useState(false)
     const { inputPage } = useParams()
     const history = useHistory()
     const { user, reload } = UserStateResource()
 
     const setInterfaceLoading = (state: boolean) => {
-        console.log(`setting interface loading to ${state}`)
+        // console.log(`setting interface loading to ${state}`)
         setLoadingInterface(state)
     }
 
-    const isLoading = () => {
-        return user.isLoading || loadingNewPotato || loadingInterface
-    }
+    useEffect(() => {
+        console.log(
+            `${loadingInterface} || ${loadingNewPotato} || ${user.isLoading}`
+        )
+        setLoadingDashboard(
+            loadingInterface || loadingNewPotato || user.isLoading
+        )
+    }, [loadingInterface, loadingNewPotato, user.isLoading])
 
     useEffect(() => {
         const handleIncomingPage = async (
@@ -155,45 +161,45 @@ const Dashboard = () => {
                             userState: user.state,
                         }}
                     >
-                        {!user.isError && isLoading() && (
+                        {!user.isError && loadingDashboard && (
                             <LoadingAnimation loading={user.isLoading} />
                         )}
-                        {!user.isError && !user.isLoading && (
+                        {!user.isError && !loadingDashboard && (
                             <Route
                                 exact={true}
                                 path="/dashboard"
                                 component={PotatoInterface}
                             />
                         )}
-                        {!user.isError && !user.isLoading && (
+                        {!user.isError && !loadingDashboard && (
                             <Route
                                 exact={true}
                                 path="/dashboard/potato"
                                 component={PotatoInterface}
                             />
                         )}
-                        {!user.isError && !user.isLoading && (
+                        {!user.isError && !loadingDashboard && (
                             <Route
                                 exact={true}
                                 path="/dashboard/leaderboards"
                                 component={LeaderboardsInterface}
                             />
                         )}
-                        {!user.isError && !user.isLoading && (
+                        {!user.isError && !loadingDashboard && (
                             <Route
                                 exact={true}
                                 path="/dashboard/friends"
                                 component={FriendsInterface}
                             />
                         )}
-                        {!user.isError && !user.isLoading && (
+                        {!user.isError && !loadingDashboard && (
                             <Route
                                 exact={true}
                                 path="/dashboard/account"
                                 component={AccountInterface}
                             />
                         )}
-                        {!user.isError && !user.isLoading && (
+                        {!user.isError && !loadingDashboard && (
                             <Route
                                 exact={true}
                                 path="/dashboard/milestones"
