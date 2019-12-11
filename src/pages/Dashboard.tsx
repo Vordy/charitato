@@ -6,7 +6,7 @@ import { MilestonesInterface } from 'components/MilestonesInterface'
 import { incomingPotato, potatoIdentifier } from 'common/potato_lifecycle'
 import { PotatoInterface } from 'components/PotatoInterface'
 import { signUpConfig } from 'common/auth_config'
-import { useParams, useHistory } from 'react-router'
+import { useParams } from 'react-router'
 import { withAuthenticator } from 'aws-amplify-react'
 import { UserState, UserStateResource } from 'common/user_state'
 import AmplifyTheme from 'theme/auth_theme'
@@ -16,6 +16,7 @@ import { localize } from 'assets/strings/localize'
 import { LoadingAnimation } from 'common/loading/loading'
 import { MenuInterface } from 'components/MenuInterface'
 import { PotatoState, PotatoStateResource } from 'common/potato_state'
+import { DashboardBlob } from 'assets/blobs/DashboardBlob'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -27,6 +28,8 @@ const DashboardPage = styled.div`
 `
 
 const InterfaceContainer = styled.div`
+    color: ${getTheme().foreground};
+    background-color: ${getTheme().background};
     width: 100%;
     height: 100%;
     flex-direction: row;
@@ -34,8 +37,6 @@ const InterfaceContainer = styled.div`
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    color: ${getTheme().foreground};
-    background-color: ${getTheme().background};
     font-family: 'Helvetica Nueue', roboto, Arial, Helvetica, sans-serif;
 `
 
@@ -116,7 +117,6 @@ const Dashboard = () => {
     const { inputPage } = useParams()
     const { user, reloadUser } = UserStateResource()
     const potatoResource = PotatoStateResource(user.state, setPotatoRecLoading)
-    const history = useHistory()
 
     // handle main loading state
     useEffect(() => {
@@ -207,6 +207,14 @@ const Dashboard = () => {
             >
                 <MenuInterface />
             </PageContext.Provider>
+            <DashboardBlob
+                style={{
+                    pointerEvents: 'none',
+                    position: 'absolute',
+                    right: '0px',
+                    top: '0px',
+                }}
+            />
         </DashboardPage>
     )
 }
