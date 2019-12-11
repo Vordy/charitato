@@ -2,7 +2,7 @@ import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import { createPotato } from 'common/potato_lifecycle'
 import { Potato, PotatoTypes } from 'assets/potatoes/potato'
-import { UserContext } from 'pages/Dashboard'
+import { DashboardContext } from 'pages/Dashboard'
 import {
     BigText,
     CopyBox,
@@ -11,7 +11,7 @@ import {
     Or,
     SendingModeContainer,
 } from 'common/dashboard/sending_styles'
-import { calculatePotatoType, PotatoStateResource } from 'common/potato_state'
+import { calculatePotatoType } from 'common/potato_state'
 import {
     InterfaceContainer,
     PotatoButton,
@@ -26,7 +26,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 // For passing in the page changer to the modes
 interface ModeProps {
     changeMode: React.Dispatch<React.SetStateAction<string>>
-    reloadUser: () => void
 }
 
 // local info for potato
@@ -41,9 +40,11 @@ const defaultPotatoInfo = {
 const PotatoContext = createContext(defaultPotatoInfo)
 
 // for viewing a potato (or lack thereof)
-const PotatoMode = ({ changeMode, reloadUser }: ModeProps) => {
+const PotatoMode = ({ changeMode }: ModeProps) => {
     const potatoContext = useContext(PotatoContext)
-    const { userState, setLoading } = useContext(UserContext)
+    const { userState, reloadUser, manualLoading } = useContext(
+        DashboardContext
+    )
 
     const isPotatoFresh =
         potatoContext.potatoType === PotatoTypes.Fresh ? true : false
@@ -53,15 +54,16 @@ const PotatoMode = ({ changeMode, reloadUser }: ModeProps) => {
     const handleNewPotatoClick = async () => {
         if (userState.instance) {
             if (!userState.instance.hasPotato) {
-                setLoading(true)
-                await createPotato(userState, reloadUser)
-                setLoading(false)
+                manualLoading(true)
+                await createPotato(userState)
+                await reloadUser()
+                manualLoading(false)
+                // manual loading is released by reloadUser()
             }
         }
     }
 
     const handlePotatoInfoClick = () => {
-        setLoading(true)
         alert('PotatoInfo still in development, check back later!')
     }
 
@@ -173,9 +175,7 @@ const SendingMode = ({ changeMode }: ModeProps) => {
 export const PotatoInterface = () => {
     const [mode, setMode] = useState('PotatoMode')
     const [potatoInfoState, setPotatoInfoState] = useState(defaultPotatoInfo)
-    const { userState, reloadUser } = useContext(UserContext)
-    const potatoResource = PotatoStateResource() // get potato resource based on userstate
-    const potatoState = potatoResource.state
+    const { potatoState, userState } = useContext(DashboardContext)
 
     // parse potatoState into potatoInfo
     useEffect(() => {
@@ -216,12 +216,8 @@ export const PotatoInterface = () => {
     return (
         <InterfaceContainer>
             <PotatoContext.Provider value={potatoInfoState}>
-                {mode === 'PotatoMode' && (
-                    <PotatoMode reloadUser={reloadUser} changeMode={setMode} />
-                )}
-                {mode === 'SendingMode' && (
-                    <SendingMode reloadUser={reloadUser} changeMode={setMode} />
-                )}
+                {mode === 'PotatoMode' && <PotatoMode changeMode={setMode} />}
+                {mode === 'SendingMode' && <SendingMode changeMode={setMode} />}
             </PotatoContext.Provider>
         </InterfaceContainer>
     )

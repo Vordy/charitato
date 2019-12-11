@@ -76,17 +76,13 @@ const createNewPotatoInstance = async (
     return defaultPotatoState
 }
 
-export const createPotato = async (
-    userState: UserState,
-    reload: () => void
-) => {
+export const createPotato = async (userState: UserState) => {
     // if the current newest history item on the user is 'none' it should
     // be replaced not concatenated
     const newUUID = v4()
 
     const newPotato = await createNewPotatoInstance(userState, newUUID)
     await addToAccount(userState, newPotato)
-    reload()
 }
 
 const addToAccount = async (userState: UserState, potatoState: PotatoState) => {

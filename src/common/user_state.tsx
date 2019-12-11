@@ -114,7 +114,7 @@ const getUserState = async (): Promise<UserState> => {
 
 export const UserStateResource = (): {
     user: UserResource
-    reload: () => void
+    reloadUser: () => Promise<void>
 } => {
     const [data, setData] = useState(defaultUserResource)
 
@@ -132,8 +132,8 @@ export const UserStateResource = (): {
         setData({ state: result, isError: errorFlag, isLoading: false })
     }
 
-    const reloadUser = () => {
-        console.log('reloading user!')
+    const reloadUserData = async () => {
+        // console.log('reloading user!')
         userState()
     }
 
@@ -141,5 +141,5 @@ export const UserStateResource = (): {
         userState()
     }, [])
 
-    return { user: data, reload: reloadUser }
+    return { user: data, reloadUser: reloadUserData }
 }

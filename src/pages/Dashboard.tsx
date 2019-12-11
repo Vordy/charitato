@@ -8,13 +8,14 @@ import { PotatoInterface } from 'components/PotatoInterface'
 import { signUpConfig } from 'common/auth_config'
 import { useParams } from 'react-router'
 import { withAuthenticator } from 'aws-amplify-react'
-import { defaultUserState, UserStateResource } from 'common/user_state'
+import { UserState, UserStateResource } from 'common/user_state'
 import AmplifyTheme from 'theme/auth_theme'
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { localize } from 'assets/strings/localize'
 import { LoadingAnimation } from 'common/loading/loading'
 import { MenuInterface } from 'components/MenuInterface'
+import { PotatoState, PotatoStateResource } from 'common/potato_state'
 
 const DashboardPage = styled.div`
     width: 100%;
@@ -46,21 +47,25 @@ export enum DashboardPages {
     ACCOUNT = 'account',
 }
 
-export const UserContext = createContext({
-    reloadUser: () => {
-        return
-    },
-    setLoading: (state: boolean) => {
-        return
-    },
-    userState: defaultUserState,
-})
-
 export const PageContext = createContext({
     page: DashboardPages.POTATO,
     setPage: (page: DashboardPages) => {
         return
     },
+})
+
+const tempPotatoState: PotatoState = {}
+const tempUserState: UserState = {}
+
+export const DashboardContext = createContext({
+    manualLoading: (loading: boolean) => {
+        return
+    },
+    potatoState: tempPotatoState,
+    reloadUser: async () => {
+        return
+    },
+    userState: tempUserState,
 })
 
 // TODO: do this more elegantly
@@ -86,15 +91,13 @@ const ErrorPage = () => {
 }
 
 const Dashboard = () => {
-    const [currentPage, setCurrentPage] = useState(DashboardPages.POTATO)
-    const [loadingNewPotato, setLoadingNewPotato] = useState(false)
-    const [loadingInterface, setLoadingInterface] = useState(false)
-    const [loadingDashboard, setLoadingDashboard] = useState(false)
-    const { inputPage } = useParams()
-    const { user, reload } = UserStateResource()
+    const setPotatoRecLoading = useCallback((state: boolean) => {
+        setLoadingPotatoRec(state)
+    }, [])
 
-    const setInterfaceLoading = (state: boolean) => {
-        setLoadingInterface(state)
+    const setNewPotatoLoading = (loading: boolean) => {
+        setLoadingManually(loading)
+        setLoadingPotatoRec(true) // for a more seamless loading experience
     }
 
     const changePage = (page: DashboardPages) => {
@@ -105,21 +108,38 @@ const Dashboard = () => {
         window.history.pushState({}, '', newURL)
     }
 
-    // Loading dashboard
+    const [currentPage, setCurrentPage] = useState(DashboardPages.POTATO)
+    const [loadingNewPotato, setLoadingNewPotato] = useState(false)
+    const [loadingPotatoRec, setLoadingPotatoRec] = useState(true)
+    const [loadingDashboard, setLoadingDashboard] = useState(true)
+    const [loadingManually, setLoadingManually] = useState(false)
+    const { inputPage } = useParams()
+    const { user, reloadUser } = UserStateResource()
+    const potatoResource = PotatoStateResource(user.state, setPotatoRecLoading)
+
+    // handle main loading state
     useEffect(() => {
-        console.log(
-            `${loadingInterface} || ${loadingNewPotato} || ${user.isLoading}`
-        )
+        // console.log(
+        //     `${loadingNewPotato} || ${
+        //         user.isLoading
+        //     } || ${loadingPotatoRec} || ${loadingManually} = ${loadingNewPotato ||
+        //         user.isLoading ||
+        //         loadingPotatoRec ||
+        //         loadingManually}`
+        // )
         setLoadingDashboard(
-            loadingInterface || loadingNewPotato || user.isLoading
+            loadingNewPotato ||
+                loadingPotatoRec ||
+                loadingManually ||
+                user.isLoading
         )
-    }, [loadingInterface, loadingNewPotato, user.isLoading])
+    }, [loadingNewPotato, loadingPotatoRec, loadingManually, user.isLoading])
 
     // Handle input page
     useEffect(() => {
         const handleIncomingPage = async (potatoID: string) => {
             changeURL(DashboardPages.POTATO)
-            await incomingPotato(user.state, potatoID, reload)
+            await incomingPotato(user.state, potatoID, reloadUser)
             setLoadingNewPotato(false)
         }
 
@@ -130,22 +150,23 @@ const Dashboard = () => {
                 inputPage.substr(0, potatoIdentifier.length) ===
                 potatoIdentifier
             ) {
-                // setLoadingNewPotato(true)
+                setLoadingNewPotato(true)
                 handleIncomingPage(inputPage.substr(potatoIdentifier.length))
             } else if (inputPage.toUpperCase() in DashboardPages) {
                 // console.log(`Setting to ${inputToDashboard(inputPage)}`)
                 setCurrentPage(inputToDashboard(inputPage))
             }
         }
-    }, [inputPage, user.state, reload])
+    }, [inputPage, user.state, reloadUser])
 
     return (
         <DashboardPage>
             <InterfaceContainer>
-                <UserContext.Provider
+                <DashboardContext.Provider
                     value={{
-                        reloadUser: reload,
-                        setLoading: setInterfaceLoading,
+                        manualLoading: setNewPotatoLoading,
+                        potatoState: potatoResource.state,
+                        reloadUser,
                         userState: user.state,
                     }}
                 >
@@ -178,7 +199,7 @@ const Dashboard = () => {
                             <AccountInterface />
                         )}
                     {user.isError && <ErrorPage />}
-                </UserContext.Provider>
+                </DashboardContext.Provider>
             </InterfaceContainer>
             <PageContext.Provider
                 value={{ page: currentPage, setPage: changePage }}

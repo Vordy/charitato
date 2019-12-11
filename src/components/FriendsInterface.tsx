@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { UserContext } from 'pages/Dashboard'
+import { DashboardContext } from 'pages/Dashboard'
 
 export const FriendsInterface = () => {
-    const { userState } = useContext(UserContext)
+    const { userState } = useContext(DashboardContext)
 
     return (
         <div>

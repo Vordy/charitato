@@ -1,8 +1,8 @@
 import { PotatoTypes } from 'assets/potatoes/potato'
 import { API } from 'aws-amplify'
-import { UserContext } from 'pages/Dashboard'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { objectIsEmpty } from './potato_lifecycle'
+import { UserState } from './user_state'
 
 export interface PotatoState {
     id?: string
@@ -44,26 +44,29 @@ const getPotatoState = async (potatoID: string): Promise<PotatoState> => {
     }
 }
 
-// Main resource - takes a userstate and returns a potato state
-export const PotatoStateResource = () => {
+export const PotatoStateResource = (
+    userState: UserState,
+    setPotatoLoading: (state: boolean) => void
+) => {
     const [data, setData] = useState(defaultPotatoResource)
-    const { userState } = useContext(UserContext)
 
     useEffect(() => {
         const potatoState = async () => {
             setData({ state: defaultPotatoResource.state, isLoading: true })
+            setPotatoLoading(true)
 
             const result = userState.instance
                 ? await getPotatoState(userState.instance.currentPotato)
                 : defaultPotatoState
 
+            setPotatoLoading(false)
             setData({ state: result, isLoading: false })
         }
 
         if (!objectIsEmpty(userState)) {
             potatoState()
         }
-    }, [userState])
+    }, [userState, setPotatoLoading])
 
     return data
 }

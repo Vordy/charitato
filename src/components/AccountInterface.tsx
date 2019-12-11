@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import { UserContext } from 'pages/Dashboard'
+import { DashboardContext } from 'pages/Dashboard'
 import { Button } from 'common/button/Button'
 import { ButtonSizes, ButtonTypes } from 'common/button/ButtonUtils'
 import { Auth } from 'aws-amplify'
 
 export const AccountInterface = () => {
-    const { userState } = useContext(UserContext)
+    const { userState } = useContext(DashboardContext)
 
     const handleSignOut = (e: React.MouseEvent) => {
         Auth.signOut()
