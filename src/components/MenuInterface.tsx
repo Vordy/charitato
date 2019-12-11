@@ -16,7 +16,7 @@ export const MenuInterface = () => {
     const { page, setPage } = useContext(PageContext)
 
     const changeURL = (newURL: string) => {
-        window.history.pushState({}, '', `${newURL}`)
+        window.history.pushState({}, '', `/dashboard/${newURL}`)
     }
 
     return (

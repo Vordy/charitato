@@ -6,7 +6,7 @@ import { MilestonesInterface } from 'components/MilestonesInterface'
 import { incomingPotato, potatoIdentifier } from 'common/potato_lifecycle'
 import { PotatoInterface } from 'components/PotatoInterface'
 import { signUpConfig } from 'common/auth_config'
-import { useParams } from 'react-router'
+import { useParams, useHistory } from 'react-router'
 import { withAuthenticator } from 'aws-amplify-react'
 import { UserState, UserStateResource } from 'common/user_state'
 import AmplifyTheme from 'theme/auth_theme'
@@ -116,6 +116,7 @@ const Dashboard = () => {
     const { inputPage } = useParams()
     const { user, reloadUser } = UserStateResource()
     const potatoResource = PotatoStateResource(user.state, setPotatoRecLoading)
+    const history = useHistory()
 
     // handle main loading state
     useEffect(() => {
@@ -139,6 +140,7 @@ const Dashboard = () => {
     useEffect(() => {
         const handleIncomingPage = async (potatoID: string) => {
             changeURL(DashboardPages.POTATO)
+            setLoadingNewPotato(true)
             await incomingPotato(user.state, potatoID, reloadUser)
             setLoadingNewPotato(false)
         }
@@ -150,14 +152,13 @@ const Dashboard = () => {
                 inputPage.substr(0, potatoIdentifier.length) ===
                 potatoIdentifier
             ) {
-                setLoadingNewPotato(true)
                 handleIncomingPage(inputPage.substr(potatoIdentifier.length))
             } else if (inputPage.toUpperCase() in DashboardPages) {
                 // console.log(`Setting to ${inputToDashboard(inputPage)}`)
                 setCurrentPage(inputToDashboard(inputPage))
             }
         }
-    }, [inputPage, user.state, reloadUser])
+    }, [inputPage, user.state])
 
     return (
         <DashboardPage>

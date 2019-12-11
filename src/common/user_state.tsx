@@ -133,7 +133,7 @@ export const UserStateResource = (): {
     }
 
     const reloadUserData = async () => {
-        // console.log('reloading user!')
+        console.log('reloading user!')
         userState()
     }
 

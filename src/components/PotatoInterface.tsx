@@ -133,6 +133,7 @@ const PotatoMode = ({ changeMode }: ModeProps) => {
 }
 
 const SendingMode = ({ changeMode }: ModeProps) => {
+    const { reloadUser } = useContext(DashboardContext)
     const potatoContext = useContext(PotatoContext)
     const [copied, setCopied] = useState(false)
     const url = window.location.host + '/rec/' + potatoContext.id
@@ -143,6 +144,7 @@ const SendingMode = ({ changeMode }: ModeProps) => {
     }
 
     const handleBack = () => {
+        reloadUser()
         changeMode('PotatoMode')
     }
 

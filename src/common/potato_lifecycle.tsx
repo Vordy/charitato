@@ -164,17 +164,26 @@ export const incomingPotato = async (
         return null
     }
 
-    // Step 1: get potato resource
+    // Step 1: get potato state
+    // console.log('getting potato state')
     const potatoState = await getPotatoInstance(potatoID)
+    // console.log('done!')
+    // console.log(potatoState)
 
     // Step 2: add to new account
+    // console.log('adding to account')
     await addToAccount(userState, potatoState)
+    // console.log('done!')
 
     // Step 3: remove from old account
+    // console.log('removing from prev account')
     await removeFromPrevAccount(potatoState)
+    // console.log('done!')
 
     // Step 4: updated potato history
+    // console.log('updating potato history')
     await updatePotatoHistory(userState, potatoState)
+    // console.log('done!')
 
     reload()
 }
